@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Test Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>Student Test Portal</h1>
+            </div>
+            <div class="user-controls">
+                <div class="theme-toggle">
+                    <button id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                        <span>Dark Mode</span>
+                    </button>
+                </div>
+                <div class="user-profile">
+                    <span id="username">Student</span>
+                    <div class="avatar">S</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <main class="dashboard">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <ul>
+                        <li class="active" data-tab="tests">
+                            <i class="fas fa-list-alt"></i>
+                            <span>Available Tests</span>
+                        </li>
+                        <li data-tab="active-test">
+                            <i class="fas fa-pencil-alt"></i>
+                            <span>Take Test</span>
+                        </li>
+                        <li data-tab="results">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Results</span>
+                        </li>
+                        <li data-tab="customize">
+                            <i class="fas fa-sliders-h"></i>
+                            <span>Customize</span>
+                        </li>
+                        <li data-tab="help">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help</span>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <div class="progress-summary">
+                    <h3>Your Progress</h3>
+                    <div class="progress-circle">
+                        <svg width="120" height="120">
+                            <circle class="progress-bg" cx="60" cy="60" r="54"></circle>
+                            <circle class="progress-fill" cx="60" cy="60" r="54"></circle>
+                        </svg>
+                        <div class="progress-text">
+                            <span id="progressPercent">0%</span>
+                            <small>Overall</small>
+                        </div>
+                    </div>
+                    <div class="stats">
+                        <div class="stat">
+                            <span id="testsTaken">0</span>
+                            <small>Tests Taken</small>
+                        </div>
+                        <div class="stat">
+                            <span id="avgScore">0%</span>
+                            <small>Average Score</small>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <div class="content-area">
+                <!-- Available Tests Section -->
+                <section id="tests" class="content-section active">
+                    <div class="section-header">
+                        <h2>Available Tests</h2>
+                        <p>Select a test to begin or create your own</p>
+                    </div>
+                    
+                    <div class="test-cards">
+                        <!-- Test cards will be dynamically generated -->
+                    </div>
+                    
+                    <div class="section-actions">
+                        <button id="createTestBtn" class="btn-primary">
+                            <i class="fas fa-plus"></i> Create New Test
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Active Test Section -->
+                <section id="active-test" class="content-section">
+                    <div class="test-header">
+                        <div class="test-info">
+                            <h2 id="testTitle">Sample Test</h2>
+                            <div class="test-meta">
+                                <span><i class="far fa-clock"></i> <span id="timeRemaining">20:00</span></span>
+                                <span><i class="far fa-question-circle"></i> <span id="questionCount">5</span> Questions</span>
+                            </div>
+                        </div>
+                        <div class="test-controls">
+                            <button id="submitTestBtn" class="btn-danger">Submit Test</button>
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <!-- Questions will be dynamically loaded here -->
+                    </div>
+                    
+                    <div class="navigation-controls">
+                        <button id="prevBtn" class="btn-secondary">
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <div class="question-indicators">
+                            <!-- Question indicators will be dynamically generated -->
+                        </div>
+                        <button id="nextBtn" class="btn-primary">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Results Section -->
+                <section id="results" class="content-section">
+                    <div class="section-header">
+                        <h2>Test Results</h2>
+                        <p>Review your performance across all tests</p>
+                    </div>
+                    
+                    <div class="results-container">
+                        <div class="result-summary">
+                            <h3>Recent Tests</h3>
+                            <div class="result-cards">
+                                <!-- Result cards will be dynamically generated -->
+                            </div>
+                        </div>
+                        
+                        <div class="performance-chart">
+                            <h3>Performance Over Time</h3>
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Customize Section -->
+                <section id="customize" class="content-section">
+                    <div class="section-header">
+                        <h2>Customize Portal</h2>
+                        <p>Personalize your test-taking experience</p>
+                    </div>
+                    
+                    <div class="customize-grid">
+                        <div class="customize-card">
+                            <h3><i class="fas fa-palette"></i> Theme Settings</h3>
+                            <div class="theme-options">
+                                <div class="theme-option" data-theme="light">
+                                    <div class="theme-preview light-theme"></div>
+                                    <span>Light</span>
+                                </div>
+                                <div class="theme-option" data-theme="dark">
+                                    <div class="theme-preview dark-theme"></div>
+                                    <span>Dark</span>
+                                </div>
+                                <div class="theme-option" data-theme="blue">
+                                    <div class="theme-preview blue-theme"></div>
+                                    <span>Blue</span>
+                                </div>
+                                <div class="theme-option" data-theme="green">
+                                    <div class="theme-preview green-theme"></div>
+                                    <span>Green</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="customize-card">
+                            <h3><i class="fas fa-sliders-h"></i> Test Settings</h3>
+                            <div class="settings-group">
+                                <div class="setting">
+                                    <label for="autoNext">Auto-next question</label>
+                                    <label class="switch">
+                                        <input type="checkbox" id="autoNext" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="setting">
+                                    <label for="showTimer">Show timer</label>
+                                    <label class="switch">
+                                        <input type="checkbox" id="showTimer" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="setting">
+                                    <label for="instantFeedback">Instant feedback</label>
+                                    <label class="switch">
+                                        <input type="checkbox" id="instantFeedback">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="customize-card">
+                            <h3><i class="fas fa-user-edit"></i> Personalization</h3>
+                            <div class="form-group">
+                                <label for="userName">Your Name</label>
+                                <input type="text" id="userName" placeholder="Enter your name">
+                            </div>
+                            <div class="form-group">
+                                <label for="avatarColor">Avatar Color</label>
+                                <input type="color" id="avatarColor" value="#4a6fa5">
+                            </div>
+                            <button id="saveSettingsBtn" class="btn-primary">Save Settings</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Help Section -->
+                <section id="help" class="content-section">
+                    <div class="section-header">
+                        <h2>Help & Instructions</h2>
+                        <p>Learn how to use the Test Portal effectively</p>
+                    </div>
+                    
+                    <div class="help-content">
+                        <div class="help-card">
+                            <h3><i class="fas fa-play-circle"></i> Getting Started</h3>
+                            <ol>
+                                <li>Browse available tests from the "Available Tests" section</li>
+                                <li>Click on a test to start taking it</li>
+                                <li>Answer all multiple-choice questions</li>
+                                <li>Submit your test to see your results</li>
+                                <li>Review your performance in the "Results" section</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="help-card">
+                            <h3><i class="fas fa-plus-circle"></i> Creating Custom Tests</h3>
+                            <p>You can create your own tests:</p>
+                            <ol>
+                                <li>Click "Create New Test" in the Available Tests section</li>
+                                <li>Enter test details (title, description, time limit)</li>
+                                <li>Add questions with 4 options each</li>
+                                <li>Mark the correct answer for each question</li>
+                                <li>Save your test to make it available</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="help-card">
+                            <h3><i class="fas fa-cogs"></i> Customization Options</h3>
+                            <p>Personalize your portal:</p>
+                            <ul>
+                                <li>Change themes (Light, Dark, Blue, Green)</li>
+                                <li>Toggle auto-next question feature</li>
+                                <li>Show/hide timer during tests</li>
+                                <li>Enable/disable instant feedback</li>
+                                <li>Change your display name and avatar color</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Student Test Portal &copy; 2023 | For Personal Use | Fully Customizable</p>
+            <div class="footer-links">
+                <a href="#" id="exportDataBtn"><i class="fas fa-download"></i> Export Data</a>
+                <a href="#" id="resetDataBtn"><i class="fas fa-redo"></i> Reset Data</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Test Creation Modal -->
+    <div id="createTestModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Test</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="testForm">
+                    <div class="form-group">
+                        <label for="newTestTitle">Test Title</label>
+                        <input type="text" id="newTestTitle" placeholder="Enter test title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newTestDescription">Description</label>
+                        <textarea id="newTestDescription" placeholder="Enter test description" rows="3"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newTestTime">Time Limit (minutes)</label>
+                            <input type="number" id="newTestTime" min="1" value="20">
+                        </div>
+                        <div class="form-group">
+                            <label for="newTestQuestions">Number of Questions</label>
+                            <input type="number" id="newTestQuestions" min="1" max="50" value="5">
+                        </div>
+                    </div>
+                    
+                    <div class="questions-container">
+                        <!-- Questions will be dynamically added here -->
+                    </div>
+                    
+                    <button type="button" id="addQuestionBtn" class="btn-secondary">
+                        <i class="fas fa-plus"></i> Add Question
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelTestBtn" class="btn-secondary">Cancel</button>
+                <button id="saveTestBtn" class="btn-primary">Save Test</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h3 id="confirmationTitle">Confirm Action</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmationMessage">Are you sure you want to proceed?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirmCancelBtn" class="btn-secondary">Cancel</button>
+                <button id="confirmActionBtn" class="btn-danger">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div id="successToast" class="toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="toastMessage">Action completed successfully!</span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
