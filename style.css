@@ -1208,3 +1208,185 @@ input:checked + .slider:before {
         gap: 0;
     }
 }
+/* Enhanced Review Features */
+.answer-status {
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.correct-status {
+    background: rgba(40, 167, 69, 0.2);
+    color: var(--success-color);
+}
+
+.incorrect-status {
+    background: rgba(220, 53, 69, 0.2);
+    color: var(--danger-color);
+}
+
+.review-note {
+    text-align: center;
+    padding: 10px;
+    background: rgba(74, 111, 165, 0.1);
+    border-radius: var(--border-radius-sm);
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+}
+
+/* Full Review View */
+.full-review {
+    padding: 20px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.all-questions-list {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.full-review-item {
+    display: flex;
+    margin-bottom: 25px;
+    padding: 20px;
+    background: var(--card-bg);
+    border-radius: var(--border-radius-sm);
+    border-left: 5px solid transparent;
+}
+
+.full-review-item.correct {
+    border-left-color: var(--success-color);
+    background: rgba(40, 167, 69, 0.05);
+}
+
+.full-review-item.incorrect {
+    border-left-color: var(--danger-color);
+    background: rgba(220, 53, 69, 0.05);
+}
+
+.question-number {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-right: 20px;
+    min-width: 50px;
+}
+
+.question-content {
+    flex: 1;
+}
+
+.question-text {
+    font-weight: 500;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.option-item {
+    padding: 12px;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.option-item.user-correct {
+    background: rgba(40, 167, 69, 0.2);
+    border-color: var(--success-color);
+}
+
+.option-item.user-incorrect {
+    background: rgba(220, 53, 69, 0.2);
+    border-color: var(--danger-color);
+}
+
+.option-item.correct-option {
+    background: rgba(40, 167, 69, 0.1);
+    border-color: rgba(40, 167, 69, 0.5);
+}
+
+.option-letter {
+    font-weight: 600;
+    color: var(--primary-color);
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card-bg);
+    border-radius: 50%;
+}
+
+.option-text {
+    flex: 1;
+}
+
+.user-choice {
+    font-size: 0.8rem;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.correct-mark {
+    font-size: 0.8rem;
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.answer-analysis {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.user-answer-label, .correct-answer-label {
+    font-weight: 500;
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.correct-badge {
+    background: rgba(40, 167, 69, 0.2);
+    color: var(--success-color);
+}
+
+.incorrect-badge {
+    background: rgba(220, 53, 69, 0.2);
+    color: var(--danger-color);
+}
+
+/* Grade Colors in Scoring */
+.scoring-value.A { color: #27ae60; }
+.scoring-value.B { color: #3498db; }
+.scoring-value.C { color: #f39c12; }
+.scoring-value.D { color: #e67e22; }
+.scoring-value.E { color: #e74c3c; }
+.scoring-value.F { color: #c0392b; }
