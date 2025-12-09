@@ -19,7 +19,7 @@ const appState = {
     shuffledOrder: []
 };
 
-// Complete Test Data with All Questions
+// Complete Test Data with ALL Tests
 const sampleTests = [
     {
         id: 1,
@@ -900,6 +900,314 @@ const sampleTests = [
                 correctAnswer: 2
             }
         ]
+    },
+    {
+        id: 6,
+        title: "COS211 - Java Programming (50 Questions)",
+        description: "Complete 50-question exam on Java Programming fundamentals and concepts.",
+        timeLimit: 60,
+        questions: [
+            {
+                id: 1,
+                text: "Which of the following is the correct file extension for a compiled Java bytecode file?",
+                options: [".class", ".java", ".exe", ".byte"],
+                correctAnswer: 0
+            },
+            {
+                id: 2,
+                text: "Which keyword is used to create a new object in Java?",
+                options: ["build", "make", "new", "object"],
+                correctAnswer: 2
+            },
+            {
+                id: 3,
+                text: "Which method serves as the entry point of every Java application?",
+                options: ["start()", "main()", "begin()", "run()"],
+                correctAnswer: 1
+            },
+            {
+                id: 4,
+                text: "What is the size of a Java int data type?",
+                options: ["16 bits", "32 bits", "64 bits", "8 bits"],
+                correctAnswer: 1
+            },
+            {
+                id: 5,
+                text: "Which of these is a valid identifier in Java?",
+                options: ["2value", "first-name", "_count5", "class"],
+                correctAnswer: 2
+            },
+            {
+                id: 6,
+                text: "Which operator is used for logical AND in Java?",
+                options: ["||", "&&", "%", "&"],
+                correctAnswer: 1
+            },
+            {
+                id: 7,
+                text: "Which data type can store decimal values?",
+                options: ["int", "double", "char", "byte"],
+                correctAnswer: 1
+            },
+            {
+                id: 8,
+                text: "Which symbol is used for single-line comments in Java?",
+                options: ["#", "//", "/*", "<>"],
+                correctAnswer: 1
+            },
+            {
+                id: 9,
+                text: "Which OOP principle hides the internal details of a class?",
+                options: ["Inheritance", "Abstraction", "Polymorphism", "Encapsulation"],
+                correctAnswer: 3
+            },
+            {
+                id: 10,
+                text: "Which keyword prevents inheritance in Java?",
+                options: ["super", "private", "final", "static"],
+                correctAnswer: 2
+            },
+            {
+                id: 11,
+                text: "Which loop is guaranteed to execute at least once?",
+                options: ["for", "while", "do…while", "foreach"],
+                correctAnswer: 2
+            },
+            {
+                id: 12,
+                text: "Which method is used to compare two strings by value?",
+                options: ["equals()", "==", "match()", "same()"],
+                correctAnswer: 0
+            },
+            {
+                id: 13,
+                text: "Java arrays are ______",
+                options: ["dynamic", "fixed-size", "unlimited", "text-only"],
+                correctAnswer: 1
+            },
+            {
+                id: 14,
+                text: "Which package contains built-in Java classes?",
+                options: ["java.core", "java.main", "java.base", "java.lib"],
+                correctAnswer: 2
+            },
+            {
+                id: 15,
+                text: "What does JVM stand for?",
+                options: ["Java Visual Machine", "Java Virtual Machine", "Java Verified Mode", "Java Version Manager"],
+                correctAnswer: 1
+            },
+            {
+                id: 16,
+                text: "What is the default value of a boolean variable?",
+                options: ["true", "false", "0", "null"],
+                correctAnswer: 1
+            },
+            {
+                id: 17,
+                text: "Which exception occurs when dividing by zero?",
+                options: ["IOException", "RuntimeException", "ArithmeticException", "ZeroException"],
+                correctAnswer: 2
+            },
+            {
+                id: 18,
+                text: "Which keyword is used to inherit a class?",
+                options: ["using", "extends", "inherits", "super"],
+                correctAnswer: 1
+            },
+            {
+                id: 19,
+                text: "Which programming paradigm does Java follow?",
+                options: ["Procedural only", "Object-Oriented", "Functional only", "None"],
+                correctAnswer: 1
+            },
+            {
+                id: 20,
+                text: "Which operator increases a variable by one?",
+                options: ["--", "++", "+=2", "**"],
+                correctAnswer: 1
+            },
+            {
+                id: 21,
+                text: "Which keyword is used to define a constant?",
+                options: ["static", "final", "const", "fixed"],
+                correctAnswer: 1
+            },
+            {
+                id: 22,
+                text: "Where are Java packages stored?",
+                options: ["In folders", "In HTML files", "In RAM", "In BIOS"],
+                correctAnswer: 0
+            },
+            {
+                id: 23,
+                text: "Which access modifier allows visibility everywhere?",
+                options: ["private", "protected", "package-private", "public"],
+                correctAnswer: 3
+            },
+            {
+                id: 24,
+                text: "Which of these is NOT a primitive data type?",
+                options: ["long", "String", "char", "float"],
+                correctAnswer: 1
+            },
+            {
+                id: 25,
+                text: "The super keyword refers to __________",
+                options: ["subclass", "object", "parent class", "constructor"],
+                correctAnswer: 2
+            },
+            {
+                id: 26,
+                text: "What is method overloading?",
+                options: ["Two methods same name different parameters", "Two methods different names", "Two classes same name", "One method inside another"],
+                correctAnswer: 0
+            },
+            {
+                id: 27,
+                text: "The new keyword allocates ______",
+                options: ["CPU time", "memory", "threads", "libraries"],
+                correctAnswer: 1
+            },
+            {
+                id: 28,
+                text: "Which operator compares object references?",
+                options: ["==", "equals()", "<=", "compare()"],
+                correctAnswer: 0
+            },
+            {
+                id: 29,
+                text: "Which loop is used to iterate over arrays?",
+                options: ["switch", "enhanced for", "try", "if"],
+                correctAnswer: 1
+            },
+            {
+                id: 30,
+                text: "The break statement is used to ______",
+                options: ["continue a loop", "exit a loop", "repeat a loop", "end program"],
+                correctAnswer: 1
+            },
+            {
+                id: 31,
+                text: "Which keyword is used to handle an exception?",
+                options: ["throw", "try", "break", "final"],
+                correctAnswer: 1
+            },
+            {
+                id: 32,
+                text: "Which class is the parent of all classes?",
+                options: ["SuperClass", "Object", "Main", "Runtime"],
+                correctAnswer: 1
+            },
+            {
+                id: 33,
+                text: "String objects in Java are ______",
+                options: ["Mutable", "Immutable", "Constant only", "Optional"],
+                correctAnswer: 1
+            },
+            {
+                id: 34,
+                text: "What is the output of 9 % 4?",
+                options: ["2", "1", "3", "0"],
+                correctAnswer: 0
+            },
+            {
+                id: 35,
+                text: "A constructor has the same name as ______",
+                options: ["method", "package", "class", "object"],
+                correctAnswer: 2
+            },
+            {
+                id: 36,
+                text: "Which loop runs when a condition is true?",
+                options: ["until", "while", "repeat", "case"],
+                correctAnswer: 1
+            },
+            {
+                id: 37,
+                text: "Which keyword is used to return a value?",
+                options: ["out", "give", "return", "send"],
+                correctAnswer: 2
+            },
+            {
+                id: 38,
+                text: "What is the default value of an int variable?",
+                options: ["1", "0", "null", "false"],
+                correctAnswer: 1
+            },
+            {
+                id: 39,
+                text: "Which method joins two strings?",
+                options: ["add()", "append()", "plus()", "concat()"],
+                correctAnswer: 3
+            },
+            {
+                id: 40,
+                text: "Which statement is used for decision-making?",
+                options: ["if", "switch", "both A and B", "none"],
+                correctAnswer: 2
+            },
+            {
+                id: 41,
+                text: "The this keyword refers to ______",
+                options: ["parent object", "subclass object", "current object", "static class"],
+                correctAnswer: 2
+            },
+            {
+                id: 42,
+                text: "Which keyword is used to stop further overriding?",
+                options: ["sealed", "static", "final", "fixed"],
+                correctAnswer: 2
+            },
+            {
+                id: 43,
+                text: "Which method converts a string to an integer?",
+                options: ["Integer.parseInt()", "Integer.toString()", "int()", "convert()"],
+                correctAnswer: 0
+            },
+            {
+                id: 44,
+                text: "An abstract class can contain ______",
+                options: ["only abstract methods", "only concrete methods", "both abstract and concrete methods", "variables only"],
+                correctAnswer: 2
+            },
+            {
+                id: 45,
+                text: "Which of the following is NOT a loop?",
+                options: ["do…while", "for", "switch", "while"],
+                correctAnswer: 2
+            },
+            {
+                id: 46,
+                text: "Dynamic method binding is also called ______",
+                options: ["Overloading", "Polymorphism", "Encapsulation", "Data hiding"],
+                correctAnswer: 1
+            },
+            {
+                id: 47,
+                text: "Which operator checks inequality?",
+                options: ["==", "!=", "<<", ">="],
+                correctAnswer: 1
+            },
+            {
+                id: 48,
+                text: "Which keyword is used to create a subclass object?",
+                options: ["fresh", "new", "build", "object"],
+                correctAnswer: 1
+            },
+            {
+                id: 49,
+                text: "Java source code is compiled to ______",
+                options: ["exe", "machine code", "bytecode", "binary"],
+                correctAnswer: 2
+            },
+            {
+                id: 50,
+                text: "Which method releases resources in a class?",
+                options: ["final()", "finalize()", "finish()", "close()"],
+                correctAnswer: 1
+            }
+        ]
     }
 ];
 
@@ -949,6 +1257,15 @@ const sampleResults = [
         totalQuestions: 30,
         correctAnswers: 26,
         timeTaken: 35
+    },
+    {
+        testId: 6,
+        testTitle: "COS211 - Java Programming (50 Questions)",
+        date: "2023-09-25",
+        score: 92,
+        totalQuestions: 50,
+        correctAnswers: 46,
+        timeTaken: 48
     }
 ];
 
@@ -1107,13 +1424,16 @@ function renderTests() {
         const isGST212Logic = test.title.includes("Logic and Reasoning");
         const isGST212Philosophy = test.title.includes("Philosophy and Human");
         const isPhilosophyFundamentals = test.title.includes("Philosophy Fundamentals");
+        const isCOS211 = test.title.includes("COS211");
         const isGST212 = isGST212Logic || isGST212Philosophy;
         const isPhilosophy = isPhilosophyFundamentals || isGST212Philosophy;
+        const isProgramming = isCOS211 || test.title.includes("JavaScript");
         
         const testCard = document.createElement('div');
-        testCard.className = `test-card ${isGST212 ? 'gst212-test' : ''} ${isPhilosophy ? 'philosophy-test' : ''}`;
+        testCard.className = `test-card ${isGST212 ? 'gst212-test' : ''} ${isPhilosophy ? 'philosophy-test' : ''} ${isProgramming ? 'programming-test' : ''}`;
         testCard.innerHTML = `
             ${isGST212 ? '<div class="gst212-badge">GST 212</div>' : ''}
+            ${isCOS211 ? '<div class="subject-badge cos211">COS 211</div>' : ''}
             ${isPhilosophyFundamentals ? '<div class="subject-badge philosophy-fundamentals">Philosophy 101</div>' : ''}
             ${isGST212Logic ? '<div class="gst-subject-badge logic">Logic</div>' : ''}
             ${isGST212Philosophy ? '<div class="gst-subject-badge philosophy">Philosophy</div>' : ''}
@@ -1124,11 +1444,13 @@ function renderTests() {
                 <span><i class="far fa-clock"></i> ${test.timeLimit} min</span>
                 <span><i class="far fa-question-circle"></i> ${test.questions.length} questions</span>
                 ${isGST212 ? '<span><i class="fas fa-graduation-cap"></i> University Level</span>' : ''}
+                ${isCOS211 ? '<span><i class="fas fa-code"></i> Programming</span>' : ''}
                 ${isPhilosophyFundamentals ? '<span><i class="fas fa-brain"></i> Foundational</span>' : ''}
             </div>
             <div class="test-features">
                 ${test.questions.length > 20 ? '<span class="feature-tag"><i class="fas fa-shuffle"></i> Shuffle Available</span>' : ''}
-                ${isGST212 ? '<span class="feature-tag"><i class="fas fa-star"></i> Graded</span>' : ''}
+                ${isGST212 || isCOS211 ? '<span class="feature-tag"><i class="fas fa-star"></i> Graded</span>' : ''}
+                ${isProgramming ? '<span class="feature-tag"><i class="fas fa-laptop-code"></i> Coding</span>' : ''}
             </div>
             <button class="btn-primary btn-start" data-test-id="${test.id}">Start Test</button>
         `;
@@ -1436,15 +1758,17 @@ function showTestResults(result) {
     
     let scoringHTML = '';
     let isGST212 = result.testTitle.includes("GST 212");
+    let isCOS211 = result.testTitle.includes("COS211");
     
-    if (isGST212) {
+    if (isGST212 || isCOS211) {
         const totalPoints = result.correctAnswers * 2;
         const percentage = totalPoints;
         const passed = totalPoints >= 50;
+        const subject = isGST212 ? "GST 212" : "COS 211";
         
         scoringHTML = `
             <div class="gst212-scoring">
-                <h4>GST 212 Scoring Details</h4>
+                <h4>${subject} Scoring Details</h4>
                 <div class="scoring-grid">
                     <div class="scoring-item">
                         <span class="scoring-label">Total Points:</span>
@@ -1500,7 +1824,7 @@ function showTestResults(result) {
                     <p><strong>Correct Answers:</strong> ${result.correctAnswers} out of ${result.totalQuestions}</p>
                     <p><strong>Time Taken:</strong> ${result.timeTaken} minutes</p>
                     <p><strong>Date:</strong> ${result.date}</p>
-                    ${isGST212 ? '<p><strong>Scoring:</strong> 2 points per correct answer (100 max)</p>' : ''}
+                    ${isGST212 || isCOS211 ? '<p><strong>Scoring:</strong> 2 points per correct answer (100 max)</p>' : ''}
                 </div>
             </div>
             
@@ -2074,4 +2398,4 @@ function showToast(message) {
     setTimeout(() => {
         toast.classList.remove('show');
     }, 3000);
-                  }
+                }
