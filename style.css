@@ -1735,3 +1735,34 @@ input:checked + .slider:before {
         grid-template-columns: 1fr;
     }
     }
+/* COS211 Badge - Add to your existing style.css */
+.subject-badge.cos211 {
+    background: #e74c3c;
+    color: white;
+}
+
+.programming-test {
+    border-right: 4px solid #e74c3c;
+}
+
+/* Update existing CSS to include programming test styling */
+.gst212-test {
+    border-left: 4px solid #3498db;
+}
+
+.philosophy-test {
+    border-left: 4px solid #2ecc71;
+}
+
+.programming-test {
+    border-left: 4px solid #e74c3c;
+}
+
+/* Add to test features if not already present */
+.test-features {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
