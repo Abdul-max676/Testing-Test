@@ -7,100 +7,92 @@
 
 <style>
 :root {
-  --bg: #f7f9fc;
-  --card: #ffffff;
-  --primary: #1e40af;
-  --correct: #16a34a;
-  --wrong: #dc2626;
-  --muted: #6b7280;
+  --bg:#f7f9fc;
+  --card:#ffffff;
+  --primary:#1e40af;
+  --correct:#16a34a;
+  --wrong:#dc2626;
+  --muted:#6b7280;
 }
 
-* { box-sizing: border-box; }
+*{box-sizing:border-box}
 
-body {
-  margin: 0;
-  font-family: system-ui, sans-serif;
-  background: var(--bg);
-  color: #111827;
-  font-size: 16px;
+body{
+  margin:0;
+  font-family:system-ui,sans-serif;
+  background:var(--bg);
+  color:#111827;
 }
 
-header {
-  padding: 16px;
-  text-align: center;
-  background: var(--primary);
-  color: white;
-  font-weight: 600;
+header{
+  padding:16px;
+  text-align:center;
+  background:var(--primary);
+  color:#fff;
+  font-weight:600;
 }
 
-main {
-  padding: 16px;
-  max-width: 480px;
-  margin: 0 auto;
+main{
+  padding:16px;
+  max-width:480px;
+  margin:auto;
 }
 
-.hidden { display: none; }
+.hidden{display:none}
 
-.card {
-  background: var(--card);
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+.card{
+  background:var(--card);
+  border-radius:12px;
+  padding:16px;
+  margin-bottom:16px;
+  box-shadow:0 4px 12px rgba(0,0,0,.05);
 }
 
-h2 { margin-top: 0; font-size: 18px; }
+h2{margin-top:0;font-size:18px}
 
-button {
-  width: 100%;
-  padding: 14px;
-  margin-top: 10px;
-  font-size: 16px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  background: #e5e7eb;
+button{
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  font-size:16px;
+  border-radius:10px;
+  border:none;
+  cursor:pointer;
+  background:#e5e7eb;
 }
 
-button.primary {
-  background: var(--primary);
-  color: white;
+button.primary{
+  background:var(--primary);
+  color:#fff;
 }
 
-button.option {
-  text-align: left;
-  min-height: 48px;
+button.option{text-align:left}
+
+button.correct{background:var(--correct);color:#fff}
+button.wrong{background:var(--wrong);color:#fff}
+
+.progress{
+  font-size:14px;
+  color:var(--muted);
 }
 
-button.correct { background: var(--correct); color: white; }
-button.wrong { background: var(--wrong); color: white; }
-
-.progress {
-  font-size: 14px;
-  color: var(--muted);
-  margin-bottom: 8px;
+.feedback{
+  margin-top:12px;
+  font-size:14px;
 }
 
-.feedback {
-  margin-top: 12px;
-  font-size: 14px;
+.course-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-
-.course-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.course-score {
-  font-size: 13px;
-  color: var(--muted);
-}
+.course-score{font-size:13px;color:var(--muted)}
 </style>
 </head>
 
 <body>
 <header>Student Practice Portal</header>
+
 <main>
   <section id="dashboard"></section>
   <section id="quiz" class="hidden"></section>
@@ -109,798 +101,223 @@ button.wrong { background: var(--wrong); color: white; }
 
 <script>
 /* =========================
-   DATA LAYER
+   DATA
 ========================= */
-const courses = {
-  ent211: {
-    title: "ENT211 – Introduction to Entrepreneurship",
-    questions: [
-      { q:"Which is a key characteristic of a successful entrepreneur?",
+const courses={
+  ent211:{
+    title:"ENT211 – Introduction to Entrepreneurship",
+    questions:[
+      {
+        q:"Which is a key characteristic of a successful entrepreneur?",
         options:["Risk aversion","Creativity","Dependence on others","Lack of vision"],
         answer:1,
-        explanation:"Entrepreneurs rely on creativity to identify and exploit opportunities."
+        explanation:"Creativity helps entrepreneurs identify opportunities."
       },
-      { q:"Primary purpose of a business plan?",
+      {
+        q:"Primary purpose of a business plan?",
         options:["Secure a loan","Outline business idea and strategy","Avoid competition","Hire employees"],
         answer:1,
-        explanation:"A business plan defines goals, strategy, and direction."
+        explanation:"A business plan defines goals and strategy."
       },
-      { q:"Financial statement showing revenues and expenses?",
+      {
+        q:"Financial statement showing revenues and expenses?",
         options:["Balance Sheet","Cash Flow Statement","Income Statement","Retained Earnings"],
         answer:2,
-        explanation:"The income statement reports revenues and expenses."
+        explanation:"Income statement shows revenues and expenses."
       },
-      { q:"Example of bootstrapping?",
+      {
+        q:"Example of bootstrapping?",
         options:["Personal savings","Venture capital","Bank loan","Issuing shares"],
         answer:0,
         explanation:"Bootstrapping uses personal funds."
       },
-      { q:"Scalability refers to?",
-        options:["Entering new markets","Ability to grow and handle demand","Creating business plans","Reducing costs"],
+      {
+        q:"Scalability refers to?",
+        options:["Entering new markets","Ability to grow efficiently","Creating business plans","Reducing costs"],
         answer:1,
-        explanation:"Scalability is about handling growth efficiently."
+        explanation:"Scalability is growth without proportional cost increase."
+      },
+
+      /* ===== leadership & skills ===== */
+
+      {
+        q:"Critical leadership aspect?",
+        options:["Delegation","Motivation","Avoid conflict","Short-term focus"],
+        answer:1,
+        explanation:"Motivation drives team performance."
       },
       {
-  q:"Which of the following is a method for entrepreneurs to manage risk?",
-  options:["Ignoring market research","Diversifying investments","Focusing on one product","Avoiding competition"],
-  answer:1,
-  explanation:"Diversification helps reduce exposure to risk."
-},
-{
-  q:"What best describes a Minimum Viable Product (MVP)?",
-  options:["Fully developed product","Product with minimum features for feedback","Cheapest product","Global-ready product"],
-  answer:1,
-  explanation:"MVP allows early feedback with minimal features."
-},
-{
-  q:"Main advantage of strategic partnerships?",
-  options:["Reducing taxes","Access to markets and resources","Eliminating competition","Hiring employees"],
-  answer:1,
-  explanation:"Partnerships expand access to resources and markets."
-},
-{
-  q:"Key element of effective networking?",
-  options:["Quantity of connections","Quality and relevance","Avoiding social media","Attending all events"],
-  answer:1,
-  explanation:"Relevant relationships matter more than numbers."
-},
-{
-  q:"Funding involving small amounts from many people?",
-  options:["Crowdfunding","Angel investment","Venture capital","Bank loans"],
-  answer:0,
-  explanation:"Crowdfunding pools small contributions from many individuals."
-},
-{
-  q:"Primary goal of an enterprise?",
-  options:["Maximizing profits","Reducing competition","Enhancing customer experience","Employing many people"],
-  answer:0,
-  explanation:"Enterprises aim to generate profit sustainably."
-},
-{
-  q:"Best definition of an enterprise?",
-  options:["Small business","Large scalable business","Nonprofit","Government agency"],
-  answer:1,
-  explanation:"Enterprises operate at scale across markets."
-},
-{
-  q:"Role of ERP systems?",
-  options:["Customer relations","Integrating business processes","Marketing strategies","Product development"],
-  answer:1,
-  explanation:"ERP integrates core organizational processes."
-},
-{
-  q:"Characteristic of a successful enterprise?",
-  options:["Single product dependence","Inability to adapt","Strong leadership","Limited presence"],
-  answer:2,
-  explanation:"Leadership and vision drive enterprise success."
-},
-{
-  q:"Benefit of scaling an enterprise?",
-  options:["Decreasing revenue","Higher costs","Wider customer base","Fewer employees"],
-  answer:2,
-  explanation:"Scaling expands market reach."
-},
-{
-  q:"Legal form of enterprise ownership?",
-  options:["Partnership","Family trust","Informal agreement","Verbal promise"],
-  answer:0,
-  explanation:"Partnerships are legally recognized."
-},
-{
-  q:"Process of acquiring businesses to expand?",
-  options:["Bootstrapping","Diversification","Horizontal integration","Market penetration"],
-  answer:2,
-  explanation:"Horizontal integration expands business capacity."
-},
-{
-  q:"Primary function of enterprise risk management?",
-  options:["Maximizing profits","Identifying and mitigating risks","Hiring staff","Marketing"],
-  answer:1,
-  explanation:"ERM manages potential threats."
-},
-{
-  q:"Multinational enterprise operates in?",
-  options:["One country","Multiple countries","Single product","Government sector"],
-  answer:1,
-  explanation:"MNEs operate internationally."
-},
-{
-  q:"Critical factor for long-term sustainability?",
-  options:["Reducing costs","Innovation","Avoiding competition","Maintaining status quo"],
-  answer:1,
-  explanation:"Innovation keeps enterprises competitive."
-},
-{
-  q:"Characteristic of innovative leaders?",
-  options:["Traditional methods","Calculated risks","Resistance to change","Micromanagement"],
-  answer:1,
-  explanation:"Innovation requires smart risk-taking."
-},
-{
-  q:"Benefit of fostering creativity?",
-  options:["Control team","Reduce ideas","Unique solutions","Maintain status quo"],
-  answer:2,
-  explanation:"Creativity drives problem-solving."
-},
-{
-  q:"Design thinking is?",
-  options:["Rigid process","User-centered innovation","Cost reduction","Standardization"],
-  answer:1,
-  explanation:"Design thinking focuses on user needs."
-},
-{
-  q:"Leadership style promoting creativity?",
-  options:["Authoritarian","Transformational","Transactional","Laissez-faire"],
-  answer:1,
-  explanation:"Transformational leaders inspire creativity."
-},
-{
-  q:"Effective coping practice for leaders?",
-  options:["Ignore feedback","Past experience only","Open communication","Avoid risks"],
-  answer:2,
-  explanation:"Communication builds resilience."
-},
-{
-  q:"Role of resilience in leadership?",
-  options:["Avoid mistakes","Recover from setbacks","Avoid difficulty","Delegate everything"],
-  answer:1,
-  explanation:"Resilience enables recovery."
-},
-{
-  q:"Best creativity stimulation technique?",
-  options:["Brainstorming","Top management only","Rigid decisions","Industry norms"],
-  answer:0,
-  explanation:"Brainstorming encourages diverse ideas."
-},
-{
-  q:"Why embrace innovation?",
-  options:["Maintain position","Avoid training","Stay competitive","Avoid changes"],
-  answer:2,
-  explanation:"Innovation ensures competitiveness."
-},
-{
-  q:"Adaptive leadership involves?",
-  options:["Short-term focus","Rigid rules","Adjusting to situations","Avoiding feedback"],
-  answer:2,
-  explanation:"Adaptive leaders adjust strategies."
-},
-{
-  q:"Encouraging innovation requires?",
-  options:["Limited resources","Reward experimentation","Discourage collaboration","Ignore future"],
-  answer:1,
-  explanation:"Safe experimentation fuels innovation."
-},
-{
-  q:"Primary reason for self-employment?",
-  options:["Guaranteed income","Autonomy","Limited hours","Lack of skills"],
-  answer:1,
-  explanation:"Self-employment offers independence."
-},
-{
-  q:"Purpose of feasibility study?",
-  options:["Legal check","Assess viability","Finalize marketing","Hire employees"],
-  answer:1,
-  explanation:"Feasibility evaluates practicality."
-},
-{
-  q:"Common source of startup capital?",
-  options:["Personal savings","Competitor funding","Employee salaries","Deposits"],
-  answer:0,
-  explanation:"Most startups begin with personal funds."
-},
-{
-  q:"Main objective of financial planning?",
-  options:["Avoid taxes","Allocate resources","Limit growth","Avoid risk"],
-  answer:1,
-  explanation:"Planning allocates resources efficiently."
-},
-{
-  q:"Example of self-employment?",
-  options:["Government job","Freelancing","Corporation job","Student"],
-  answer:1,
-  explanation:"Freelancing is self-employment."
-},
-{
-  q:"Importance of market analysis?",
-  options:["Set salaries","Understand demand","Avoid ads","Finalize design"],
-  answer:1,
-  explanation:"Market analysis assesses demand."
-},
-{
-  q:"Essential document for income tracking?",
-  options:["Marketing plan","Income statement","Vision statement","Org chart"],
-  answer:1,
-  explanation:"Income statements track finances."
-},
-{
-  q:"Role of business plan in capital raising?",
-  options:["Avoid capital","Secure funding","Limit capital","Guarantee success"],
-  answer:1,
-  explanation:"Investors rely on business plans."
-},
-{
-  q:"Bootstrapping means?",
-  options:["External funding","Personal resources","Bank loans","Corporate partnerships"],
-  answer:1,
-  explanation:"Bootstrapping uses personal funds."
-},
-{
-  q:"Purpose of breakeven analysis?",
-  options:["Set prices","Revenue equals cost","Set goals","Bonuses"],
-  answer:1,
-  explanation:"Breakeven shows no profit/loss point."
-},
-{
-  q:"Legal requirement for starting business?",
-  options:["IP filing","Business registration","Trademarks","Legal advisor"],
-  answer:1,
-  explanation:"Registration is mandatory."
-},
-{
-  q:"Purpose of business insurance?",
-  options:["Avoid taxes","Risk protection","Increase profit","Employee bonuses"],
-  answer:1,
-  explanation:"Insurance protects against risks."
-},
-{
-  q:"Example of legal issue?",
-  options:["Product development","Breach of contract","Marketing","Training"],
-  answer:1,
-  explanation:"Contracts are legally binding."
-},
-{
-  q:"Liability insurance covers?",
-  options:["Property damage","Injury claims","Success guarantee","Health benefits"],
-  answer:1,
-  explanation:"Liability insurance covers claims."
-},
-{
-  q:"Critical environmental consideration?",
-  options:["Raw material cost","Waste reduction","Output increase","Hiring"],
-  answer:1,
-  explanation:"Environmental compliance matters."
-},
-{
-  q:"Role of environmental impact assessment?",
-  options:["Productivity","Environmental effects","Financial viability","Market share"],
-  answer:1,
-  explanation:"EIA evaluates environmental effects."
-},
-{
-  q:"Contract is?",
-  options:["Verbal promise","Legally binding agreement","Informal promise","Memo"],
-  answer:1,
-  explanation:"Contracts are legally enforceable."
-},
-{
-  q:"Why comply with environmental regulations?",
-  options:["Reduce costs","Avoid penalties","Eliminate competition","Increase speed"],
-  answer:1,
-  explanation:"Compliance avoids sanctions."
-},
-{
-  q:"Insurance for natural disasters?",
-  options:["Life","Property","Liability","Health"],
-  answer:1,
-  explanation:"Property insurance covers disasters."
-},
-{
-  q:"Significance of IP rights?",
-  options:["Limit growth","Protect inventions","Reduce turnover","Increase costs"],
-  answer:1,
-  explanation:"IP protects business ideas."
-},
-{
-  q:"Key function of management?",
-  options:["Networking","Planning resources","Socializing","Minimizing work"],
-  answer:1,
-  explanation:"Management plans and organizes resources."
-},
-{
-  q:"Effective time management results in?",
-  options:["More workload","Higher productivity","Missed deadlines","Leisure"],
-  answer:1,
-  explanation:"Time management boosts efficiency."
-},
-{
-  q:"Essential employability skill?",
-  options:["Memorization","Communication","Blind obedience","Avoiding work"],
-  answer:1,
-  explanation:"Communication is critical."
-},
-{
-  q:"Authoritarian management involves?",
-  options:["Participation","Centralized decisions","Delegation","Collaboration"],
-  answer:1,
-  explanation:"Authoritarian leaders decide alone."
-},
-{
-  q:"Purpose of performance appraisal?",
-  options:["Reduce salary","Evaluate performance","Enforce discipline","Allocate leave"],
-  answer:1,
-  explanation:"Appraisals assess performance."
-},
-{
-  q:"Critical leadership aspect?",
-  options:["Delegation","Motivation","Avoid conflict","Short-term focus"],
-  answer:1,
-  explanation:"Leaders inspire teams."
-}
+        q:"What does emotional intelligence refer to?",
+        options:[
+          "Controlling others’ emotions",
+          "Awareness and management of emotions",
+          "Ignoring emotions",
+          "Avoiding communication"
+        ],
+        answer:1,
+        explanation:"EI is understanding and managing emotions."
+      },
       {
-  q:"What does emotional intelligence refer to?",
-  options:[
-    "Controlling others’ emotions",
-    "Awareness and management of one’s emotions and relationships",
-    "Ignoring emotions",
-    "Avoiding difficult conversations"
-  ],
-  answer:1,
-  explanation:"Emotional intelligence involves understanding and managing emotions."
-},
-{
-  q:"Key benefit of strong problem-solving skills?",
-  options:[
-    "Reducing teamwork",
-    "Resolving issues effectively",
-    "Avoiding challenges",
-    "Delegating all tasks"
-  ],
-  answer:1,
-  explanation:"Problem-solving helps address challenges efficiently."
-},
-{
-  q:"Why is adaptability an important employability skill?",
-  options:[
-    "Resisting change",
-    "Adjusting to new roles and environments",
-    "Reducing training needs",
-    "Limiting career growth"
-  ],
-  answer:1,
-  explanation:"Adaptability allows individuals to thrive in changing environments."
-},
-{
-  q:"Conflict resolution in management means?",
-  options:[
-    "Ignoring conflicts",
-    "Resolving disputes constructively",
-    "Suppressing conflicts",
-    "Encouraging conflicts"
-  ],
-  answer:1,
-  explanation:"Conflict resolution addresses disagreements positively."
-},
-{
-  q:"Best definition of entrepreneurship?",
-  options:[
-    "Managing a nonprofit",
-    "Designing and running a new business",
-    "Working for a corporation",
-    "Stock market investment"
-  ],
-  answer:1,
-  explanation:"Entrepreneurship involves starting and running new ventures."
-},
-{
-  q:"Primary motivation for most entrepreneurs?",
-  options:[
-    "Guaranteed income",
-    "Innovation and problem-solving",
-    "Limited work hours",
-    "Job security"
-  ],
-  answer:1,
-  explanation:"Entrepreneurs are driven by innovation and impact."
-},
-{
-  q:"Key characteristic of a successful entrepreneur?",
-  options:[
-    "Risk aversion",
-    "Persistence and resilience",
-    "Dependence on others",
-    "Preference for routine"
-  ],
-  answer:1,
-  explanation:"Persistence helps entrepreneurs overcome setbacks."
-},
-{
-  q:"Purpose of a business plan?",
-  options:[
-    "Secure employment",
-    "Outline goals, strategy, and projections",
-    "Avoid taxes",
-    "Limit growth"
-  ],
-  answer:1,
-  explanation:"Business plans guide operations and funding."
-},
-{
-  q:"Common challenge faced by entrepreneurs?",
-  options:[
-    "Guaranteed customers",
-    "Financial risk and uncertainty",
-    "Lack of autonomy",
-    "Excessive regulation"
-  ],
-  answer:1,
-  explanation:"Entrepreneurs face uncertainty and financial risks."
-},
-{
-  q:"Trait of an entrepreneurial mindset?",
-  options:[
-    "Resistance to change",
-    "Openness to opportunities",
-    "Stable routine preference",
-    "Avoiding responsibility"
-  ],
-  answer:1,
-  explanation:"Entrepreneurs embrace learning and change."
-},
-{
-  q:"Common funding option for startups?",
-  options:[
-    "Crowdfunding",
-    "Government salaries",
-    "Competitor loans",
-    "Pensions"
-  ],
-  answer:0,
-  explanation:"Crowdfunding is widely used by startups."
-},
-{
-  q:"Role of innovation in entrepreneurship?",
-  options:[
-    "Irrelevant",
-    "Central to creating value",
-    "Increases production cost",
-    "Limits growth"
-  ],
-  answer:1,
-  explanation:"Innovation differentiates businesses."
-},
-{
-  q:"A startup is best described as?",
-  options:[
-    "Established corporation",
-    "New business in early stages",
-    "Nonprofit",
-    "Government agency"
-  ],
-  answer:1,
-  explanation:"Startups focus on early-stage growth."
-},
-{
-  q:"Importance of market research?",
-  options:[
-    "Set high prices",
-    "Understand customer needs",
-    "Eliminate competitors",
-    "Reduce costs"
-  ],
-  answer:1,
-  explanation:"Market research informs business decisions."
-},
-{
-  q:"History of entrepreneurship traced to?",
-  options:[
-    "Pre-colonial era",
-    "Post-colonial era",
-    "Colonial era",
-    "Authoritarian era"
-  ],
-  answer:0,
-  explanation:"Entrepreneurial activities existed before colonial times."
-},
-{
-  q:"Year oil was discovered in Nigeria?",
-  options:["1975","1970","2004","1924"],
-  answer:3,
-  explanation:"Oil was discovered in Nigeria in 1924."
-},
-{
-  q:"SAP means?",
-  options:[
-    "Structural Adjustment Programme",
-    "Settlement Adherence Policy",
-    "Simple Attentive Programmers",
-    "Structured Adjustment Programme"
-  ],
-  answer:0,
-  explanation:"SAP stands for Structural Adjustment Programme."
-},
-{
-  q:"SMEDAN means?",
-  options:[
-    "Small and Medium Enterprises Development Agency of Nigeria",
-    "Short Midget Enterprise Agency",
-    "Strong Measures Enterprise Agency",
-    "Small Enterprise Department"
-  ],
-  answer:0,
-  explanation:"SMEDAN supports SMEs in Nigeria."
-},
-{
-  q:"NDE stands for?",
-  options:[
-    "National Directorate of Entrepreneurship",
-    "National Efficiency Democracy",
-    "National Directorate of Employment",
-    "National Development Enterprise"
-  ],
-  answer:2,
-  explanation:"NDE focuses on employment creation."
-},
-{
-  q:"Ability to adjust is called?",
-  options:["Resilience","Susceptibility","Determination","Adaptability"],
-  answer:3,
-  explanation:"Adaptability means adjusting to change."
-},
-{
-  q:"Entrepreneurial skills exclude?",
-  options:["Feeding","Risk management","Networking","Communication"],
-  answer:0,
-  explanation:"Feeding is not an entrepreneurial skill."
-},
-{
-  q:"Example of entrepreneurial skill?",
-  options:["Conflict starter","Peacekeeper","Security management","Financial skill"],
-  answer:3,
-  explanation:"Financial skills are essential."
-},
-{
-  q:"Steps transforming materials to goods?",
-  options:["Laboring","Extraction stage","Unit operation","Division"],
-  answer:2,
-  explanation:"Unit operations convert raw materials."
-},
-{
-  q:"Process of planning and controlling time?",
-  options:["Risk management","Time consideration","Time management","Time observation"],
-  answer:2,
-  explanation:"Time management optimizes productivity."
-},
-{
-  q:"Filtration is also known as?",
-  options:["Addition","Mixing","Separation","Marginalization"],
-  answer:2,
-  explanation:"Filtration separates substances."
-},
-{
-  q:"Benefit of time management?",
-  options:["Team conflict","Reducing stress","Time consuming","Time management"],
-  answer:1,
-  explanation:"Good time management reduces stress."
-},
-{
-  q:"Staffing function belongs to?",
-  options:[
-    "Human resource management",
-    "Human power management",
-    "Personnel management",
-    "Workers department"
-  ],
-  answer:0,
-  explanation:"Staffing is an HR function."
-},
-{
-  q:"Process of creating and delivering value?",
-  options:["Financial planning","Networking","Bank funding","Marketing"],
-  answer:3,
-  explanation:"Marketing creates and delivers value."
-},
-{
-  q:"Full meaning of HRM?",
-  options:[
-    "Human resource management",
-    "Human power management",
-    "Human repersonnel management",
-    "Workers department"
-  ],
-  answer:0,
-  explanation:"HRM manages human resources."
-},
-{
-  q:"Most critical risk skill for entrepreneurs?",
-  options:[
-    "Communication skill",
-    "Financial risk",
-    "Networking skill",
-    "Development skill"
-  ],
-  answer:1,
-  explanation:"Financial risk is a major concern."
-},
-{
-  q:"Term classifying business size?",
-  options:["Enterprise","Enterprise creation","Economic growth","Policy skill"],
-  answer:0,
-  explanation:"Enterprise classifies business scale."
-},
-{
-  q:"Self-employment involves?",
-  options:[
-    "Discovering new businesses",
-    "Organizing trends",
-    "Youth jobs only",
-    "Identifying viable business"
-  ],
-  answer:3,
-  explanation:"Self-employment focuses on viable opportunities."
-},
-{
-  q:"Factor NOT considered in self-employment?",
-  options:[
-    "Business ideas",
-    "Economic abilities",
-    "Market research",
-    "Identifying skills"
-  ],
-  answer:1,
-  explanation:"Economic abilities alone are insufficient."
-},
-{
-  q:"Person who works for someone else?",
-  options:["Aptitude","Employee","Entrepreneur","Entrepreneurship"],
-  answer:1,
-  explanation:"Employees work under others."
-},
-{
-  q:"Organizations not social ventures?",
-  options:[
-    "Large-scale firms",
-    "Enterprises",
-    "Government",
-    "Non-government"
-  ],
-  answer:2,
-  explanation:"Government bodies are not social ventures."
-},
-{
-  q:"Hybrid non-profit recovers costs through?",
-  options:["Networking","Sales","Communication","Buying"],
-  answer:1,
-  explanation:"Sales generate partial revenue."
-},
-{
-  q:"Scope of business covers?",
-  options:["Knowledge","Level","Mirage","Scope"],
-  answer:3,
-  explanation:"Scope defines business activities."
-},
-{
-  q:"Business activity related to production?",
-  options:["Industry","Firm","Enterprise","Partnership"],
-  answer:0,
-  explanation:"Industry handles production."
-},
-{
-  q:"Consumer goods are consumed by?",
-  options:["Eater","Wholesaler","Retailer","Customers"],
-  answer:3,
-  explanation:"Final consumers use goods."
-},
-{
-  q:"Goods for further production are?",
-  options:["Capital goods","Capitalist commodity","Commodity","Producers"],
-  answer:0,
-  explanation:"Capital goods aid production."
-},
-{
-  q:"Industries extracting raw materials?",
-  options:["Extractive","Describe","Inducement","Removal"],
-  answer:0,
-  explanation:"Extractive industries source raw materials."
-},
-{
-  q:"Sector concerned with buying and selling?",
-  options:["Subsistence","Simple","Large","Commercial"],
-  answer:3,
-  explanation:"Commercial sector trades goods."
-},
-{
-  q:"Buying and selling within a country?",
-  options:["Internal trade","Inter trade","Physical trade","External trade"],
-  answer:0,
-  explanation:"Internal trade occurs domestically."
-},
-{
-  q:"Risk of fire and flood covered by?",
-  options:[
-    "Regulatory bodies",
-    "NEMA",
-    "Insurance",
-    "LASEMA"
-  ],
-  answer:2,
-  explanation:"Insurance covers such risks."
-}
+        q:"Key benefit of strong problem-solving skills?",
+        options:[
+          "Reducing teamwork",
+          "Resolving issues effectively",
+          "Avoiding challenges",
+          "Delegating all tasks"
+        ],
+        answer:1,
+        explanation:"Problem-solving helps overcome challenges."
+      },
+      {
+        q:"Why is adaptability important?",
+        options:[
+          "Resisting change",
+          "Adjusting to new environments",
+          "Avoiding learning",
+          "Limiting growth"
+        ],
+        answer:1,
+        explanation:"Adaptability enables success in change."
+      },
 
+      /* ===== Nigerian entrepreneurship ===== */
+
+      {
+        q:"SMEDAN stands for?",
+        options:[
+          "Small and Medium Enterprises Development Agency of Nigeria",
+          "Small Enterprise Department",
+          "Strong Measures Enterprise Agency",
+          "Medium Business Office"
+        ],
+        answer:0,
+        explanation:"SMEDAN supports SMEs in Nigeria."
+      },
+      {
+        q:"NDE means?",
+        options:[
+          "National Directorate of Entrepreneurship",
+          "National Directorate of Employment",
+          "National Development Enterprise",
+          "National Democracy Entity"
+        ],
+        answer:1,
+        explanation:"NDE focuses on employment creation."
+      },
+      {
+        q:"SAP means?",
+        options:[
+          "Structural Adjustment Programme",
+          "Structured Accounting Policy",
+          "Social Action Plan",
+          "Systematic Adjustment Process"
+        ],
+        answer:0,
+        explanation:"SAP stands for Structural Adjustment Programme."
+      },
+
+      /* ===== business basics ===== */
+
+      {
+        q:"Contract is?",
+        options:[
+          "Verbal promise",
+          "Legally binding agreement",
+          "Informal note",
+          "Personal understanding"
+        ],
+        answer:1,
+        explanation:"Contracts are legally enforceable."
+      },
+      {
+        q:"Insurance helps businesses to?",
+        options:[
+          "Increase profit",
+          "Avoid taxes",
+          "Protect against risk",
+          "Hire employees"
+        ],
+        answer:2,
+        explanation:"Insurance protects against losses."
+      },
+      {
+        q:"Capital goods are used for?",
+        options:[
+          "Consumption",
+          "Further production",
+          "Luxury",
+          "Decoration"
+        ],
+        answer:1,
+        explanation:"Capital goods aid production."
+      }
     ]
   }
 };
 
 /* =========================
-   STATE + STORAGE
+   STATE
 ========================= */
-let state = { courseKey:null, index:0, score:0, answers:[] };
+let state={course:null,index:0,score:0,answers:[]};
 
-function saveResult(courseKey, score, total) {
-  const h = JSON.parse(localStorage.getItem("scores")) || {};
-  if (!h[courseKey]) h[courseKey] = [];
-  h[courseKey].push({ date:new Date().toLocaleDateString(), score, total });
-  localStorage.setItem("scores", JSON.stringify(h));
+/* =========================
+   STORAGE
+========================= */
+function saveResult(key,score,total){
+  const h=JSON.parse(localStorage.getItem("scores"))||{};
+  if(!h[key])h[key]=[];
+  h[key].push({date:new Date().toLocaleDateString(),score,total});
+  localStorage.setItem("scores",JSON.stringify(h));
 }
 
-function getHistory(courseKey) {
-  return (JSON.parse(localStorage.getItem("scores")) || {})[courseKey] || [];
+function getHistory(key){
+  return(JSON.parse(localStorage.getItem("scores"))||{})[key]||[];
 }
 
 /* =========================
    UI
 ========================= */
-const dashboardEl = document.getElementById("dashboard");
-const quizEl = document.getElementById("quiz");
-const resultsEl = document.getElementById("results");
+const dashboard=document.getElementById("dashboard");
+const quiz=document.getElementById("quiz");
+const results=document.getElementById("results");
 
-function renderDashboard() {
-  dashboardEl.innerHTML = "";
-  dashboardEl.classList.remove("hidden");
-  quizEl.classList.add("hidden");
-  resultsEl.classList.add("hidden");
+function renderDashboard(){
+  dashboard.innerHTML="";
+  dashboard.classList.remove("hidden");
+  quiz.classList.add("hidden");
+  results.classList.add("hidden");
 
-  for (let key in courses) {
-    const last = getHistory(key).slice(-1)[0];
-    const card = document.createElement("div");
-    card.className = "card course-item";
-    card.innerHTML = `
+  for(const key in courses){
+    const last=getHistory(key).slice(-1)[0];
+    const card=document.createElement("div");
+    card.className="card course-item";
+    card.innerHTML=`
       <div>
         <strong>${courses[key].title}</strong>
         <div class="course-score">
-          ${last ? `Last score: ${last.score}/${last.total}` : "No attempts yet"}
+          ${last?`Last score: ${last.score}/${last.total}`:"No attempts yet"}
         </div>
       </div>
       <button class="primary">Start</button>
     `;
-    card.querySelector("button").onclick = () => startQuiz(key);
-    dashboardEl.appendChild(card);
+    card.querySelector("button").onclick=()=>startQuiz(key);
+    dashboard.appendChild(card);
   }
 }
 
-function startQuiz(key) {
-  state = { courseKey:key, index:0, score:0, answers:[] };
-  dashboardEl.classList.add("hidden");
-  quizEl.classList.remove("hidden");
+function startQuiz(key){
+  state={course:key,index:0,score:0,answers:[]};
+  dashboard.classList.add("hidden");
+  quiz.classList.remove("hidden");
   renderQuestion();
 }
 
-function renderQuestion() {
-  const c = courses[state.courseKey];
-  const q = c.questions[state.index];
+function renderQuestion(){
+  const q=courses[state.course].questions[state.index];
 
-  quizEl.innerHTML = `
+  quiz.innerHTML=`
     <div class="card">
-      <div class="progress">Question ${state.index+1}/${c.questions.length}</div>
+      <div class="progress">Question ${state.index+1}/${courses[state.course].questions.length}</div>
       <h2>${q.q}</h2>
       ${q.options.map((o,i)=>`<button class="option" data-i="${i}">${String.fromCharCode(65+i)}. ${o}</button>`).join("")}
       <div class="feedback hidden"></div>
@@ -908,50 +325,53 @@ function renderQuestion() {
     </div>
   `;
 
-  quizEl.querySelectorAll(".option").forEach(b=>{
-    b.onclick = selectAnswer;
-    b.ontouchstart = selectAnswer;
+  quiz.querySelectorAll(".option").forEach(b=>{
+    b.onclick=selectAnswer;
   });
 }
 
-function selectAnswer(e) {
-  const btn = e.currentTarget;
-  const sel = +btn.dataset.i;
-  const q = courses[state.courseKey].questions[state.index];
+function selectAnswer(e){
+  if(state.answers[state.index]!==undefined)return;
 
-  quizEl.querySelectorAll(".option").forEach(b=>b.disabled=true);
+  const btn=e.currentTarget;
+  const sel=+btn.dataset.i;
+  const q=courses[state.course].questions[state.index];
 
-  if (sel === q.answer) {
+  quiz.querySelectorAll(".option").forEach(b=>b.disabled=true);
+
+  if(sel===q.answer){
     btn.classList.add("correct");
     state.score++;
-  } else {
+  }else{
     btn.classList.add("wrong");
-    quizEl.querySelectorAll(".option")[q.answer].classList.add("correct");
+    quiz.querySelectorAll(".option")[q.answer].classList.add("correct");
   }
 
   state.answers.push(sel);
-  quizEl.querySelector(".feedback").textContent = q.explanation;
-  quizEl.querySelector(".feedback").classList.remove("hidden");
+  const fb=quiz.querySelector(".feedback");
+  fb.textContent=q.explanation;
+  fb.classList.remove("hidden");
 
-  const next = document.getElementById("nextBtn");
+  const next=document.getElementById("nextBtn");
   next.classList.remove("hidden");
-  next.onclick = nextQuestion;
+  next.onclick=nextQuestion;
 }
 
-function nextQuestion() {
+function nextQuestion(){
   state.index++;
-  if (state.index < courses[state.courseKey].questions.length) renderQuestion();
-  else finishQuiz();
+  state.index<courses[state.course].questions.length
+    ?renderQuestion()
+    :finishQuiz();
 }
 
-function finishQuiz() {
-  const total = courses[state.courseKey].questions.length;
-  saveResult(state.courseKey, state.score, total);
+function finishQuiz(){
+  const total=courses[state.course].questions.length;
+  saveResult(state.course,state.score,total);
 
-  quizEl.classList.add("hidden");
-  resultsEl.classList.remove("hidden");
+  quiz.classList.add("hidden");
+  results.classList.remove("hidden");
 
-  resultsEl.innerHTML = `
+  results.innerHTML=`
     <div class="card">
       <h2>Results</h2>
       <p>Score: ${state.score}/${total}</p>
