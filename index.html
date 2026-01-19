@@ -318,6 +318,169 @@
             margin-bottom: 15px;
         }
         
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-dark);
+        }
+        
+        .modal-title {
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            background-color: var(--secondary-light);
+        }
+        
+        .test-info {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: var(--secondary-light);
+            border-radius: 8px;
+        }
+        
+        .question-counter {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        
+        .question-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .question-item {
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            border-left: 4px solid var(--primary-dark);
+        }
+        
+        .question-number {
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .question-text {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .options-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        
+        .option-item {
+            padding: 10px 15px;
+            background-color: white;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .option-item:hover {
+            background-color: var(--secondary-light);
+            border-color: var(--primary-dark);
+        }
+        
+        .option-selected {
+            background-color: var(--primary-light);
+            border-color: var(--primary-dark);
+            font-weight: 600;
+        }
+        
+        .modal-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .pagination {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .page-btn {
+            padding: 8px 15px;
+            background-color: var(--primary-dark);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .page-btn:hover:not(:disabled) {
+            background-color: var(--secondary-dark);
+        }
+        
+        .page-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .page-indicator {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        
         /* Footer */
         footer {
             background-color: var(--primary-dark);
@@ -346,6 +509,23 @@
             
             .tests-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                padding: 20px;
+                width: 95%;
+                margin: 20px auto;
+            }
+            
+            .modal-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .test-info {
+                flex-direction: column;
+                gap: 10px;
             }
         }
     </style>
@@ -380,6 +560,28 @@
                     </div>
                     
                     <div class="tests-grid">
+                        <!-- ENT211 Test -->
+                        <div class="test-card">
+                            <div class="test-header">
+                                <h3 class="test-title">ENT211 - Introduction to Entrepreneurship</h3>
+                                <div class="test-tag">100 Questions</div>
+                            </div>
+                            <div class="test-meta">
+                                <span class="test-tag">ENT211</span>
+                                <span class="test-tag">Business</span>
+                                <span class="test-tag">Graded</span>
+                            </div>
+                            <p class="test-desc">Complete 100-question exam on entrepreneurship fundamentals, business planning, and entrepreneurial skills.</p>
+                            <div class="test-actions">
+                                <button class="btn btn-primary btn-small start-ent211-test">
+                                    <i class="fas fa-play"></i> Start Test
+                                </button>
+                                <button class="btn btn-outline btn-small">
+                                    <i class="fas fa-random"></i> Shuffle
+                                </button>
+                            </div>
+                        </div>
+                        
                         <!-- Test 1 -->
                         <div class="test-card">
                             <div class="test-header">
@@ -566,6 +768,37 @@
         </div>
     </div>
     
+    <!-- ENT211 Test Modal -->
+    <div class="modal-overlay" id="ent211-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">ENT211 - Introduction to Entrepreneurship</h2>
+                <button class="close-modal" id="close-ent211-modal">&times;</button>
+            </div>
+            
+            <div class="test-info">
+                <div class="question-counter">Total: 100 Questions</div>
+                <div>Time Limit: 120 minutes</div>
+                <div>Graded Test</div>
+            </div>
+            
+            <div class="question-list" id="ent211-questions">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            
+            <div class="modal-actions">
+                <div class="pagination">
+                    <button class="page-btn" id="prev-page">Previous</button>
+                    <span class="page-indicator">Page <span id="current-page">1</span> of 10</span>
+                    <button class="page-btn" id="next-page">Next</button>
+                </div>
+                <button class="btn btn-primary" id="submit-ent211-test">
+                    <i class="fas fa-paper-plane"></i> Submit Test
+                </button>
+            </div>
+        </div>
+    </div>
+    
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -577,8 +810,255 @@
     </footer>
 
     <script>
+        // ENT211 Test Questions Data
+        const ent211Questions = [
+            "1. Which of the following is a key characteristic of a successful entrepreneur? (A)Risk aversion (B) Creativity (C) Dependence on others (D) Lack of vision",
+            "2. What is the primary purpose of a business plan? (A)To secure a loan (B) To outline the business idea and strategy (C) To avoid competition (D) To hire employees",
+            "3. Which financial statement shows the company's revenues and expenses? (A)Balance Sheet (B) Cash Flow Statement (C) Income Statement (D) Statement of Retained Earnings",
+            "4. Which of the following is an example of bootstrapping in business? (A)Using personal savings to fund the business (B) Raising capital through venture capitalists (C) Taking out a bank loan (D) Issuing company shares",
+            "5. What does the term \"scalability\" refer to in a business context? (A)The ability to enter new markets (B) The capacity to grow and handle increased demand (C) The process of creating a business plan (D) The reduction of costs over time",
+            "6. Which of the following is a method for entrepreneurs to manage risk? (A)Ignoring market research (B) Diversifying their investment portfolio (C) Focusing on a single product line (D) Avoiding competition",
+            "7. Which of the following best describes a Minimum Viable Product (MVP)? (A)A fully developed product ready for mass production (B) A product with the minimum features needed to satisfy early customers and provide feedback (C) The least expensive version of a product (D) A product that is ready for global expansion",
+            "8. What is the main advantage of forming strategic partnerships in entrepreneurship? (A)Reducing taxes (B) Gaining access to new markets and resources (C) Eliminating competition (D) Hiring more employees",
+            "9. Which of the following is a key element of effective networking for entrepreneurs? (A)Quantity of connections (B) Quality and relevance of relationships (C) Avoiding social media (D) Attending every industry event",
+            "10. Which of the following funding options involves raising small amounts of money from a large number of people? (A)Crowdfunding (B) Angel investment (C) Venture capital (D) Bank loans",
+            "11. What is the primary goal of an enterprise? (A)Maximizing profits (B) Reducing competition (C) Enhancing customer experience (D) Employing as many people as possible",
+            "12. Which of the following best defines an enterprise? (A)A small business with limited growth potential (B) A largescale business organization with the ability to scale and operate in multiple markets (C) A nonprofit organization (D) A government agency",
+            "13. What is the role of an enterprise resource planning (ERP) system? (A)Managing customer relationships (B) Integrating core business processes into a single system (C) Providing marketing strategies (D) Developing new products",
+            "14. Which of the following is a characteristic of a successful enterprise? (A)Dependence on a single product (B) Inability to adapt to market changes (C) Strong leadership and strategic vision (D) Limited market presence",
+            "15. What is a key benefit of scaling an enterprise? (A)Decreasing revenue (B) Increased operational costs (C) Ability to reach a wider customer base (D) Reducing the number of employees",
+            "16. Which of the following is considered a legal form of enterprise ownership? (A)Partnership (B) Family trust (C) Informal agreement (D) Sole proprietorship",
+            "17. Which term describes the process of acquiring and integrating new businesses or technologies to expand an enterprise? (A)Bootstrapping (B) Diversification (C) Horizontal integration (D) Market penetration",
+            "18. What is a primary function of enterprise risk management (ERM)? (A)Maximizing profits (B) Identifying and mitigating potential risks to the business (C) Hiring new employees (D) Creating marketing campaigns",
+            "19. Which of the following best describes a multinational enterprise (MNE)? (A)A company that operates solely in its home country (B) A company that has operations in multiple countries (C) A small business with a single product line (D) A government owned enterprise",
+            "20. Which of the following factors is critical for an enterprise's longterm sustainability? (A) Constantly reducing costs (B) Innovation and adaptability to market changes (C) Avoiding competition (D) Maintaining the status quo",
+            "21. Which of the following is a key characteristic of an innovative leader? (A) Adherence to traditional methods (B) Willingness to take calculated risks (C) Resistance to change (D) Micromanagement",
+            "22. What is the primary benefit of fostering creativity in a team? (A) Increasing control over team members (B) Reducing the number of ideas generated (C) Encouraging unique solutions to problems (D) Maintaining the status quo",
+            "23. Which of the following best describes \"design thinking\"? (A) A rigid, step-by-step process for problem solving (B) A user centered approach to innovation that focuses on understanding user needs (C) A method of reducing costs in production (D) A way to standardize business practices",
+            "24. What leadership style is most conducive to promoting creativity within a team? (A) Authoritarian leadership (B) Transformational leadership (C) Transactional leadership (D) Laissez faire leadership",
+            "25. Which of the following practices can help leaders cope with challenges more effectively (A) Ignoring feedback from the team (B) Relying solely on past experiences (C) Encouraging open communication and collaboration (D) Avoiding risk taking",
+            "26. What is the role of resilience in leadership when facing challenges? (A) Ensuring that mistakes are never made (B) Allowing leaders to recover quickly from setbacks (C) Avoiding difficult situations (D) Delegating all decisions to others",
+            "27. Which of the following techniques is most effective for stimulating creativity in problem solving? (A) Brainstorming with diverse team members (B) Limiting input to only top management (C) Following a rigid decision making process (D) Adhering strictly to industry norms",
+            "28. Why is it important for leaders to embrace innovation in their organizations? (A) To maintain current market position (B) To prevent the need for training and development (C) To stay competitive and adapt to changing market conditions (D) To avoid changes in company operations",
+            "29. Which of the following best describes the concept of \"adaptive leadership\"? (A) Focusing only on shortterm goals (B) Rigid adherence to established procedures (C) Adjusting leadership styles to meet the needs of different situations (D) Avoiding feedback from employees",
+            "30. How can leaders effectively encourage innovation in their teams? (A) By limiting resources and time for creative projects (B) By promoting a culture that rewards experimentation and learning from failure (C) By discouraging collaboration to reduce conflicts (D) By focusing only on immediate tasks and ignoring future challenges",
+            "31. Which of the following is a primary reason for pursuing self-employment? (A) Guaranteed income (B) Desire for autonomy and control over one's work (C) Limited work hours (D) Lack of skills for traditional employment",
+            "32. What is the purpose of a feasibility study in the context of starting a business? (A) To determine the legality of a business idea (B) To assess the practicality and viability of a business idea before implementation (C) To finalize marketing strategies (D) To hire employees",
+            "33. Which of the following is a common source of raising capital for a new business? (A) Personal savings (B) Competitor funding (C) Customer deposits (D) Employee salaries",
+            "34. What is the main objective of financial planning in a startup? (A) To avoid paying taxes (B) To allocate resources effectively to achieve business goals (C) To limit business growth (D) To avoid financial risk entirely",
+            "35. Which of the following is an example of a self-employment opportunity? (A) Government employment (B) Freelancing in graphic design (C) Working in a large corporation (D) Being a fulltime student",
+            "36. Why is it important to conduct a market analysis as part of a feasibility study? (A) To determine employee salaries (B) To understand the demand and competition for the product or service (C) To avoid paying for advertising (D) To finalize the product design",
+            "37. Which financial document is essential for planning and tracking a business's income and expenses? (A) Marketing plan (B) Income statement (C) Vision statement (D) Organizational chart",
+            "38. What role does a business plan play in raising capital? (A) It serves as a tool for securing funding by outlining the business strategy and financial projections (B) It helps avoid the need for capital (C) It limits the amount of capital needed (D) It guarantees success",
+            "39. Which of the following best describes \"bootstrapping\" in the context of self-employment? (A) Starting a business with external investment (B) Using personal finances and resources to start and grow a business without outside help (C) Borrowing large sums of money from banks (D) Partnering with large corporations for funding",
+            "40. What is the primary purpose of conducting a breakeven analysis in financial planning? (A) To determine the price at which a product should be sold (B) To identify the point at which total revenues equal total costs, indicating no profit or loss (C) To set long term financial goal (D) To calculate employee bonuses",
+            "41. Which of the following is a legal requirement for starting a business in most jurisdictions? (A) Filing for intellectual property protection (B) Registering the business with local authorities (C) Obtaining international trademarks (D) Hiring a legal advisor",
+            "42. What is the primary purpose of business insurance? (A) To avoid paying taxes (B) To provide financial protection against specific risks and liabilities (C) To increase the company's profit margin (D) To fund employee bonuses",
+            "43. Which of the following is an example of a legal issue that a business may face? (A) Product development (B) Breach of contract (C) Marketing strategy (D) Employee training",
+            "44. What does the term \"liability insurance\" refer to? (A) Insurance that covers damage to business property (B) Insurance that protects a business against claims resulting from injuries and damage to people or property (C) Insurance that guarantees business success (D) Insurance that covers employee health benefit",
+            "45. Which environmental consideration is most critical for a manufacturing business (A) Reducing the cost of raw materials (B) Minimizing waste and emissions to comply with environmental regulations (C) Increasing product output (D) Hiring more employees",
+            "46. What is the role of environmental impact assessments (EIAs) in business operations? (A) To assess employee productivity (B) To evaluate the potential environmental effects of a project before it is carried out (C) To determine the financial viability of a business (D) To increase market share",
+            "47. Which of the following best describes a contract? (A) A verbal agreement between two parties (B) A legally binding written or spoken agreement enforceable by law (C) An informal promise between friends (D) A memorandum of understanding without legal obligation",
+            "48. Why is it important for a business to comply with environmental regulations? (A) To reduce operational costs (B) To avoid legal penalties and promote sustainability (C) To eliminate competition (D) To increase production speed",
+            "49. Which type of insurance is essential for protecting a business from property damage caused by natural disasters? (A) Life insurance (B) Property insurance (C) Liability insurance (D) Health insurance",
+            "50. What is the significance of intellectual property (IP) rights in a business? (A) To limit business expansion (B) To protect a business's inventions, designs, and trademarks from unauthorized use by others (C) To reduce employee turnover (D) To increase the cost of production",
+            "51. Which of the following is a key function of management (A) Networking (B) Planning and organizing resources (C) Socializing with employees (D) Minimizing work hours",
+            "52. What does effective time management in the workplace help to achieve (A) Increased workload (B) Enhanced productivity and efficiency (C) Reduced project deadlines (D) More leisure time at work",
+            "53. Which of the following is an essential employability skill? (A) Memorizing all company policies (B) Effective communication and teamwork (C) Strictly following orders without question (D) Avoiding additional responsibilities",
+            "54. Which management style involves making decisions without consulting others (A) Participative management (B) Authoritarian management (C) Delegative management (D) Collaborative management",
+            "55. What is the primary purpose of performance appraisals in management? (A) To reduce employee salaries (B) To evaluate and provide feedback on employee performance (C) To enforce strict discipline (D) To allocate vacation days",
+            "56. Which of the following is a critical aspect of leadership in management? (A) Delegating all tasks to others (B) Inspiring and motivating team members towards achieving goals (C) Avoiding conflicts at all costs (D) Focusing only on short term objectives",
+            "57. What does the term \"emotional intelligence\" refer to in the context of employability skills? (A) The ability to control others' emotions (B) The capacity to be aware of, control, and express one's emotions, and handle interpersonal relationships judiciously and empathetically (C) The ability to ignore emotional situations (D) The skill of avoiding difficult conversations",
+            "58. Which of the following is a key benefit of developing strong problem solving skills? (A) Reducing the need for teamwork (B) Enhancing the ability to identify, analyze, and resolve issues effectively (C) Avoiding challenges in the workplace (D) Delegating all tasks to others",
+            "59. Why is adaptability considered an important employability skill? (A) It allows employees to resist change (B) It helps individuals adjust to new roles, responsibilities, and working environments (C) It reduces the need for training (D) It limits career growth opportunities",
+            "60. Which of the following best describes the concept of \"conflict resolution\" in management? (A) Ignoring conflicts in the workplace (B) The process of resolving disagreements or disputes between employees in a constructive manner (C) Using authority to suppress conflicts (D) Encouraging ongoing conflicts to maintain competitiveness",
+            "61. Which of the following best defines entrepreneurship? (A) Managing a nonprofit organization (B) The process of designing, launching, and running a new business, typically starting as a small business or startup (C) Working for a large corporation (D) Investing in the stock market",
+            "62. What is the primary motivation for most entrepreneurs (A) Guaranteed income (B) Desire to innovate and solve problems (C) Limited work hours (D) Job security",
+            "63. Which of the following is a key characteristic of a successful entrepreneur? (A) Risk aversion (B) Persistence and resilience (C) Dependence on others for decision making (D) Preference for routine tasks",
+            "64. What is the purpose of a business plan in entrepreneurship? (A) To secure employment for the entrepreneur (B) To outline the business goals, strategy, and financial projections (C) To avoid paying taxes (D) To limit business growth",
+            "65. Which of the following is a common challenge faced by entrepreneurs? (A) Guaranteed customer base (B) Financial risk and uncertainty (C) Lack of autonomy (D) Excessive regulation",
+            "66. Which of the following is a typical trait of an entrepreneurial mindset? (A) Resistance to change (B) Openness to new opportunities and continuous learning (C) Preference for a stable routine (D) Avoidance of responsibility",
+            "67. Which of the following funding options is commonly used by entrepreneurs to start a business? (A) Crowdfunding (B) Retirement funds (C) Government salaries (D) Competitor loans",
+            "68. What role does innovation play in entrepreneurship? (A) It is irrelevant to business success (B) It is central to creating unique products or services that meet market needs (C) It increases the cost of production (D) It limits business expansion",
+            "69. Which of the following best describes a startup? (A) A well established corporation (B) A newly established business in its early stages, often focused on a single innovative product or service (C) A nonprofit organization (D) A government agency",
+            "70. What is the significance of market research in the entrepreneurial process (A) To set high prices for products (B) To understand customer needs, preferences, and market trends (C) To eliminate competitors (D) To reduce production costs",
+            "71. The history of entrepreneurship can be traced to (a)pre-colonial (b) post-colonial (c) colonial era (d) authoritarian era",
+            "72. The discovery of oil in Nigeria is in what year? (a)1975 (b)1970 (c)2004 (d)1924",
+            "73. SAP means (a)structural Adjustment program (b)Settlement Adherence policy (c)simple attentive programmers (d)structured Adjustment program",
+            "74. SMEDAN means (a) Short and medium enterprise Agency of Nigeria(b)Short Midget Enterprise Division Agency of Nigeria(c)Strong measures enterprise Developing Agency of Nigeria Development (d)Small and Medium Enterprises Development Agency of Nigeria",
+            "75. NDE means (a) National Directorate of Entrepreneurship (b) National Efficiency Democracy (c)National Directorate of Employment (d)National Development Enterprise",
+            "76. is the ability to adjust (a)Resilience (b)Susceptibility (c)Determination (d)Adaptability",
+            "77. The following are examples of entrepreneurial skills except (a)feeding (b)Risk managements (c)networking skill (d)communication skill",
+            "78. One of these is an example of entrepreneurial skill (a) Conflict starter(b)peacekeeper (c)security management (d)financial skill",
+            "79. are basic steps used to transform new material to finished goods(a) Laboring (b)Extraction stage (c) Unit operation (d) Division",
+            "80. is the process of consciously planning and controlling time spent (a) Risk Management(b) Time consideration (c) Time management (d) Time observation",
+            "81. Filtration process is also known as (a) Addition (b) mixing (c) separation (d) marginalization",
+            "82. is a benefit of time management (a) Allowing teamwork to be effective (b) Reducing stress (c) Time consuming (d) Time management",
+            "83. The function of staffing belongs to the (a) Human resource management (b) Human power management (c) Individual personnel management (d) workers department",
+            "84. is the process of creating, communicating and discovering value (a) Financial planning (b) networking (c) Bank funding (d) marketing",
+            "85. The full meaning of HRM is (a) Human resource management (b) Human power management (c) Human repersonnel management (d) workers department",
+            "86. The most critical skill risk of an entrepreneur is (a) communicating skill (b) financial risk(c)Networking skill (d) development skill",
+            "87. The term used to classify a business venture from small scale and start up to large cooperation is (a) Enterprise (b) Enterprise creation (c) economy growth (d) policy skill",
+            "88. Self - employment involve (a) discovery of new business (b) organizing analysis trend(c) job employment for youth alone (d) Identifying viable business",
+            "89. The following are factors to be considered in self employment EXCEPT (a) Business ideas and opportunity (b) Economic abilities (c) Market research (d) Identify skills & interest",
+            "90. A person who works for someone else (a) Aptitude (b) Employee (c) Entrepreneurs (d) Entrepreneurship",
+            "91. organizations are not considered to be social ventures (a) large scale firm (b) Enterprise (c) government (d) non - government",
+            "92. Hybrid non-profit venture recovers a portion of its costs through of its goods or services (a) networking (b) Sales (c) communicating startegy (d) buying",
+            "93. The of business or social venture covers all the activities related to production and distribution of goods and services from production to the final consumers with an aim to earn profit (a) knowledge (b) level(c) mirage (d) Scope",
+            "94. refers to that part of business activities which is apprehensive with the extraction, production or fabrication of products (a) industry (b) firm(c) enterprise (d) partnership",
+            "95. Consumer goods are produced by an industry and are consumed by the final (a) eater receiver(b) wholesaler (c) retailer (d) Customers",
+            "96. Goods that are used for further production of wealth they are called producer 's or (a) Capital Goods (b) capitalist commodity (c) commodity",
+            "97. industries extract, raise or fabricate raw materials from above or beneath surface of the earth. (a) Extractive (b) escribe (C)Inducement (d) removal",
+            "98. sector is a very important component of business and it is concerned with the buying and selling of goods (a) subsistence(b) simple(c) Large (d) Commercial",
+            "99. Buying and selling of goods within the edge of a country is called (a) Internal trading(b) inter trading (c) physical trading (d) external trading",
+            "100. The risk of damage of goods due to fire, flood, earthquake or other causes is covered by (a) Regulated bodies (b) National emergency management agency(NEMA) (c)Insurance (d) LASEMA"
+        ];
+        
         // Color scheme handling
         document.addEventListener('DOMContentLoaded', function() {
+            // ENT211 Test Modal Functionality
+            const ent211Modal = document.getElementById('ent211-modal');
+            const startEnt211Btn = document.querySelector('.start-ent211-test');
+            const closeEnt211Modal = document.getElementById('close-ent211-modal');
+            const submitEnt211Test = document.getElementById('submit-ent211-test');
+            const ent211QuestionsContainer = document.getElementById('ent211-questions');
+            const prevPageBtn = document.getElementById('prev-page');
+            const nextPageBtn = document.getElementById('next-page');
+            const currentPageSpan = document.getElementById('current-page');
+            
+            let currentPage = 1;
+            const questionsPerPage = 10;
+            const totalPages = Math.ceil(ent211Questions.length / questionsPerPage);
+            
+            // Open ENT211 modal
+            startEnt211Btn.addEventListener('click', function() {
+                ent211Modal.style.display = 'block';
+                renderQuestions(currentPage);
+                updatePagination();
+            });
+            
+            // Close ENT211 modal
+            closeEnt211Modal.addEventListener('click', function() {
+                ent211Modal.style.display = 'none';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === ent211Modal) {
+                    ent211Modal.style.display = 'none';
+                }
+            });
+            
+            // Submit ENT211 test
+            submitEnt211Test.addEventListener('click', function() {
+                const selectedAnswers = document.querySelectorAll('.option-selected');
+                const score = Math.floor((selectedAnswers.length / ent211Questions.length) * 100);
+                
+                alert(`Test submitted!\n\nYou answered ${selectedAnswers.length} out of ${ent211Questions.length} questions.\nEstimated score: ${score}%\n\nNote: In a full implementation, this would be calculated based on correct answers.`);
+                ent211Modal.style.display = 'none';
+            });
+            
+            // Pagination
+            prevPageBtn.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderQuestions(currentPage);
+                    updatePagination();
+                }
+            });
+            
+            nextPageBtn.addEventListener('click', function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderQuestions(currentPage);
+                    updatePagination();
+                }
+            });
+            
+            // Function to render questions for a specific page
+            function renderQuestions(page) {
+                ent211QuestionsContainer.innerHTML = '';
+                const startIndex = (page - 1) * questionsPerPage;
+                const endIndex = Math.min(startIndex + questionsPerPage, ent211Questions.length);
+                
+                for (let i = startIndex; i < endIndex; i++) {
+                    const question = ent211Questions[i];
+                    
+                    // Parse question text and options
+                    const questionText = question.substring(question.indexOf('. ') + 2);
+                    const questionNumber = i + 1;
+                    
+                    // Create question element
+                    const questionElement = document.createElement('div');
+                    questionElement.className = 'question-item';
+                    
+                    // Add question number and text
+                    questionElement.innerHTML = `
+                        <div class="question-number">Question ${questionNumber}</div>
+                        <div class="question-text">${questionText}</div>
+                        <div class="options-list">
+                            ${renderOptions(question, questionNumber)}
+                        </div>
+                    `;
+                    
+                    ent211QuestionsContainer.appendChild(questionElement);
+                }
+                
+                // Add event listeners to options
+                document.querySelectorAll('.option-item').forEach(option => {
+                    option.addEventListener('click', function() {
+                        const questionNum = this.getAttribute('data-question');
+                        const optionValue = this.getAttribute('data-option');
+                        
+                        // Remove selected class from all options in this question
+                        document.querySelectorAll(`.option-item[data-question="${questionNum}"]`).forEach(opt => {
+                            opt.classList.remove('option-selected');
+                        });
+                        
+                        // Add selected class to clicked option
+                        this.classList.add('option-selected');
+                    });
+                });
+            }
+            
+            // Function to render options for a question
+            function renderOptions(question, questionNumber) {
+                let optionsHTML = '';
+                
+                // Extract options from question text
+                // This is a simplified parser - assumes options are in format (A)... (B)... etc.
+                const optionMatches = question.match(/\([A-Da-d]\)[^\(\)]*/g);
+                
+                if (optionMatches) {
+                    optionMatches.forEach(match => {
+                        const optionLetter = match.substring(1, 2);
+                        const optionText = match.substring(3).trim();
+                        
+                        optionsHTML += `
+                            <div class="option-item" data-question="${questionNumber}" data-option="${optionLetter}">
+                                <strong>${optionLetter}.</strong> ${optionText}
+                            </div>
+                        `;
+                    });
+                } else {
+                    // For questions that don't follow the standard format
+                    optionsHTML += `
+                        <div class="option-item" data-question="${questionNumber}" data-option="A">
+                            <strong>A.</strong> Select this as your answer
+                        </div>
+                    `;
+                }
+                
+                return optionsHTML;
+            }
+            
+            // Function to update pagination buttons
+            function updatePagination() {
+                currentPageSpan.textContent = currentPage;
+                prevPageBtn.disabled = currentPage === 1;
+                nextPageBtn.disabled = currentPage === totalPages;
+            }
+            
             // Theme color selection
             const themeColors = document.querySelectorAll('.theme-color');
             
@@ -599,7 +1079,7 @@
                 });
             });
             
-            // Test start buttons
+            // Test start buttons (other tests)
             const startButtons = document.querySelectorAll('.btn-primary:not(.btn-small)');
             
             startButtons.forEach(button => {
@@ -649,4 +1129,4 @@
         });
     </script>
 </body>
-</html>
+    </html>
