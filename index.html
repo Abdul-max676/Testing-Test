@@ -1,1956 +1,374 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Academic Test Portal</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-dark: #430007;
-            --primary-light: #F5E3C9;
-            --secondary-dark: #2a0005;
-            --secondary-light: #f8eed8;
-            --accent: #8a1c1c;
-            --text-dark: #333333;
-            --text-light: #5c5c5c;
-            --success: #2e7d32;
-            --warning: #f57c00;
-            --shadow: 0 4px 12px rgba(67, 0, 7, 0.15);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        body {
-            background-color: var(--primary-light);
-            color: var(--text-dark);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-            width: 100%;
-        }
-        
-        /* Header */
-        header {
-            background-color: var(--primary-dark);
-            color: var(--primary-light);
-            padding: 15px 0;
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .logo i {
-            font-size: 1.8rem;
-            color: var(--primary-light);
-        }
-        
-        .logo h1 {
-            font-size: 1.4rem;
-            font-weight: 700;
-        }
-        
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .avatar {
-            width: 40px;
-            height: 40px;
-            background-color: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-        
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--primary-light);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        /* Main Layout */
-        .main-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 25px;
-            padding: 25px 0;
-        }
-        
-        /* Cards */
-        .card {
-            background-color: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: var(--shadow);
-            margin-bottom: 20px;
-            border-left: 5px solid var(--primary-dark);
-        }
-        
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 18px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--secondary-light);
-        }
-        
-        .card-title {
-            font-size: 1.4rem;
-            color: var(--primary-dark);
-            font-weight: 700;
-        }
-        
-        /* Tests Section */
-        .tests-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 18px;
-        }
-        
-        .test-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 18px;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            border-top: 4px solid var(--primary-dark);
-        }
-        
-        .test-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(67, 0, 7, 0.15);
-        }
-        
-        .test-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 12px;
-        }
-        
-        .test-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-        }
-        
-        .test-meta {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-        }
-        
-        .test-tag {
-            background-color: var(--secondary-light);
-            color: var(--primary-dark);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .test-desc {
-            color: var(--text-light);
-            margin-bottom: 18px;
-            font-size: 0.9rem;
-        }
-        
-        .test-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        /* Buttons */
-        .btn {
-            padding: 10px 18px;
-            border-radius: 6px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.95rem;
-            touch-action: manipulation;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary-dark);
-            color: var(--primary-light);
-        }
-        
-        .btn-primary:hover, .btn-primary:active {
-            background-color: var(--secondary-dark);
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            color: var(--primary-dark);
-            border: 2px solid var(--primary-dark);
-        }
-        
-        .btn-outline:hover, .btn-outline:active {
-            background-color: var(--primary-dark);
-            color: var(--primary-light);
-        }
-        
-        .btn-small {
-            padding: 7px 14px;
-            font-size: 0.85rem;
-        }
-        
-        .btn-icon {
-            padding: 8px 12px;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            justify-content: center;
-        }
-        
-        /* Results Section */
-        .result-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--secondary-light);
-        }
-        
-        .result-item:last-child {
-            border-bottom: none;
-        }
-        
-        .result-info h4 {
-            font-size: 1rem;
-            margin-bottom: 4px;
-            color: var(--primary-dark);
-        }
-        
-        .result-meta {
-            display: flex;
-            gap: 12px;
-            font-size: 0.85rem;
-            color: var(--text-light);
-        }
-        
-        .score {
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--success);
-        }
-        
-        /* Progress Bars */
-        .progress-container {
-            margin-top: 18px;
-        }
-        
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-        
-        .progress-bar {
-            height: 8px;
-            background-color: var(--secondary-light);
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background-color: var(--primary-dark);
-            border-radius: 5px;
-        }
-        
-        /* Customization */
-        .theme-options {
-            display: flex;
-            gap: 12px;
-            margin-top: 12px;
-        }
-        
-        .theme-color {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 3px solid transparent;
-            transition: all 0.3s ease;
-        }
-        
-        .theme-color.active {
-            border-color: var(--accent);
-        }
-        
-        .theme-color.primary {
-            background-color: var(--primary-dark);
-        }
-        
-        .theme-color.secondary {
-            background-color: var(--primary-light);
-        }
-        
-        .toggle-switch {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-        
-        /* Modal Styles */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .modal-content {
-            background-color: white;
-            margin: 20px auto;
-            padding: 20px;
-            border-radius: 12px;
-            max-width: 95%;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--primary-dark);
-        }
-        
-        .modal-title {
-            font-size: 1.5rem;
-            color: var(--primary-dark);
-            font-weight: 700;
-        }
-        
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            color: var(--primary-dark);
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-        
-        .close-modal:hover, .close-modal:active {
-            background-color: var(--secondary-light);
-        }
-        
-        .test-info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: var(--secondary-light);
-            border-radius: 8px;
-        }
-        
-        .question-counter {
-            font-weight: 600;
-            color: var(--primary-dark);
-        }
-        
-        .question-list {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            margin-bottom: 25px;
-        }
-        
-        .question-item {
-            padding: 18px;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            border-left: 4px solid var(--primary-dark);
-        }
-        
-        .question-number {
-            font-weight: 700;
-            color: var(--primary-dark);
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-        }
-        
-        .question-text {
-            margin-bottom: 15px;
-            line-height: 1.5;
-            font-size: 1.05rem;
-        }
-        
-        .options-list {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-        
-        .option-item {
-            padding: 12px 15px;
-            background-color: white;
-            border-radius: 6px;
-            border: 1px solid #ddd;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
-            font-size: 1rem;
-        }
-        
-        .option-item:hover, .option-item:active {
-            background-color: var(--secondary-light);
-            border-color: var(--primary-dark);
-        }
-        
-        .option-selected {
-            background-color: var(--primary-light);
-            border-color: var(--primary-dark);
-            font-weight: 600;
-        }
-        
-        .option-correct {
-            background-color: rgba(46, 125, 50, 0.15);
-            border-color: var(--success);
-        }
-        
-        .option-incorrect {
-            background-color: rgba(244, 67, 54, 0.15);
-            border-color: #f44336;
-        }
-        
-        .answer-feedback {
-            padding: 12px 15px;
-            border-radius: 6px;
-            margin-top: 12px;
-            font-size: 0.95rem;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .feedback-correct {
-            background-color: rgba(46, 125, 50, 0.1);
-            border-left: 4px solid var(--success);
-            color: #1b5e20;
-        }
-        
-        .feedback-incorrect {
-            background-color: rgba(244, 67, 54, 0.1);
-            border-left: 4px solid #f44336;
-            color: #c62828;
-        }
-        
-        .feedback-text {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .feedback-text i {
-            font-size: 1.1rem;
-        }
-        
-        .correct-indicator {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--success);
-            font-weight: bold;
-        }
-        
-        .incorrect-indicator {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #f44336;
-            font-weight: bold;
-        }
-        
-        .modal-actions {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 15px;
-            margin-top: 25px;
-            padding-top: 18px;
-            border-top: 1px solid #ddd;
-        }
-        
-        .pagination {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        
-        .page-btn {
-            padding: 8px 15px;
-            background-color: var(--primary-dark);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
-        }
-        
-        .page-btn:hover:not(:disabled), .page-btn:active:not(:disabled) {
-            background-color: var(--secondary-dark);
-        }
-        
-        .page-btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        
-        .page-indicator {
-            font-weight: 600;
-            color: var(--primary-dark);
-            font-size: 0.95rem;
-        }
-        
-        .results-summary {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: var(--secondary-light);
-            border-radius: 8px;
-            display: none;
-        }
-        
-        .score-display {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-            text-align: center;
-            margin-bottom: 12px;
-        }
-        
-        .correct-count {
-            color: var(--success);
-        }
-        
-        .incorrect-count {
-            color: #f44336;
-        }
-        
-        .review-btn {
-            margin-top: 10px;
-            width: 100%;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--primary-dark);
-            color: var(--primary-light);
-            padding: 18px 0;
-            margin-top: 35px;
-            text-align: center;
-        }
-        
-        /* Mobile Responsive Styles */
-        @media (max-width: 992px) {
-            .main-content {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .tests-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 15px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .header-content {
-                gap: 15px;
-            }
-            
-            .logo h1 {
-                font-size: 1.3rem;
-            }
-            
-            .user-info span {
-                display: none;
-            }
-            
-            .main-content {
-                padding: 20px 0;
-            }
-            
-            .card {
-                padding: 18px;
-            }
-            
-            .card-title {
-                font-size: 1.3rem;
-            }
-            
-            .tests-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .test-card {
-                padding: 16px;
-            }
-            
-            .modal-content {
-                padding: 18px;
-                width: 98%;
-                margin: 10px auto;
-                max-height: 95vh;
-            }
-            
-            .modal-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
-            }
-            
-            .modal-title {
-                font-size: 1.4rem;
-            }
-            
-            .test-info {
-                flex-direction: column;
-                gap: 10px;
-                padding: 12px;
-            }
-            
-            .question-item {
-                padding: 16px;
-            }
-            
-            .option-item {
-                padding: 14px 12px;
-                font-size: 1rem;
-            }
-            
-            .modal-actions {
-                flex-direction: column;
-                gap: 12px;
-            }
-            
-            .pagination {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .btn {
-                padding: 12px 20px;
-                font-size: 1rem;
-            }
-            
-            /* Mobile swipe gestures for questions */
-            .question-nav {
-                display: flex;
-                justify-content: space-between;
-                margin-top: 20px;
-            }
-            
-            .swipe-hint {
-                text-align: center;
-                color: var(--text-light);
-                font-size: 0.9rem;
-                margin-top: 10px;
-                display: none;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 12px;
-            }
-            
-            .logo h1 {
-                font-size: 1.2rem;
-            }
-            
-            .card {
-                padding: 16px;
-            }
-            
-            .card-title {
-                font-size: 1.2rem;
-            }
-            
-            .test-title {
-                font-size: 1.05rem;
-            }
-            
-            .test-desc {
-                font-size: 0.9rem;
-            }
-            
-            .btn {
-                padding: 10px 16px;
-                font-size: 0.95rem;
-            }
-            
-            .btn-small {
-                padding: 6px 12px;
-                font-size: 0.85rem;
-            }
-            
-            .modal-title {
-                font-size: 1.3rem;
-            }
-            
-            .question-text {
-                font-size: 1rem;
-            }
-            
-            .option-item {
-                padding: 12px 10px;
-                font-size: 0.95rem;
-            }
-            
-            .page-btn {
-                padding: 8px 12px;
-                font-size: 0.9rem;
-            }
-            
-            .result-info h4 {
-                font-size: 0.95rem;
-            }
-            
-            .score {
-                font-size: 1.1rem;
-            }
-        }
-        
-        /* Touch device optimizations */
-        @media (hover: none) and (pointer: coarse) {
-            .test-card:hover {
-                transform: none;
-            }
-            
-            .btn:hover, .btn-primary:hover, .btn-outline:hover {
-                transform: scale(0.98);
-            }
-            
-            .option-item {
-                min-height: 48px;
-                display: flex;
-                align-items: center;
-            }
-            
-            /* Larger touch targets */
-            .btn, .page-btn, .close-modal, .theme-color {
-                min-height: 44px;
-                min-width: 44px;
-            }
-        }
-        
-        /* Dark mode support */
-        @media (prefers-color-scheme: dark) {
-            .card, .test-card, .modal-content, .option-item {
-                background-color: #2a2a2a;
-                color: #f0f0f0;
-            }
-            
-            .question-item {
-                background-color: #333333;
-            }
-            
-            .option-item {
-                border-color: #444;
-            }
-            
-            .test-desc, .result-meta {
-                color: #bbb;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <i class="fas fa-graduation-cap"></i>
-                <h1>Academic Test Portal</h1>
-            </div>
-            <button class="mobile-menu-btn" id="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="user-info">
-                <span>Welcome, <strong>Alex Johnson</strong></span>
-                <div class="avatar">AJ</div>
-            </div>
-        </div>
-    </header>
-    
-    <div class="container">
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Left Column -->
-            <div class="left-column">
-                <!-- Available Tests -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Available Tests</h2>
-                        <button class="btn btn-primary btn-small">
-                            <i class="fas fa-plus"></i> Create
-                        </button>
-                    </div>
-                    
-                    <div class="tests-grid">
-                        <!-- ENT211 Test -->
-                        <div class="test-card">
-                            <div class="test-header">
-                                <h3 class="test-title">ENT211 - Introduction to Entrepreneurship</h3>
-                                <div class="test-tag">100 Questions</div>
-                            </div>
-                            <div class="test-meta">
-                                <span class="test-tag">ENT211</span>
-                                <span class="test-tag">Business</span>
-                                <span class="test-tag">Graded</span>
-                            </div>
-                            <p class="test-desc">Complete 100-question exam on entrepreneurship fundamentals, business planning, and entrepreneurial skills.</p>
-                            <div class="test-actions">
-                                <button class="btn btn-primary btn-small start-ent211-test">
-                                    <i class="fas fa-play"></i> Start
-                                </button>
-                                <button class="btn btn-outline btn-small">
-                                    <i class="fas fa-random"></i> Shuffle
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Test 1 -->
-                        <div class="test-card">
-                            <div class="test-header">
-                                <h3 class="test-title">General Knowledge Quiz</h3>
-                                <div class="test-tag">15 Questions</div>
-                            </div>
-                            <div class="test-meta">
-                                <span class="test-tag">General</span>
-                            </div>
-                            <p class="test-desc">Test your knowledge on various topics including history, science, and geography.</p>
-                            <div class="test-actions">
-                                <button class="btn btn-primary btn-small start-sample-test" data-test="general">
-                                    <i class="fas fa-play"></i> Start
-                                </button>
-                                <button class="btn btn-outline btn-small">
-                                    <i class="fas fa-random"></i> Shuffle
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Test 2 -->
-                        <div class="test-card">
-                            <div class="test-header">
-                                <h3 class="test-title">GST 212 - Logic & Reasoning</h3>
-                                <div class="test-tag">50 Questions</div>
-                            </div>
-                            <div class="test-meta">
-                                <span class="test-tag">GST 212</span>
-                                <span class="test-tag">Logic</span>
-                                <span class="test-tag">Graded</span>
-                            </div>
-                            <p class="test-desc">Complete 50-question exam on Logic and Reasoning based on GST 212 curriculum.</p>
-                            <div class="test-actions">
-                                <button class="btn btn-primary btn-small start-sample-test" data-test="logic">
-                                    <i class="fas fa-play"></i> Start
-                                </button>
-                                <button class="btn btn-outline btn-small">
-                                    <i class="fas fa-random"></i> Shuffle
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Test 3 -->
-                        <div class="test-card">
-                            <div class="test-header">
-                                <h3 class="test-title">COS 211 - Java Programming</h3>
-                                <div class="test-tag">50 Questions</div>
-                            </div>
-                            <div class="test-meta">
-                                <span class="test-tag">COS 211</span>
-                                <span class="test-tag">Coding</span>
-                                <span class="test-tag">Graded</span>
-                            </div>
-                            <p class="test-desc">Complete 50-question exam on Java Programming fundamentals and concepts.</p>
-                            <div class="test-actions">
-                                <button class="btn btn-primary btn-small start-sample-test" data-test="java">
-                                    <i class="fas fa-play"></i> Start
-                                </button>
-                                <button class="btn btn-outline btn-small">
-                                    <i class="fas fa-random"></i> Shuffle
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Right Column -->
-            <div class="right-column">
-                <!-- Test Results -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Recent Test Results</h2>
-                    </div>
-                    
-                    <div class="result-item">
-                        <div class="result-info">
-                            <h4>General Knowledge Quiz</h4>
-                            <div class="result-meta">
-                                <span>15 Questions</span>
-                                <span>2023-10-15</span>
-                            </div>
-                        </div>
-                        <div class="score">80%</div>
-                    </div>
-                    
-                    <div class="result-item">
-                        <div class="result-info">
-                            <h4>GST 212 - Logic & Reasoning</h4>
-                            <div class="result-meta">
-                                <span>50 Questions</span>
-                                <span>2023-10-10</span>
-                            </div>
-                        </div>
-                        <div class="score">85%</div>
-                    </div>
-                    
-                    <div class="result-item">
-                        <div class="result-info">
-                            <h4>COS 211 - Java Programming</h4>
-                            <div class="result-meta">
-                                <span>50 Questions</span>
-                                <span>2023-10-05</span>
-                            </div>
-                        </div>
-                        <div class="score">72%</div>
-                    </div>
-                    
-                    <div class="result-item">
-                        <div class="result-info">
-                            <h4>Philosophy Fundamentals</h4>
-                            <div class="result-meta">
-                                <span>30 Questions</span>
-                                <span>2023-09-28</span>
-                            </div>
-                        </div>
-                        <div class="score">88%</div>
-                    </div>
-                    
-                    <div class="progress-container">
-                        <div class="progress-label">
-                            <span>Overall Performance</span>
-                            <span>81%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 81%"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Customization -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Portal Customization</h2>
-                    </div>
-                    
-                    <div class="toggle-switch">
-                        <span>Show Timer During Tests</span>
-                        <label class="switch">
-                            <input type="checkbox" checked id="timer-toggle">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    
-                    <div class="toggle-switch">
-                        <span>Instant Feedback</span>
-                        <label class="switch">
-                            <input type="checkbox" checked id="feedback-toggle">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    
-                    <div class="toggle-switch">
-                        <span>Auto-Next Question</span>
-                        <label class="switch">
-                            <input type="checkbox" id="auto-next-toggle">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    
-                    <p style="margin-top: 15px; font-size: 0.95rem; color: var(--text-light);">
-                        <i class="fas fa-palette" style="margin-right: 8px;"></i>
-                        Theme Colors
-                    </p>
-                    <div class="theme-options">
-                        <div class="theme-color primary active" title="Primary Color (#430007)"></div>
-                        <div class="theme-color secondary" title="Secondary Color (#F5E3C9)"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- ENT211 Test Modal -->
-    <div class="modal-overlay" id="ent211-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">ENT211 - Introduction to Entrepreneurship</h2>
-                <button class="close-modal" id="close-ent211-modal">&times;</button>
-            </div>
-            
-            <div class="test-info">
-                <div class="question-counter">Total: 100 Questions</div>
-                <div>Time Limit: 120 minutes</div>
-                <div>Graded Test</div>
-            </div>
-            
-            <div class="question-list" id="ent211-questions">
-                <!-- Questions will be dynamically inserted here -->
-            </div>
-            
-            <div class="results-summary" id="results-summary">
-                <div class="score-display">
-                    Your Score: <span id="final-score">0</span>%
-                </div>
-                <div style="text-align: center; margin-bottom: 15px;">
-                    <span class="correct-count" id="correct-count">0</span> correct answers out of 100
-                </div>
-                <button class="btn btn-primary review-btn" id="review-answers">
-                    <i class="fas fa-eye"></i> Review Answers
-                </button>
-            </div>
-            
-            <div class="modal-actions">
-                <div class="pagination">
-                    <button class="page-btn" id="prev-page">Previous</button>
-                    <span class="page-indicator">Page <span id="current-page">1</span> of 10</span>
-                    <button class="page-btn" id="next-page">Next</button>
-                </div>
-                <button class="btn btn-primary" id="submit-ent211-test">
-                    <i class="fas fa-paper-plane"></i> Submit Test
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Sample Test Modal -->
-    <div class="modal-overlay" id="sample-test-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="sample-test-title">Sample Test</h2>
-                <button class="close-modal" id="close-sample-modal">&times;</button>
-            </div>
-            
-            <div class="test-info">
-                <div class="question-counter" id="sample-question-counter">Total: 5 Questions</div>
-                <div>Practice Test</div>
-                <div>Instant Feedback: <span id="feedback-status">Enabled</span></div>
-            </div>
-            
-            <div class="question-list" id="sample-questions">
-                <!-- Sample questions will be dynamically inserted here -->
-            </div>
-            
-            <div class="results-summary" id="sample-results-summary">
-                <div class="score-display">
-                    Your Score: <span id="sample-final-score">0</span>%
-                </div>
-                <div style="text-align: center; margin-bottom: 15px;">
-                    <span class="correct-count" id="sample-correct-count">0</span> correct answers
-                </div>
-            </div>
-            
-            <div class="modal-actions">
-                <div class="pagination">
-                    <button class="page-btn" id="sample-prev-page">Previous</button>
-                    <span class="page-indicator">Question <span id="sample-current-question">1</span> of <span id="sample-total-questions">5</span></span>
-                    <button class="page-btn" id="sample-next-page">Next</button>
-                </div>
-                <button class="btn btn-primary" id="submit-sample-test">
-                    <i class="fas fa-paper-plane"></i> Submit Test
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>Academic Test Portal &copy; 2023 | Designed for Educational Purposes</p>
-            <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
-                <i class="fas fa-mobile-alt"></i> Optimized for mobile devices
-            </p>
-        </div>
-    </footer>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Student Practice Portal</title>
 
-    <script>
-        // ENT211 Test Questions Data with Correct Answers
-        const ent211Questions = [
-            { 
-                question: "1. Which of the following is a key characteristic of a successful entrepreneur? (A)Risk aversion (B) Creativity (C) Dependence on others (D) Lack of vision",
-                correctAnswer: "B",
-                explanation: "Creativity is essential for entrepreneurs to develop innovative solutions and business ideas."
-            },
-            { 
-                question: "2. What is the primary purpose of a business plan? (A)To secure a loan (B) To outline the business idea and strategy (C) To avoid competition (D) To hire employees",
-                correctAnswer: "B",
-                explanation: "A business plan outlines the business idea, strategy, market analysis, and financial projections."
-            },
-            { 
-                question: "3. Which financial statement shows the company's revenues and expenses? (A)Balance Sheet (B) Cash Flow Statement (C) Income Statement (D) Statement of Retained Earnings",
-                correctAnswer: "C",
-                explanation: "The income statement shows revenues and expenses over a specific period to determine profitability."
-            },
-            { 
-                question: "4. Which of the following is an example of bootstrapping in business? (A)Using personal savings to fund the business (B) Raising capital through venture capitalists (C) Taking out a bank loan (D) Issuing company shares",
-                correctAnswer: "A",
-                explanation: "Bootstrapping means using personal finances and resources to start a business without external funding."
-            },
-            { 
-                question: "5. What does the term \"scalability\" refer to in a business context? (A)The ability to enter new markets (B) The capacity to grow and handle increased demand (C) The process of creating a business plan (D) The reduction of costs over time",
-                correctAnswer: "B",
-                explanation: "Scalability refers to a business's ability to grow and handle increased demand without proportional cost increases."
-            },
-            // Additional questions would follow the same pattern...
-            // For brevity, I'll include a few more examples
-            { 
-                question: "6. Which of the following is a method for entrepreneurs to manage risk? (A)Ignoring market research (B) Diversifying their investment portfolio (C) Focusing on a single product line (D) Avoiding competition",
-                correctAnswer: "B",
-                explanation: "Diversification helps spread risk across different investments or product lines."
-            },
-            { 
-                question: "7. Which of the following best describes a Minimum Viable Product (MVP)? (A)A fully developed product ready for mass production (B) A product with the minimum features needed to satisfy early customers and provide feedback (C) The least expensive version of a product (D) A product that is ready for global expansion",
-                correctAnswer: "B",
-                explanation: "An MVP has just enough features to satisfy early customers and gather feedback for future development."
-            },
-            { 
-                question: "8. What is the main advantage of forming strategic partnerships in entrepreneurship? (A)Reducing taxes (B) Gaining access to new markets and resources (C) Eliminating competition (D) Hiring more employees",
-                correctAnswer: "B",
-                explanation: "Strategic partnerships provide access to new markets, resources, expertise, and customer bases."
-            },
-            { 
-                question: "9. Which of the following is a key element of effective networking for entrepreneurs? (A)Quantity of connections (B) Quality and relevance of relationships (C) Avoiding social media (D) Attending every industry event",
-                correctAnswer: "B",
-                explanation: "Quality relationships with relevant contacts are more valuable than a large number of superficial connections."
-            },
-            { 
-                question: "10. Which of the following funding options involves raising small amounts of money from a large number of people? (A)Crowdfunding (B) Angel investment (C) Venture capital (D) Bank loans",
-                correctAnswer: "A",
-                explanation: "Crowdfunding involves raising small amounts of money from many people, typically via online platforms."
-            }
-            // The remaining 90 questions would follow the same pattern
-        ];
-        
-        // Sample test questions for other tests
-        const sampleTests = {
-            general: [
-                {
-                    question: "What is the capital of France? (A) London (B) Berlin (C) Paris (D) Madrid",
-                    correctAnswer: "C",
-                    explanation: "Paris is the capital and most populous city of France."
-                },
-                {
-                    question: "Which planet is known as the Red Planet? (A) Venus (B) Mars (C) Jupiter (D) Saturn",
-                    correctAnswer: "B",
-                    explanation: "Mars is often called the Red Planet due to its reddish appearance."
-                },
-                {
-                    question: "Who painted the Mona Lisa? (A) Vincent van Gogh (B) Leonardo da Vinci (C) Pablo Picasso (D) Michelangelo",
-                    correctAnswer: "B",
-                    explanation: "The Mona Lisa was painted by Italian artist Leonardo da Vinci."
-                },
-                {
-                    question: "What is the largest ocean on Earth? (A) Atlantic Ocean (B) Indian Ocean (C) Arctic Ocean (D) Pacific Ocean",
-                    correctAnswer: "D",
-                    explanation: "The Pacific Ocean is the largest and deepest of Earth's oceanic divisions."
-                },
-                {
-                    question: "Which element has the chemical symbol 'O'? (A) Gold (B) Oxygen (C) Osmium (D) Oganesson",
-                    correctAnswer: "B",
-                    explanation: "Oxygen is a chemical element with symbol O and atomic number 8."
-                }
-            ],
-            logic: [
-                {
-                    question: "If all cats are mammals, and some mammals are pets, which statement must be true? (A) All cats are pets (B) Some cats are pets (C) No cats are pets (D) All pets are cats",
-                    correctAnswer: "B",
-                    explanation: "Since all cats are mammals and some mammals are pets, it follows that some cats are pets."
-                },
-                {
-                    question: "What comes next in the sequence: 2, 4, 8, 16, ___? (A) 24 (B) 32 (C) 20 (D) 18",
-                    correctAnswer: "B",
-                    explanation: "Each number is multiplied by 2: 2×2=4, 4×2=8, 8×2=16, 16×2=32."
-                },
-                {
-                    question: "If A is taller than B, and B is taller than C, who is the shortest? (A) A (B) B (C) C (D) Cannot determine",
-                    correctAnswer: "C",
-                    explanation: "If A > B and B > C, then A > B > C, so C is the shortest."
-                },
-                {
-                    question: "Which shape does not belong? (A) Square (B) Circle (C) Triangle (D) Rectangle",
-                    correctAnswer: "B",
-                    explanation: "Circle is the only shape without straight edges or corners."
-                },
-                {
-                    question: "If today is Monday, what day will it be in 72 hours? (A) Monday (B) Tuesday (C) Thursday (D) Friday",
-                    correctAnswer: "C",
-                    explanation: "72 hours = 3 days. Monday + 3 days = Thursday."
-                }
-            ],
-            java: [
-                {
-                    question: "Which keyword is used to define a class in Java? (A) class (B) define (C) struct (D) object",
-                    correctAnswer: "A",
-                    explanation: "The 'class' keyword is used to define a class in Java."
-                },
-                {
-                    question: "What is the default value of a boolean variable in Java? (A) true (B) false (C) 0 (D) null",
-                    correctAnswer: "B",
-                    explanation: "The default value of a boolean variable in Java is false."
-                },
-                {
-                    question: "Which method is the entry point for a Java application? (A) init() (B) start() (C) main() (D) run()",
-                    correctAnswer: "C",
-                    explanation: "The main() method is the entry point for any Java application."
-                },
-                {
-                    question: "Which of these is not a primitive data type in Java? (A) int (B) float (C) String (D) boolean",
-                    correctAnswer: "C",
-                    explanation: "String is a class, not a primitive data type in Java."
-                },
-                {
-                    question: "What does JVM stand for? (A) Java Virtual Machine (B) Java Variable Method (C) Java Verified Module (D) Java Visual Manager",
-                    correctAnswer: "A",
-                    explanation: "JVM stands for Java Virtual Machine, which executes Java bytecode."
-                }
-            ]
-        };
-        
-        // Color scheme handling
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu functionality
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const userInfo = document.querySelector('.user-info');
-            
-            mobileMenuBtn.addEventListener('click', function() {
-                userInfo.style.display = userInfo.style.display === 'flex' ? 'none' : 'flex';
-            });
-            
-            // ENT211 Test Modal Functionality
-            const ent211Modal = document.getElementById('ent211-modal');
-            const startEnt211Btn = document.querySelector('.start-ent211-test');
-            const closeEnt211Modal = document.getElementById('close-ent211-modal');
-            const submitEnt211Test = document.getElementById('submit-ent211-test');
-            const ent211QuestionsContainer = document.getElementById('ent211-questions');
-            const prevPageBtn = document.getElementById('prev-page');
-            const nextPageBtn = document.getElementById('next-page');
-            const currentPageSpan = document.getElementById('current-page');
-            const resultsSummary = document.getElementById('results-summary');
-            const finalScoreSpan = document.getElementById('final-score');
-            const correctCountSpan = document.getElementById('correct-count');
-            const reviewAnswersBtn = document.getElementById('review-answers');
-            
-            // Sample Test Modal Functionality
-            const sampleTestModal = document.getElementById('sample-test-modal');
-            const startSampleBtns = document.querySelectorAll('.start-sample-test');
-            const closeSampleModal = document.getElementById('close-sample-modal');
-            const submitSampleTest = document.getElementById('submit-sample-test');
-            const sampleQuestionsContainer = document.getElementById('sample-questions');
-            const samplePrevBtn = document.getElementById('sample-prev-page');
-            const sampleNextBtn = document.getElementById('sample-next-page');
-            const sampleCurrentQuestionSpan = document.getElementById('sample-current-question');
-            const sampleTotalQuestionsSpan = document.getElementById('sample-total-questions');
-            const sampleTestTitle = document.getElementById('sample-test-title');
-            const sampleQuestionCounter = document.getElementById('sample-question-counter');
-            const sampleResultsSummary = document.getElementById('sample-results-summary');
-            const sampleFinalScoreSpan = document.getElementById('sample-final-score');
-            const sampleCorrectCountSpan = document.getElementById('sample-correct-count');
-            const feedbackStatus = document.getElementById('feedback-status');
-            const feedbackToggle = document.getElementById('feedback-toggle');
-            
-            // State variables
-            let currentPage = 1;
-            const questionsPerPage = 10;
-            const totalPages = Math.ceil(ent211Questions.length / questionsPerPage);
-            let userAnswers = {};
-            let testSubmitted = false;
-            
-            // Sample test state
-            let currentSampleTest = null;
-            let currentSampleQuestion = 1;
-            let sampleUserAnswers = {};
-            let sampleTestSubmitted = false;
-            let instantFeedbackEnabled = true;
-            
-            // Open ENT211 modal
-            startEnt211Btn.addEventListener('click', function() {
-                ent211Modal.style.display = 'block';
-                resetTest();
-                renderQuestions(currentPage);
-                updatePagination();
-            });
-            
-            // Close ENT211 modal
-            closeEnt211Modal.addEventListener('click', function() {
-                ent211Modal.style.display = 'none';
-            });
-            
-            // Open sample test modal
-            startSampleBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    currentSampleTest = this.getAttribute('data-test');
-                    openSampleTest(currentSampleTest);
-                });
-            });
-            
-            // Close sample test modal
-            closeSampleModal.addEventListener('click', function() {
-                sampleTestModal.style.display = 'none';
-            });
-            
-            // Close modals when clicking outside
-            window.addEventListener('click', function(event) {
-                if (event.target === ent211Modal) {
-                    ent211Modal.style.display = 'none';
-                }
-                if (event.target === sampleTestModal) {
-                    sampleTestModal.style.display = 'none';
-                }
-            });
-            
-            // Submit ENT211 test
-            submitEnt211Test.addEventListener('click', function() {
-                if (!testSubmitted) {
-                    const score = calculateScore();
-                    showResults(score);
-                    testSubmitted = true;
-                    this.innerHTML = '<i class="fas fa-redo"></i> Retake Test';
-                } else {
-                    // Reset test for retake
-                    resetTest();
-                    renderQuestions(currentPage);
-                    submitEnt211Test.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Test';
-                    resultsSummary.style.display = 'none';
-                    testSubmitted = false;
-                }
-            });
-            
-            // Submit sample test
-            submitSampleTest.addEventListener('click', function() {
-                if (!sampleTestSubmitted) {
-                    const score = calculateSampleScore();
-                    showSampleResults(score);
-                    sampleTestSubmitted = true;
-                    this.innerHTML = '<i class="fas fa-redo"></i> Retake Test';
-                } else {
-                    // Reset sample test for retake
-                    resetSampleTest();
-                    renderSampleQuestions();
-                    submitSampleTest.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Test';
-                    sampleResultsSummary.style.display = 'none';
-                    sampleTestSubmitted = false;
-                }
-            });
-            
-            // Review answers button
-            reviewAnswersBtn.addEventListener('click', function() {
-                showCorrectAnswers();
-                this.style.display = 'none';
-            });
-            
-            // ENT211 Pagination
-            prevPageBtn.addEventListener('click', function() {
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderQuestions(currentPage);
-                    updatePagination();
-                }
-            });
-            
-            nextPageBtn.addEventListener('click', function() {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    renderQuestions(currentPage);
-                    updatePagination();
-                }
-            });
-            
-            // Sample test pagination
-            samplePrevBtn.addEventListener('click', function() {
-                if (currentSampleQuestion > 1) {
-                    currentSampleQuestion--;
-                    renderSampleQuestions();
-                }
-            });
-            
-            sampleNextBtn.addEventListener('click', function() {
-                const totalQuestions = sampleTests[currentSampleTest].length;
-                if (currentSampleQuestion < totalQuestions) {
-                    currentSampleQuestion++;
-                    renderSampleQuestions();
-                }
-            });
-            
-            // Feedback toggle
-            feedbackToggle.addEventListener('change', function() {
-                instantFeedbackEnabled = this.checked;
-                feedbackStatus.textContent = this.checked ? "Enabled" : "Disabled";
-                
-                // Re-render sample questions if test is open
-                if (sampleTestModal.style.display === 'block' && currentSampleTest) {
-                    renderSampleQuestions();
-                }
-            });
-            
-            // Function to open sample test
-            function openSampleTest(testName) {
-                currentSampleTest = testName;
-                resetSampleTest();
-                
-                // Set test title
-                const testTitles = {
-                    general: "General Knowledge Quiz",
-                    logic: "GST 212 - Logic & Reasoning",
-                    java: "COS 211 - Java Programming"
-                };
-                
-                sampleTestTitle.textContent = testTitles[testName] || "Sample Test";
-                sampleTotalQuestionsSpan.textContent = sampleTests[testName].length;
-                sampleQuestionCounter.textContent = `Total: ${sampleTests[testName].length} Questions`;
-                
-                sampleTestModal.style.display = 'block';
-                renderSampleQuestions();
-            }
-            
-            // Function to reset ENT211 test
-            function resetTest() {
-                userAnswers = {};
-                currentPage = 1;
-                resultsSummary.style.display = 'none';
-                reviewAnswersBtn.style.display = 'block';
-            }
-            
-            // Function to reset sample test
-            function resetSampleTest() {
-                sampleUserAnswers = {};
-                currentSampleQuestion = 1;
-                sampleTestSubmitted = false;
-                sampleResultsSummary.style.display = 'none';
-            }
-            
-            // Function to calculate ENT211 score
-            function calculateScore() {
-                let correctCount = 0;
-                
-                for (let i = 0; i < ent211Questions.length; i++) {
-                    const questionNum = i + 1;
-                    const userAnswer = userAnswers[questionNum];
-                    const correctAnswer = ent211Questions[i].correctAnswer;
-                    
-                    if (userAnswer === correctAnswer) {
-                        correctCount++;
-                    }
-                }
-                
-                return Math.round((correctCount / ent211Questions.length) * 100);
-            }
-            
-            // Function to calculate sample test score
-            function calculateSampleScore() {
-                if (!currentSampleTest) return 0;
-                
-                const questions = sampleTests[currentSampleTest];
-                let correctCount = 0;
-                
-                for (let i = 0; i < questions.length; i++) {
-                    const questionNum = i + 1;
-                    const userAnswer = sampleUserAnswers[questionNum];
-                    const correctAnswer = questions[i].correctAnswer;
-                    
-                    if (userAnswer === correctAnswer) {
-                        correctCount++;
-                    }
-                }
-                
-                return Math.round((correctCount / questions.length) * 100);
-            }
-            
-            // Function to show ENT211 results
-            function showResults(score) {
-                const correctCount = Object.keys(userAnswers).reduce((count, questionNum) => {
-                    const i = parseInt(questionNum) - 1;
-                    return count + (userAnswers[questionNum] === ent211Questions[i].correctAnswer ? 1 : 0);
-                }, 0);
-                
-                finalScoreSpan.textContent = score;
-                correctCountSpan.textContent = `${correctCount} correct answers`;
-                resultsSummary.style.display = 'block';
-                
-                // Scroll to results
-                resultsSummary.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-            
-            // Function to show sample test results
-            function showSampleResults(score) {
-                if (!currentSampleTest) return;
-                
-                const questions = sampleTests[currentSampleTest];
-                const correctCount = Object.keys(sampleUserAnswers).reduce((count, questionNum) => {
-                    const i = parseInt(questionNum) - 1;
-                    return count + (sampleUserAnswers[questionNum] === questions[i].correctAnswer ? 1 : 0);
-                }, 0);
-                
-                sampleFinalScoreSpan.textContent = score;
-                sampleCorrectCountSpan.textContent = `${correctCount} correct answers out of ${questions.length}`;
-                sampleResultsSummary.style.display = 'block';
-                
-                // Scroll to results
-                sampleResultsSummary.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-            
-            // Function to show correct answers for ENT211
-            function showCorrectAnswers() {
-                // Re-render all questions with correct answers highlighted
-                for (let i = 0; i < ent211Questions.length; i++) {
-                    const questionNum = i + 1;
-                    const questionElement = document.querySelector(`.question-item[data-question="${questionNum}"]`);
-                    
-                    if (questionElement) {
-                        const options = questionElement.querySelectorAll('.option-item');
-                        const correctAnswer = ent211Questions[i].correctAnswer;
-                        
-                        options.forEach(option => {
-                            const optionLetter = option.getAttribute('data-option');
-                            option.classList.remove('option-selected');
-                            
-                            if (optionLetter === correctAnswer) {
-                                option.classList.add('option-correct');
-                                option.innerHTML += '<span class="correct-indicator">✓ Correct</span>';
-                            } else if (userAnswers[questionNum] === optionLetter && optionLetter !== correctAnswer) {
-                                option.classList.add('option-incorrect');
-                                option.innerHTML += '<span class="incorrect-indicator">✗ Your Answer</span>';
-                            }
-                        });
-                    }
-                }
-            }
-            
-            // Function to render ENT211 questions for a specific page
-            function renderQuestions(page) {
-                ent211QuestionsContainer.innerHTML = '';
-                const startIndex = (page - 1) * questionsPerPage;
-                const endIndex = Math.min(startIndex + questionsPerPage, ent211Questions.length);
-                
-                for (let i = startIndex; i < endIndex; i++) {
-                    const questionData = ent211Questions[i];
-                    const question = questionData.question;
-                    const correctAnswer = questionData.correctAnswer;
-                    const explanation = questionData.explanation || "";
-                    const questionNumber = i + 1;
-                    
-                    // Parse question text and options
-                    const questionText = question.substring(question.indexOf('. ') + 2);
-                    
-                    // Create question element
-                    const questionElement = document.createElement('div');
-                    questionElement.className = 'question-item';
-                    questionElement.setAttribute('data-question', questionNumber);
-                    
-                    // Add question number and text
-                    questionElement.innerHTML = `
-                        <div class="question-number">Question ${questionNumber}</div>
-                        <div class="question-text">${questionText}</div>
-                        <div class="options-list">
-                            ${renderOptions(question, questionNumber, correctAnswer, "ent211")}
-                        </div>
-                        <div class="answer-feedback" id="feedback-${questionNumber}" style="display: none;"></div>
-                    `;
-                    
-                    ent211QuestionsContainer.appendChild(questionElement);
-                }
-                
-                // Add event listeners to options
-                document.querySelectorAll('.option-item').forEach(option => {
-                    option.addEventListener('click', function() {
-                        if (testSubmitted) return;
-                        
-                        const questionNum = parseInt(this.getAttribute('data-question'));
-                        const optionValue = this.getAttribute('data-option');
-                        
-                        // Remove selected class from all options in this question
-                        document.querySelectorAll(`.option-item[data-question="${questionNum}"]`).forEach(opt => {
-                            opt.classList.remove('option-selected');
-                        });
-                        
-                        // Add selected class to clicked option
-                        this.classList.add('option-selected');
-                        
-                        // Store user answer
-                        userAnswers[questionNum] = optionValue;
-                        
-                        // Show feedback
-                        showQuestionFeedback(questionNum, optionValue, "ent211");
-                    });
-                });
-                
-                // Restore previously selected answers and feedback
-                restoreSelectedAnswers();
-            }
-            
-            // Function to render sample questions
-            function renderSampleQuestions() {
-                if (!currentSampleTest) return;
-                
-                sampleQuestionsContainer.innerHTML = '';
-                const questions = sampleTests[currentSampleTest];
-                const currentQuestionData = questions[currentSampleQuestion - 1];
-                
-                sampleCurrentQuestionSpan.textContent = currentSampleQuestion;
-                sampleTotalQuestionsSpan.textContent = questions.length;
-                
-                // Create question element
-                const questionElement = document.createElement('div');
-                questionElement.className = 'question-item';
-                questionElement.setAttribute('data-question', currentSampleQuestion);
-                
-                // Parse question text
-                const questionText = currentQuestionData.question.substring(
-                    currentQuestionData.question.indexOf('. ') + 2
-                );
-                
-                questionElement.innerHTML = `
-                    <div class="question-number">Question ${currentSampleQuestion}</div>
-                    <div class="question-text">${questionText}</div>
-                    <div class="options-list">
-                        ${renderOptions(currentQuestionData.question, currentSampleQuestion, currentQuestionData.correctAnswer, "sample")}
-                    </div>
-                    <div class="answer-feedback" id="sample-feedback-${currentSampleQuestion}" style="display: none;"></div>
-                `;
-                
-                sampleQuestionsContainer.appendChild(questionElement);
-                
-                // Add event listeners to options
-                document.querySelectorAll('.option-item').forEach(option => {
-                    option.addEventListener('click', function() {
-                        if (sampleTestSubmitted) return;
-                        
-                        const questionNum = parseInt(this.getAttribute('data-question'));
-                        const optionValue = this.getAttribute('data-option');
-                        const testType = this.getAttribute('data-test-type');
-                        
-                        if (testType !== "sample") return;
-                        
-                        // Remove selected class from all options in this question
-                        document.querySelectorAll(`.option-item[data-question="${questionNum}"][data-test-type="sample"]`).forEach(opt => {
-                            opt.classList.remove('option-selected');
-                        });
-                        
-                        // Add selected class to clicked option
-                        this.classList.add('option-selected');
-                        
-                        // Store user answer
-                        sampleUserAnswers[questionNum] = optionValue;
-                        
-                        // Show feedback if enabled
-                        if (instantFeedbackEnabled) {
-                            showQuestionFeedback(questionNum, optionValue, "sample");
-                        }
-                    });
-                });
-                
-                // Restore previously selected answer and feedback
-                const savedAnswer = sampleUserAnswers[currentSampleQuestion];
-                if (savedAnswer) {
-                    const option = document.querySelector(`.option-item[data-question="${currentSampleQuestion}"][data-option="${savedAnswer}"][data-test-type="sample"]`);
-                    if (option) {
-                        option.classList.add('option-selected');
-                        
-                        // Show feedback if enabled
-                        if (instantFeedbackEnabled) {
-                            showQuestionFeedback(currentSampleQuestion, savedAnswer, "sample");
-                        }
-                    }
-                }
-            }
-            
-            // Function to show feedback for a question
-            function showQuestionFeedback(questionNum, userAnswer, testType) {
-                let questionData, correctAnswer, explanation;
-                
-                if (testType === "ent211") {
-                    questionData = ent211Questions[questionNum - 1];
-                    correctAnswer = questionData.correctAnswer;
-                    explanation = questionData.explanation || "";
-                } else if (testType === "sample") {
-                    questionData = sampleTests[currentSampleTest][questionNum - 1];
-                    correctAnswer = questionData.correctAnswer;
-                    explanation = questionData.explanation || "";
-                } else {
-                    return;
-                }
-                
-                const isCorrect = userAnswer === correctAnswer;
-                const feedbackElement = document.getElementById(`${testType}-feedback-${questionNum}`);
-                
-                if (!feedbackElement) return;
-                
-                feedbackElement.className = `answer-feedback ${isCorrect ? 'feedback-correct' : 'feedback-incorrect'}`;
-                feedbackElement.innerHTML = `
-                    <div class="feedback-text">
-                        <i class="fas fa-${isCorrect ? 'check-circle' : 'times-circle'}"></i>
-                        <strong>${isCorrect ? 'Correct!' : 'Incorrect.'}</strong> The correct answer is ${correctAnswer}.
-                    </div>
-                    ${explanation ? `<div style="margin-top: 8px; font-size: 0.9em;">${explanation}</div>` : ''}
-                `;
-                feedbackElement.style.display = 'block';
-                
-                // Auto-scroll to feedback on mobile
-                if (window.innerWidth <= 768) {
-                    setTimeout(() => {
-                        feedbackElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }, 300);
-                }
-            }
-            
-            // Function to restore selected answers
-            function restoreSelectedAnswers() {
-                for (const questionNum in userAnswers) {
-                    const option = document.querySelector(`.option-item[data-question="${questionNum}"][data-option="${userAnswers[questionNum]}"]`);
-                    if (option) {
-                        option.classList.add('option-selected');
-                        
-                        // Show feedback for this answer
-                        showQuestionFeedback(parseInt(questionNum), userAnswers[questionNum], "ent211");
-                    }
-                }
-            }
-            
-            // Function to render options for a question
-            function renderOptions(question, questionNumber, correctAnswer, testType) {
-                let optionsHTML = '';
-                
-                // Extract options from question text
-                const optionMatches = question.match(/\([A-Da-d]\)[^\(\)]*/g);
-                
-                if (optionMatches) {
-                    optionMatches.forEach(match => {
-                        const optionLetter = match.substring(1, 2).toUpperCase();
-                        const optionText = match.substring(3).trim();
-                        
-                        optionsHTML += `
-                            <div class="option-item" data-question="${questionNumber}" data-option="${optionLetter}" data-test-type="${testType}">
-                                <strong>${optionLetter}.</strong> ${optionText}
-                            </div>
-                        `;
-                    });
-                } else {
-                    // For questions that don't follow the standard format
-                    optionsHTML += `
-                        <div class="option-item" data-question="${questionNumber}" data-option="A" data-test-type="${testType}">
-                            <strong>A.</strong> Select this as your answer
-                        </div>
-                    `;
-                }
-                
-                return optionsHTML;
-            }
-            
-            // Function to update pagination buttons
-            function updatePagination() {
-                currentPageSpan.textContent = currentPage;
-                prevPageBtn.disabled = currentPage === 1;
-                nextPageBtn.disabled = currentPage === totalPages;
-            }
-            
-            // Theme color selection
-            const themeColors = document.querySelectorAll('.theme-color');
-            
-            themeColors.forEach(color => {
-                color.addEventListener('click', function() {
-                    // Remove active class from all colors
-                    themeColors.forEach(c => c.classList.remove('active'));
-                    
-                    // Add active class to clicked color
-                    this.classList.add('active');
-                });
-            });
-            
-            // Other toggle switches functionality
-            const toggleSwitches = document.querySelectorAll('.toggle-switch input');
-            
-            toggleSwitches.forEach(toggle => {
-                toggle.addEventListener('change', function() {
-                    const settingName = this.closest('.toggle-switch').querySelector('span').textContent;
-                    const status = this.checked ? 'enabled' : 'disabled';
-                    console.log(`Setting "${settingName}" ${status}`);
-                });
-            });
-            
-            // Shuffle buttons
-            const shuffleButtons = document.querySelectorAll('.btn-outline.btn-small');
-            
-            shuffleButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const testCard = this.closest('.test-card');
-                    const testTitle = testCard.querySelector('.test-title').textContent;
-                    
-                    // Toggle active state
-                    this.classList.toggle('active');
-                    
-                    if (this.classList.contains('active')) {
-                        this.innerHTML = '<i class="fas fa-check"></i> Shuffled';
-                        this.style.backgroundColor = 'var(--primary-dark)';
-                        this.style.color = 'var(--primary-light)';
-                        
-                        // Show feedback on mobile
-                        if (window.innerWidth <= 768) {
-                            setTimeout(() => {
-                                alert(`Questions for "${testTitle}" will be shuffled in random order.`);
-                            }, 100);
-                        }
-                    } else {
-                        this.innerHTML = '<i class="fas fa-random"></i> Shuffle';
-                        this.style.backgroundColor = '';
-                        this.style.color = '';
-                    }
-                });
-            });
-            
-            // Handle touch events for better mobile experience
-            let touchStartX = 0;
-            let touchEndX = 0;
-            
-            document.addEventListener('touchstart', function(e) {
-                touchStartX = e.changedTouches[0].screenX;
-            }, false);
-            
-            document.addEventListener('touchend', function(e) {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
-            }, false);
-            
-            function handleSwipe() {
-                const swipeThreshold = 50;
-                const difference = touchStartX - touchEndX;
-                
-                // Only handle swipes in modals
-                if (ent211Modal.style.display === 'block' && Math.abs(difference) > swipeThreshold) {
-                    if (difference > 0) {
-                        // Swipe left - next page
-                        if (currentPage < totalPages) {
-                            currentPage++;
-                            renderQuestions(currentPage);
-                            updatePagination();
-                        }
-                    } else {
-                        // Swipe right - previous page
-                        if (currentPage > 1) {
-                            currentPage--;
-                            renderQuestions(currentPage);
-                            updatePagination();
-                        }
-                    }
-                }
-                
-                // Handle sample test swipe
-                if (sampleTestModal.style.display === 'block' && currentSampleTest && Math.abs(difference) > swipeThreshold) {
-                    const totalQuestions = sampleTests[currentSampleTest].length;
-                    
-                    if (difference > 0) {
-                        // Swipe left - next question
-                        if (currentSampleQuestion < totalQuestions) {
-                            currentSampleQuestion++;
-                            renderSampleQuestions();
-                        }
-                    } else {
-                        // Swipe right - previous question
-                        if (currentSampleQuestion > 1) {
-                            currentSampleQuestion--;
-                            renderSampleQuestions();
-                        }
-                    }
-                }
-            }
-            
-            // Handle window resize
-            window.addEventListener('resize', function() {
-                // Re-render questions on orientation change for better mobile experience
-                if (ent211Modal.style.display === 'block') {
-                    renderQuestions(currentPage);
-                }
-                if (sampleTestModal.style.display === 'block' && currentSampleTest) {
-                    renderSampleQuestions();
-                }
-            });
-        });
-    </script>
+<style>
+:root {
+  --bg: #f7f9fc;
+  --card: #ffffff;
+  --primary: #1e40af;
+  --correct: #16a34a;
+  --wrong: #dc2626;
+  --muted: #6b7280;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: #111827;
+  font-size: 16px;
+}
+
+header {
+  padding: 16px;
+  text-align: center;
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+}
+
+main {
+  padding: 16px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.hidden {
+  display: none;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: #e5e7eb;
+}
+
+button.primary {
+  background: var(--primary);
+  color: white;
+}
+
+button.option {
+  text-align: left;
+  min-height: 48px;
+}
+
+button.correct {
+  background: var(--correct);
+  color: white;
+}
+
+button.wrong {
+  background: var(--wrong);
+  color: white;
+}
+
+.progress {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.feedback {
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.course-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.course-score {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Smooth transitions */
+button, .card {
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+</style>
+</head>
+
+<body>
+
+<header>Student Practice Portal</header>
+
+<main>
+
+  <!-- DASHBOARD -->
+  <section id="dashboard"></section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="hidden"></section>
+
+  <!-- RESULTS -->
+  <section id="results" class="hidden"></section>
+
+</main>
+
+<script>
+/* =========================
+   DATA LAYER
+========================= */
+const courses = {
+  mathematics: {
+    title: "Mathematics",
+    questions: [
+      {
+        q: "What is 12 × 8?",
+        options: ["96", "84", "88", "108"],
+        answer: 0,
+        explanation: "12 multiplied by 8 equals 96."
+      },
+      {
+        q: "Solve: 45 ÷ 5",
+        options: ["7", "8", "9", "10"],
+        answer: 2,
+        explanation: "45 divided by 5 equals 9."
+      }
+    ]
+  },
+  biology: {
+    title: "Biology",
+    questions: [
+      {
+        q: "Which organelle controls cell activities?",
+        options: ["Ribosome", "Nucleus", "Mitochondria", "Vacuole"],
+        answer: 1,
+        explanation: "The nucleus acts as the control center of the cell."
+      },
+      {
+        q: "Photosynthesis occurs in which part of the plant?",
+        options: ["Roots", "Stem", "Leaves", "Flowers"],
+        answer: 2,
+        explanation: "Leaves contain chlorophyll for photosynthesis."
+      }
+    ]
+  }
+};
+
+/* =========================
+   STATE
+========================= */
+let state = {
+  courseKey: null,
+  index: 0,
+  score: 0,
+  answers: []
+};
+
+/* =========================
+   LOCAL STORAGE
+========================= */
+function saveResult(courseKey, score, total) {
+  const history = JSON.parse(localStorage.getItem("scores")) || {};
+  if (!history[courseKey]) history[courseKey] = [];
+  history[courseKey].push({
+    date: new Date().toLocaleDateString(),
+    score,
+    total
+  });
+  localStorage.setItem("scores", JSON.stringify(history));
+}
+
+function getHistory(courseKey) {
+  const history = JSON.parse(localStorage.getItem("scores")) || {};
+  return history[courseKey] || [];
+}
+
+/* =========================
+   UI RENDERING
+========================= */
+const dashboardEl = document.getElementById("dashboard");
+const quizEl = document.getElementById("quiz");
+const resultsEl = document.getElementById("results");
+
+function renderDashboard() {
+  dashboardEl.innerHTML = "";
+  quizEl.classList.add("hidden");
+  resultsEl.classList.add("hidden");
+  dashboardEl.classList.remove("hidden");
+
+  for (let key in courses) {
+    const history = getHistory(key);
+    const last = history[history.length - 1];
+
+    const card = document.createElement("div");
+    card.className = "card course-item";
+
+    card.innerHTML = `
+      <div>
+        <strong>${courses[key].title}</strong>
+        <div class="course-score">
+          ${last ? `Last score: ${last.score}/${last.total}` : "No attempts yet"}
+        </div>
+      </div>
+      <button class="primary">Start</button>
+    `;
+
+    card.querySelector("button").onclick = () => startQuiz(key);
+    dashboardEl.appendChild(card);
+  }
+}
+
+function startQuiz(courseKey) {
+  state.courseKey = courseKey;
+  state.index = 0;
+  state.score = 0;
+  state.answers = [];
+
+  dashboardEl.classList.add("hidden");
+  quizEl.classList.remove("hidden");
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const course = courses[state.courseKey];
+  const question = course.questions[state.index];
+
+  quizEl.innerHTML = `
+    <div class="card">
+      <div class="progress">
+        Question ${state.index + 1} / ${course.questions.length}
+      </div>
+      <h2>${question.q}</h2>
+      ${question.options.map((opt, i) =>
+        `<button class="option" data-index="${i}">${String.fromCharCode(65+i)}. ${opt}</button>`
+      ).join("")}
+      <div class="feedback hidden"></div>
+      <button class="primary hidden" id="nextBtn">Next</button>
+    </div>
+  `;
+
+  quizEl.querySelectorAll(".option").forEach(btn => {
+    btn.addEventListener("click", handleAnswer);
+    btn.addEventListener("touchstart", handleAnswer);
+  });
+}
+
+function handleAnswer(e) {
+  const btn = e.currentTarget;
+  const selected = Number(btn.dataset.index);
+  const course = courses[state.courseKey];
+  const question = course.questions[state.index];
+  const feedback = quizEl.querySelector(".feedback");
+
+  quizEl.querySelectorAll(".option").forEach(b => b.disabled = true);
+
+  if (selected === question.answer) {
+    btn.classList.add("correct");
+    state.score++;
+  } else {
+    btn.classList.add("wrong");
+    quizEl.querySelectorAll(".option")[question.answer].classList.add("correct");
+  }
+
+  state.answers.push(selected);
+
+  feedback.textContent = question.explanation;
+  feedback.classList.remove("hidden");
+
+  const nextBtn = document.getElementById("nextBtn");
+  nextBtn.classList.remove("hidden");
+  nextBtn.onclick = nextQuestion;
+}
+
+function nextQuestion() {
+  state.index++;
+  if (state.index < courses[state.courseKey].questions.length) {
+    renderQuestion();
+  } else {
+    finishQuiz();
+  }
+}
+
+function finishQuiz() {
+  saveResult(
+    state.courseKey,
+    state.score,
+    courses[state.courseKey].questions.length
+  );
+
+  quizEl.classList.add("hidden");
+  resultsEl.classList.remove("hidden");
+
+  const total = courses[state.courseKey].questions.length;
+  const percent = Math.round((state.score / total) * 100);
+
+  resultsEl.innerHTML = `
+    <div class="card">
+      <h2>Results</h2>
+      <p><strong>Score:</strong> ${state.score} / ${total}</p>
+      <p><strong>Percentage:</strong> ${percent}%</p>
+      <button class="primary" id="reviewBtn">Review Answers</button>
+      <button id="backBtn">Back to Dashboard</button>
+    </div>
+  `;
+
+  document.getElementById("backBtn").onclick = renderDashboard;
+  document.getElementById("reviewBtn").onclick = renderReview;
+}
+
+function renderReview() {
+  const course = courses[state.courseKey];
+  resultsEl.innerHTML = "";
+
+  course.questions.forEach((q, i) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <strong>Q${i+1}: ${q.q}</strong>
+      <p>Your answer: ${q.options[state.answers[i]]}</p>
+      <p>Correct answer: ${q.options[q.answer]}</p>
+      <p>${q.explanation}</p>
+    `;
+    resultsEl.appendChild(card);
+  });
+
+  const btn = document.createElement("button");
+  btn.textContent = "Back to Dashboard";
+  btn.onclick = renderDashboard;
+  resultsEl.appendChild(btn);
+}
+
+/* =========================
+   INIT
+========================= */
+renderDashboard();
+</script>
+
 </body>
-    </html>
+</html>
