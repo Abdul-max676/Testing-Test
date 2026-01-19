@@ -1,387 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Student Practice Portal</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENT211 CBT</title>
 
 <style>
-:root {
-  --bg:#f7f9fc;
-  --card:#ffffff;
-  --primary:#1e40af;
-  --correct:#16a34a;
-  --wrong:#dc2626;
-  --muted:#6b7280;
+/* ===== MOBILE ONLY LOCK ===== */
+@media (min-width: 481px){
+  body::before{
+    content:"This CBT works on mobile phones only.";
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-size:20px;
+    padding:20px;
+    text-align:center;
+    background:#111;
+    color:#fff;
+  }
+  main,header{display:none}
 }
 
-*{box-sizing:border-box}
-
+/* ===== BASE ===== */
 body{
   margin:0;
   font-family:system-ui,sans-serif;
-  background:var(--bg);
-  color:#111827;
+  background:#f7f9fc;
+  color:#111;
 }
-
 header{
-  padding:16px;
-  text-align:center;
-  background:var(--primary);
+  background:#1e40af;
   color:#fff;
+  padding:12px;
+  text-align:center;
   font-weight:600;
 }
-
 main{
-  padding:16px;
   max-width:480px;
   margin:auto;
+  padding:12px;
 }
-
-.hidden{display:none}
-
 .card{
-  background:var(--card);
+  background:#fff;
   border-radius:12px;
-  padding:16px;
-  margin-bottom:16px;
-  box-shadow:0 4px 12px rgba(0,0,0,.05);
+  padding:14px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  margin-bottom:12px;
 }
-
-h2{margin-top:0;font-size:18px}
-
+.hidden{display:none}
 button{
   width:100%;
   padding:14px;
-  margin-top:10px;
+  margin-top:8px;
   font-size:16px;
-  border-radius:10px;
   border:none;
-  cursor:pointer;
-  background:#e5e7eb;
+  border-radius:10px;
 }
-
-button.primary{
-  background:var(--primary);
-  color:#fff;
+.option{text-align:left;background:#e5e7eb}
+.correct{background:#16a34a;color:#fff}
+.wrong{background:#dc2626;color:#fff}
+.primary{background:#1e40af;color:#fff}
+.progress{font-size:14px;color:#6b7280}
+.timer{
+  font-weight:700;
+  text-align:center;
+  margin-bottom:8px;
 }
-
-button.option{text-align:left}
-
-button.correct{background:var(--correct);color:#fff}
-button.wrong{background:var(--wrong);color:#fff}
-
-.progress{
-  font-size:14px;
-  color:var(--muted);
-}
-
-.feedback{
-  margin-top:12px;
-  font-size:14px;
-}
-
-.course-item{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.course-score{font-size:13px;color:var(--muted)}
+.review-wrong{border-left:4px solid #dc2626;padding-left:8px}
+.review-correct{border-left:4px solid #16a34a;padding-left:8px}
 </style>
 </head>
 
 <body>
-<header>Student Practice Portal</header>
-
+<header>ENT211 – CBT Practice</header>
 <main>
-  <section id="dashboard"></section>
-  <section id="quiz" class="hidden"></section>
-  <section id="results" class="hidden"></section>
+<section id="dashboard"></section>
+<section id="quiz" class="hidden"></section>
+<section id="results" class="hidden"></section>
 </main>
 
 <script>
-/* =========================
-   DATA
-========================= */
-const courses={
-  ent211:{
-    title:"ENT211 – Introduction to Entrepreneurship",
-    questions:[
-      {
-        q:"Which is a key characteristic of a successful entrepreneur?",
-        options:["Risk aversion","Creativity","Dependence on others","Lack of vision"],
-        answer:1,
-        explanation:"Creativity helps entrepreneurs identify opportunities."
-      },
-      {
-        q:"Primary purpose of a business plan?",
-        options:["Secure a loan","Outline business idea and strategy","Avoid competition","Hire employees"],
-        answer:1,
-        explanation:"A business plan defines goals and strategy."
-      },
-      {
-        q:"Financial statement showing revenues and expenses?",
-        options:["Balance Sheet","Cash Flow Statement","Income Statement","Retained Earnings"],
-        answer:2,
-        explanation:"Income statement shows revenues and expenses."
-      },
-      {
-        q:"Example of bootstrapping?",
-        options:["Personal savings","Venture capital","Bank loan","Issuing shares"],
-        answer:0,
-        explanation:"Bootstrapping uses personal funds."
-      },
-      {
-        q:"Scalability refers to?",
-        options:["Entering new markets","Ability to grow efficiently","Creating business plans","Reducing costs"],
-        answer:1,
-        explanation:"Scalability is growth without proportional cost increase."
-      },
+/* =====================
+   DATA – 100 QUESTIONS
+===================== */
+const questions=[
+...Array.from({length:100},(_,i)=>({
+  q:`ENT211 Question ${i+1}: What best describes entrepreneurship?`,
+  options:[
+    "Paid employment",
+    "Creation and management of new ventures",
+    "Government ownership",
+    "Fixed income activity"
+  ],
+  answer:1,
+  explanation:"Entrepreneurship involves creating and managing new ventures to solve problems and create value."
+}))
+];
 
-      /* ===== leadership & skills ===== */
-
-      {
-        q:"Critical leadership aspect?",
-        options:["Delegation","Motivation","Avoid conflict","Short-term focus"],
-        answer:1,
-        explanation:"Motivation drives team performance."
-      },
-      {
-        q:"What does emotional intelligence refer to?",
-        options:[
-          "Controlling others’ emotions",
-          "Awareness and management of emotions",
-          "Ignoring emotions",
-          "Avoiding communication"
-        ],
-        answer:1,
-        explanation:"EI is understanding and managing emotions."
-      },
-      {
-        q:"Key benefit of strong problem-solving skills?",
-        options:[
-          "Reducing teamwork",
-          "Resolving issues effectively",
-          "Avoiding challenges",
-          "Delegating all tasks"
-        ],
-        answer:1,
-        explanation:"Problem-solving helps overcome challenges."
-      },
-      {
-        q:"Why is adaptability important?",
-        options:[
-          "Resisting change",
-          "Adjusting to new environments",
-          "Avoiding learning",
-          "Limiting growth"
-        ],
-        answer:1,
-        explanation:"Adaptability enables success in change."
-      },
-
-      /* ===== Nigerian entrepreneurship ===== */
-
-      {
-        q:"SMEDAN stands for?",
-        options:[
-          "Small and Medium Enterprises Development Agency of Nigeria",
-          "Small Enterprise Department",
-          "Strong Measures Enterprise Agency",
-          "Medium Business Office"
-        ],
-        answer:0,
-        explanation:"SMEDAN supports SMEs in Nigeria."
-      },
-      {
-        q:"NDE means?",
-        options:[
-          "National Directorate of Entrepreneurship",
-          "National Directorate of Employment",
-          "National Development Enterprise",
-          "National Democracy Entity"
-        ],
-        answer:1,
-        explanation:"NDE focuses on employment creation."
-      },
-      {
-        q:"SAP means?",
-        options:[
-          "Structural Adjustment Programme",
-          "Structured Accounting Policy",
-          "Social Action Plan",
-          "Systematic Adjustment Process"
-        ],
-        answer:0,
-        explanation:"SAP stands for Structural Adjustment Programme."
-      },
-
-      /* ===== business basics ===== */
-
-      {
-        q:"Contract is?",
-        options:[
-          "Verbal promise",
-          "Legally binding agreement",
-          "Informal note",
-          "Personal understanding"
-        ],
-        answer:1,
-        explanation:"Contracts are legally enforceable."
-      },
-      {
-        q:"Insurance helps businesses to?",
-        options:[
-          "Increase profit",
-          "Avoid taxes",
-          "Protect against risk",
-          "Hire employees"
-        ],
-        answer:2,
-        explanation:"Insurance protects against losses."
-      },
-      {
-        q:"Capital goods are used for?",
-        options:[
-          "Consumption",
-          "Further production",
-          "Luxury",
-          "Decoration"
-        ],
-        answer:1,
-        explanation:"Capital goods aid production."
-      }
-    ]
-  }
-};
-
-/* =========================
+/* =====================
    STATE
-========================= */
-let state={course:null,index:0,score:0,answers:[]};
+===================== */
+let index=0,score=0,answers=[];
+let timeLeft=40*60;
+let timer;
 
-/* =========================
-   STORAGE
-========================= */
-function saveResult(key,score,total){
-  const h=JSON.parse(localStorage.getItem("scores"))||{};
-  if(!h[key])h[key]=[];
-  h[key].push({date:new Date().toLocaleDateString(),score,total});
-  localStorage.setItem("scores",JSON.stringify(h));
-}
-
-function getHistory(key){
-  return(JSON.parse(localStorage.getItem("scores"))||{})[key]||[];
-}
-
-/* =========================
+/* =====================
    UI
-========================= */
+===================== */
 const dashboard=document.getElementById("dashboard");
 const quiz=document.getElementById("quiz");
 const results=document.getElementById("results");
 
-function renderDashboard(){
-  dashboard.innerHTML="";
-  dashboard.classList.remove("hidden");
-  quiz.classList.add("hidden");
-  results.classList.add("hidden");
+dashboard.innerHTML=`
+<div class="card">
+<h3>ENT211 CBT</h3>
+<p>100 questions • 40 minutes</p>
+<button class="primary" onclick="start()">Start Test</button>
+</div>`;
 
-  for(const key in courses){
-    const last=getHistory(key).slice(-1)[0];
-    const card=document.createElement("div");
-    card.className="card course-item";
-    card.innerHTML=`
-      <div>
-        <strong>${courses[key].title}</strong>
-        <div class="course-score">
-          ${last?`Last score: ${last.score}/${last.total}`:"No attempts yet"}
-        </div>
-      </div>
-      <button class="primary">Start</button>
-    `;
-    card.querySelector("button").onclick=()=>startQuiz(key);
-    dashboard.appendChild(card);
-  }
-}
-
-function startQuiz(key){
-  state={course:key,index:0,score:0,answers:[]};
+function start(){
   dashboard.classList.add("hidden");
   quiz.classList.remove("hidden");
-  renderQuestion();
+  startTimer();
+  render();
 }
 
-function renderQuestion(){
-  const q=courses[state.course].questions[state.index];
+function startTimer(){
+  timer=setInterval(()=>{
+    timeLeft--;
+    if(timeLeft<=0){
+      clearInterval(timer);
+      finish();
+    }
+    document.getElementById("timer").textContent=formatTime(timeLeft);
+  },1000);
+}
 
+function formatTime(s){
+  const m=Math.floor(s/60),sec=s%60;
+  return `${m}:${sec.toString().padStart(2,"0")}`;
+}
+
+function render(){
+  const q=questions[index];
   quiz.innerHTML=`
-    <div class="card">
-      <div class="progress">Question ${state.index+1}/${courses[state.course].questions.length}</div>
-      <h2>${q.q}</h2>
-      ${q.options.map((o,i)=>`<button class="option" data-i="${i}">${String.fromCharCode(65+i)}. ${o}</button>`).join("")}
-      <div class="feedback hidden"></div>
-      <button class="primary hidden" id="nextBtn">Next</button>
-    </div>
-  `;
+  <div class="timer" id="timer">${formatTime(timeLeft)}</div>
+  <div class="card">
+    <div class="progress">Question ${index+1}/100</div>
+    <h3>${q.q}</h3>
+    ${q.options.map((o,i)=>`<button class="option" onclick="select(${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join("")}
+    <button class="primary hidden" id="next" onclick="next()">Next</button>
+  </div>`;
+}
 
-  quiz.querySelectorAll(".option").forEach(b=>{
-    b.onclick=selectAnswer;
+function select(i){
+  if(answers[index]!=null)return;
+  answers[index]=i;
+  const q=questions[index];
+  document.querySelectorAll(".option").forEach((b,idx)=>{
+    b.disabled=true;
+    if(idx===q.answer)b.classList.add("correct");
+    if(idx===i && i!==q.answer)b.classList.add("wrong");
   });
+  if(i===q.answer)score++;
+  document.getElementById("next").classList.remove("hidden");
 }
 
-function selectAnswer(e){
-  if(state.answers[state.index]!==undefined)return;
-
-  const btn=e.currentTarget;
-  const sel=+btn.dataset.i;
-  const q=courses[state.course].questions[state.index];
-
-  quiz.querySelectorAll(".option").forEach(b=>b.disabled=true);
-
-  if(sel===q.answer){
-    btn.classList.add("correct");
-    state.score++;
-  }else{
-    btn.classList.add("wrong");
-    quiz.querySelectorAll(".option")[q.answer].classList.add("correct");
-  }
-
-  state.answers.push(sel);
-  const fb=quiz.querySelector(".feedback");
-  fb.textContent=q.explanation;
-  fb.classList.remove("hidden");
-
-  const next=document.getElementById("nextBtn");
-  next.classList.remove("hidden");
-  next.onclick=nextQuestion;
+function next(){
+  index++;
+  index<100?render():finish();
 }
 
-function nextQuestion(){
-  state.index++;
-  state.index<courses[state.course].questions.length
-    ?renderQuestion()
-    :finishQuiz();
-}
-
-function finishQuiz(){
-  const total=courses[state.course].questions.length;
-  saveResult(state.course,state.score,total);
-
+function finish(){
+  clearInterval(timer);
   quiz.classList.add("hidden");
   results.classList.remove("hidden");
 
-  results.innerHTML=`
-    <div class="card">
-      <h2>Results</h2>
-      <p>Score: ${state.score}/${total}</p>
-      <p>${Math.round(state.score/total*100)}%</p>
-      <button class="primary" onclick="renderDashboard()">Back to Dashboard</button>
-    </div>
-  `;
-}
+  const wrong=questions
+    .map((q,i)=>({q,i}))
+    .filter(x=>answers[x.i]!==x.q.answer);
 
-renderDashboard();
+  results.innerHTML=`
+  <div class="card">
+    <h3>Result</h3>
+    <p>Score: ${score}/100</p>
+    <p>${score}%</p>
+  </div>
+  ${wrong.map(w=>`
+    <div class="card review-wrong">
+      <strong>${w.q.q}</strong>
+      <p>Your answer: ${String.fromCharCode(65+answers[w.i])}</p>
+      <p class="review-correct">Correct: ${String.fromCharCode(65+w.q.answer)}</p>
+      <p>${w.q.explanation}</p>
+    </div>
+  `).join("")}
+  <button class="primary" onclick="location.reload()">Restart</button>`;
+}
 </script>
 </body>
 </html>
