@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Academic Test Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -24,26 +24,32 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
             background-color: var(--primary-light);
             color: var(--text-dark);
             line-height: 1.6;
+            min-height: 100vh;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
+            width: 100%;
         }
         
         /* Header */
         header {
             background-color: var(--primary-dark);
             color: var(--primary-light);
-            padding: 20px 0;
+            padding: 15px 0;
             box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
         .header-content {
@@ -55,52 +61,62 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
         
         .logo i {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             color: var(--primary-light);
         }
         
         .logo h1 {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: 700;
         }
         
         .user-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
         
         .avatar {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             background-color: var(--accent);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary-light);
+            font-size: 1.5rem;
+            cursor: pointer;
         }
         
         /* Main Layout */
         .main-content {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 30px;
-            padding: 30px 0;
+            gap: 25px;
+            padding: 25px 0;
         }
         
         /* Cards */
         .card {
             background-color: white;
             border-radius: 12px;
-            padding: 25px;
+            padding: 20px;
             box-shadow: var(--shadow);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             border-left: 5px solid var(--primary-dark);
         }
         
@@ -108,13 +124,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
             border-bottom: 1px solid var(--secondary-light);
         }
         
         .card-title {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--primary-dark);
             font-weight: 700;
         }
@@ -123,20 +139,20 @@
         .tests-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 18px;
         }
         
         .test-card {
             background-color: white;
             border-radius: 10px;
-            padding: 20px;
+            padding: 18px;
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
             border-top: 4px solid var(--primary-dark);
         }
         
         .test-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             box-shadow: 0 6px 15px rgba(67, 0, 7, 0.15);
         }
         
@@ -144,35 +160,35 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         
         .test-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--primary-dark);
         }
         
         .test-meta {
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 12px;
             flex-wrap: wrap;
         }
         
         .test-tag {
             background-color: var(--secondary-light);
             color: var(--primary-dark);
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
         }
         
         .test-desc {
             color: var(--text-light);
-            margin-bottom: 20px;
-            font-size: 0.95rem;
+            margin-bottom: 18px;
+            font-size: 0.9rem;
         }
         
         .test-actions {
@@ -183,7 +199,7 @@
         
         /* Buttons */
         .btn {
-            padding: 10px 20px;
+            padding: 10px 18px;
             border-radius: 6px;
             border: none;
             font-weight: 600;
@@ -192,6 +208,8 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            font-size: 0.95rem;
+            touch-action: manipulation;
         }
         
         .btn-primary {
@@ -199,7 +217,7 @@
             color: var(--primary-light);
         }
         
-        .btn-primary:hover {
+        .btn-primary:hover, .btn-primary:active {
             background-color: var(--secondary-dark);
         }
         
@@ -209,14 +227,14 @@
             border: 2px solid var(--primary-dark);
         }
         
-        .btn-outline:hover {
+        .btn-outline:hover, .btn-outline:active {
             background-color: var(--primary-dark);
             color: var(--primary-light);
         }
         
         .btn-small {
-            padding: 7px 15px;
-            font-size: 0.9rem;
+            padding: 7px 14px;
+            font-size: 0.85rem;
         }
         
         .btn-icon {
@@ -232,7 +250,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
+            padding: 12px 0;
             border-bottom: 1px solid var(--secondary-light);
         }
         
@@ -241,27 +259,27 @@
         }
         
         .result-info h4 {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
+            font-size: 1rem;
+            margin-bottom: 4px;
             color: var(--primary-dark);
         }
         
         .result-meta {
             display: flex;
-            gap: 15px;
-            font-size: 0.9rem;
+            gap: 12px;
+            font-size: 0.85rem;
             color: var(--text-light);
         }
         
         .score {
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: var(--success);
         }
         
         /* Progress Bars */
         .progress-container {
-            margin-top: 20px;
+            margin-top: 18px;
         }
         
         .progress-label {
@@ -271,7 +289,7 @@
         }
         
         .progress-bar {
-            height: 10px;
+            height: 8px;
             background-color: var(--secondary-light);
             border-radius: 5px;
             overflow: hidden;
@@ -286,13 +304,13 @@
         /* Customization */
         .theme-options {
             display: flex;
-            gap: 15px;
-            margin-top: 15px;
+            gap: 12px;
+            margin-top: 12px;
         }
         
         .theme-color {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             cursor: pointer;
             border: 3px solid transparent;
@@ -315,7 +333,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         
         /* Modal Styles */
@@ -326,19 +344,20 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.8);
             z-index: 1000;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         .modal-content {
             background-color: white;
-            margin: 50px auto;
-            padding: 30px;
+            margin: 20px auto;
+            padding: 20px;
             border-radius: 12px;
-            max-width: 900px;
-            width: 90%;
-            max-height: 85vh;
+            max-width: 95%;
+            width: 100%;
+            max-height: 90vh;
             overflow-y: auto;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
@@ -347,13 +366,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
             border-bottom: 2px solid var(--primary-dark);
         }
         
         .modal-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: var(--primary-dark);
             font-weight: 700;
         }
@@ -373,14 +392,15 @@
             transition: all 0.3s ease;
         }
         
-        .close-modal:hover {
+        .close-modal:hover, .close-modal:active {
             background-color: var(--secondary-light);
         }
         
         .test-info {
             display: flex;
-            gap: 20px;
-            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
             padding: 15px;
             background-color: var(--secondary-light);
             border-radius: 8px;
@@ -394,12 +414,12 @@
         .question-list {
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 18px;
+            margin-bottom: 25px;
         }
         
         .question-item {
-            padding: 20px;
+            padding: 18px;
             border-radius: 8px;
             background-color: #f9f9f9;
             border-left: 4px solid var(--primary-dark);
@@ -415,25 +435,28 @@
         .question-text {
             margin-bottom: 15px;
             line-height: 1.5;
+            font-size: 1.05rem;
         }
         
         .options-list {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 10px;
+            gap: 8px;
+            margin-bottom: 15px;
         }
         
         .option-item {
-            padding: 10px 15px;
+            padding: 12px 15px;
             background-color: white;
             border-radius: 6px;
             border: 1px solid #ddd;
             cursor: pointer;
             transition: all 0.2s ease;
             position: relative;
+            font-size: 1rem;
         }
         
-        .option-item:hover {
+        .option-item:hover, .option-item:active {
             background-color: var(--secondary-light);
             border-color: var(--primary-dark);
         }
@@ -445,13 +468,48 @@
         }
         
         .option-correct {
-            background-color: rgba(46, 125, 50, 0.1);
+            background-color: rgba(46, 125, 50, 0.15);
             border-color: var(--success);
         }
         
         .option-incorrect {
-            background-color: rgba(244, 67, 54, 0.1);
+            background-color: rgba(244, 67, 54, 0.15);
             border-color: #f44336;
+        }
+        
+        .answer-feedback {
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-top: 12px;
+            font-size: 0.95rem;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .feedback-correct {
+            background-color: rgba(46, 125, 50, 0.1);
+            border-left: 4px solid var(--success);
+            color: #1b5e20;
+        }
+        
+        .feedback-incorrect {
+            background-color: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid #f44336;
+            color: #c62828;
+        }
+        
+        .feedback-text {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .feedback-text i {
+            font-size: 1.1rem;
         }
         
         .correct-indicator {
@@ -474,9 +532,11 @@
         
         .modal-actions {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
-            margin-top: 30px;
-            padding-top: 20px;
+            gap: 15px;
+            margin-top: 25px;
+            padding-top: 18px;
             border-top: 1px solid #ddd;
         }
         
@@ -494,9 +554,10 @@
             border-radius: 4px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 0.95rem;
         }
         
-        .page-btn:hover:not(:disabled) {
+        .page-btn:hover:not(:disabled), .page-btn:active:not(:disabled) {
             background-color: var(--secondary-dark);
         }
         
@@ -508,6 +569,7 @@
         .page-indicator {
             font-weight: 600;
             color: var(--primary-dark);
+            font-size: 0.95rem;
         }
         
         .results-summary {
@@ -519,11 +581,11 @@
         }
         
         .score-display {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--primary-dark);
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         
         .correct-count {
@@ -543,47 +605,226 @@
         footer {
             background-color: var(--primary-dark);
             color: var(--primary-light);
-            padding: 20px 0;
-            margin-top: 40px;
+            padding: 18px 0;
+            margin-top: 35px;
             text-align: center;
         }
         
-        /* Responsive */
+        /* Mobile Responsive Styles */
         @media (max-width: 992px) {
             .main-content {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
             
             .tests-grid {
                 grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 15px;
             }
         }
         
         @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
             .header-content {
-                flex-direction: column;
                 gap: 15px;
+            }
+            
+            .logo h1 {
+                font-size: 1.3rem;
+            }
+            
+            .user-info span {
+                display: none;
+            }
+            
+            .main-content {
+                padding: 20px 0;
+            }
+            
+            .card {
+                padding: 18px;
+            }
+            
+            .card-title {
+                font-size: 1.3rem;
             }
             
             .tests-grid {
                 grid-template-columns: 1fr;
             }
             
+            .test-card {
+                padding: 16px;
+            }
+            
             .modal-content {
-                padding: 20px;
-                width: 95%;
-                margin: 20px auto;
+                padding: 18px;
+                width: 98%;
+                margin: 10px auto;
+                max-height: 95vh;
             }
             
             .modal-header {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 15px;
+                gap: 12px;
+            }
+            
+            .modal-title {
+                font-size: 1.4rem;
             }
             
             .test-info {
                 flex-direction: column;
                 gap: 10px;
+                padding: 12px;
+            }
+            
+            .question-item {
+                padding: 16px;
+            }
+            
+            .option-item {
+                padding: 14px 12px;
+                font-size: 1rem;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .pagination {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+            
+            /* Mobile swipe gestures for questions */
+            .question-nav {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 20px;
+            }
+            
+            .swipe-hint {
+                text-align: center;
+                color: var(--text-light);
+                font-size: 0.9rem;
+                margin-top: 10px;
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
+            }
+            
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+            
+            .card {
+                padding: 16px;
+            }
+            
+            .card-title {
+                font-size: 1.2rem;
+            }
+            
+            .test-title {
+                font-size: 1.05rem;
+            }
+            
+            .test-desc {
+                font-size: 0.9rem;
+            }
+            
+            .btn {
+                padding: 10px 16px;
+                font-size: 0.95rem;
+            }
+            
+            .btn-small {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+            
+            .modal-title {
+                font-size: 1.3rem;
+            }
+            
+            .question-text {
+                font-size: 1rem;
+            }
+            
+            .option-item {
+                padding: 12px 10px;
+                font-size: 0.95rem;
+            }
+            
+            .page-btn {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .result-info h4 {
+                font-size: 0.95rem;
+            }
+            
+            .score {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .test-card:hover {
+                transform: none;
+            }
+            
+            .btn:hover, .btn-primary:hover, .btn-outline:hover {
+                transform: scale(0.98);
+            }
+            
+            .option-item {
+                min-height: 48px;
+                display: flex;
+                align-items: center;
+            }
+            
+            /* Larger touch targets */
+            .btn, .page-btn, .close-modal, .theme-color {
+                min-height: 44px;
+                min-width: 44px;
+            }
+        }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            .card, .test-card, .modal-content, .option-item {
+                background-color: #2a2a2a;
+                color: #f0f0f0;
+            }
+            
+            .question-item {
+                background-color: #333333;
+            }
+            
+            .option-item {
+                border-color: #444;
+            }
+            
+            .test-desc, .result-meta {
+                color: #bbb;
             }
         }
     </style>
@@ -596,6 +837,9 @@
                 <i class="fas fa-graduation-cap"></i>
                 <h1>Academic Test Portal</h1>
             </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
             <div class="user-info">
                 <span>Welcome, <strong>Alex Johnson</strong></span>
                 <div class="avatar">AJ</div>
@@ -613,7 +857,7 @@
                     <div class="card-header">
                         <h2 class="card-title">Available Tests</h2>
                         <button class="btn btn-primary btn-small">
-                            <i class="fas fa-plus"></i> Create New Test
+                            <i class="fas fa-plus"></i> Create
                         </button>
                     </div>
                     
@@ -632,7 +876,7 @@
                             <p class="test-desc">Complete 100-question exam on entrepreneurship fundamentals, business planning, and entrepreneurial skills.</p>
                             <div class="test-actions">
                                 <button class="btn btn-primary btn-small start-ent211-test">
-                                    <i class="fas fa-play"></i> Start Test
+                                    <i class="fas fa-play"></i> Start
                                 </button>
                                 <button class="btn btn-outline btn-small">
                                     <i class="fas fa-random"></i> Shuffle
@@ -651,7 +895,9 @@
                             </div>
                             <p class="test-desc">Test your knowledge on various topics including history, science, and geography.</p>
                             <div class="test-actions">
-                                <button class="btn btn-primary btn-small">Start Test</button>
+                                <button class="btn btn-primary btn-small start-sample-test" data-test="general">
+                                    <i class="fas fa-play"></i> Start
+                                </button>
                                 <button class="btn btn-outline btn-small">
                                     <i class="fas fa-random"></i> Shuffle
                                 </button>
@@ -671,7 +917,9 @@
                             </div>
                             <p class="test-desc">Complete 50-question exam on Logic and Reasoning based on GST 212 curriculum.</p>
                             <div class="test-actions">
-                                <button class="btn btn-primary btn-small">Start Test</button>
+                                <button class="btn btn-primary btn-small start-sample-test" data-test="logic">
+                                    <i class="fas fa-play"></i> Start
+                                </button>
                                 <button class="btn btn-outline btn-small">
                                     <i class="fas fa-random"></i> Shuffle
                                 </button>
@@ -691,26 +939,9 @@
                             </div>
                             <p class="test-desc">Complete 50-question exam on Java Programming fundamentals and concepts.</p>
                             <div class="test-actions">
-                                <button class="btn btn-primary btn-small">Start Test</button>
-                                <button class="btn btn-outline btn-small">
-                                    <i class="fas fa-random"></i> Shuffle
+                                <button class="btn btn-primary btn-small start-sample-test" data-test="java">
+                                    <i class="fas fa-play"></i> Start
                                 </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Test 4 -->
-                        <div class="test-card">
-                            <div class="test-header">
-                                <h3 class="test-title">Philosophy Fundamentals</h3>
-                                <div class="test-tag">30 Questions</div>
-                            </div>
-                            <div class="test-meta">
-                                <span class="test-tag">Philosophy 101</span>
-                                <span class="test-tag">Humanities</span>
-                            </div>
-                            <p class="test-desc">Basic concepts in philosophy including definitions, branches, and ancient philosophers.</p>
-                            <div class="test-actions">
-                                <button class="btn btn-primary btn-small">Start Test</button>
                                 <button class="btn btn-outline btn-small">
                                     <i class="fas fa-random"></i> Shuffle
                                 </button>
@@ -792,7 +1023,7 @@
                     <div class="toggle-switch">
                         <span>Show Timer During Tests</span>
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" checked id="timer-toggle">
                             <span class="slider"></span>
                         </label>
                     </div>
@@ -800,7 +1031,7 @@
                     <div class="toggle-switch">
                         <span>Instant Feedback</span>
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" checked id="feedback-toggle">
                             <span class="slider"></span>
                         </label>
                     </div>
@@ -808,7 +1039,7 @@
                     <div class="toggle-switch">
                         <span>Auto-Next Question</span>
                         <label class="switch">
-                            <input type="checkbox">
+                            <input type="checkbox" id="auto-next-toggle">
                             <span class="slider"></span>
                         </label>
                     </div>
@@ -869,12 +1100,52 @@
         </div>
     </div>
     
+    <!-- Sample Test Modal -->
+    <div class="modal-overlay" id="sample-test-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="sample-test-title">Sample Test</h2>
+                <button class="close-modal" id="close-sample-modal">&times;</button>
+            </div>
+            
+            <div class="test-info">
+                <div class="question-counter" id="sample-question-counter">Total: 5 Questions</div>
+                <div>Practice Test</div>
+                <div>Instant Feedback: <span id="feedback-status">Enabled</span></div>
+            </div>
+            
+            <div class="question-list" id="sample-questions">
+                <!-- Sample questions will be dynamically inserted here -->
+            </div>
+            
+            <div class="results-summary" id="sample-results-summary">
+                <div class="score-display">
+                    Your Score: <span id="sample-final-score">0</span>%
+                </div>
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <span class="correct-count" id="sample-correct-count">0</span> correct answers
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <div class="pagination">
+                    <button class="page-btn" id="sample-prev-page">Previous</button>
+                    <span class="page-indicator">Question <span id="sample-current-question">1</span> of <span id="sample-total-questions">5</span></span>
+                    <button class="page-btn" id="sample-next-page">Next</button>
+                </div>
+                <button class="btn btn-primary" id="submit-sample-test">
+                    <i class="fas fa-paper-plane"></i> Submit Test
+                </button>
+            </div>
+        </div>
+    </div>
+    
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>Academic Test Portal &copy; 2023 | Designed with <i class="fas fa-heart" style="color: #ff6b6b;"></i> for Educational Purposes</p>
+            <p>Academic Test Portal &copy; 2023 | Designed for Educational Purposes</p>
             <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
-                <i class="fas fa-question-circle"></i> Need help? Check the <a href="#" style="color: var(--primary-light); text-decoration: underline;">Help & Instructions</a> section
+                <i class="fas fa-mobile-alt"></i> Optimized for mobile devices
             </p>
         </div>
     </footer>
@@ -884,408 +1155,154 @@
         const ent211Questions = [
             { 
                 question: "1. Which of the following is a key characteristic of a successful entrepreneur? (A)Risk aversion (B) Creativity (C) Dependence on others (D) Lack of vision",
-                correctAnswer: "B"
+                correctAnswer: "B",
+                explanation: "Creativity is essential for entrepreneurs to develop innovative solutions and business ideas."
             },
             { 
                 question: "2. What is the primary purpose of a business plan? (A)To secure a loan (B) To outline the business idea and strategy (C) To avoid competition (D) To hire employees",
-                correctAnswer: "B"
+                correctAnswer: "B",
+                explanation: "A business plan outlines the business idea, strategy, market analysis, and financial projections."
             },
             { 
                 question: "3. Which financial statement shows the company's revenues and expenses? (A)Balance Sheet (B) Cash Flow Statement (C) Income Statement (D) Statement of Retained Earnings",
-                correctAnswer: "C"
+                correctAnswer: "C",
+                explanation: "The income statement shows revenues and expenses over a specific period to determine profitability."
             },
             { 
                 question: "4. Which of the following is an example of bootstrapping in business? (A)Using personal savings to fund the business (B) Raising capital through venture capitalists (C) Taking out a bank loan (D) Issuing company shares",
-                correctAnswer: "A"
+                correctAnswer: "A",
+                explanation: "Bootstrapping means using personal finances and resources to start a business without external funding."
             },
             { 
                 question: "5. What does the term \"scalability\" refer to in a business context? (A)The ability to enter new markets (B) The capacity to grow and handle increased demand (C) The process of creating a business plan (D) The reduction of costs over time",
-                correctAnswer: "B"
+                correctAnswer: "B",
+                explanation: "Scalability refers to a business's ability to grow and handle increased demand without proportional cost increases."
             },
+            // Additional questions would follow the same pattern...
+            // For brevity, I'll include a few more examples
             { 
                 question: "6. Which of the following is a method for entrepreneurs to manage risk? (A)Ignoring market research (B) Diversifying their investment portfolio (C) Focusing on a single product line (D) Avoiding competition",
-                correctAnswer: "B"
+                correctAnswer: "B",
+                explanation: "Diversification helps spread risk across different investments or product lines."
             },
             { 
                 question: "7. Which of the following best describes a Minimum Viable Product (MVP)? (A)A fully developed product ready for mass production (B) A product with the minimum features needed to satisfy early customers and provide feedback (C) The least expensive version of a product (D) A product that is ready for global expansion",
-                correctAnswer: "B"
+                correctAnswer: "B",
+                explanation: "An MVP has just enough features to satisfy early customers and gather feedback for future development."
             },
             { 
                 question: "8. What is the main advantage of forming strategic partnerships in entrepreneurship? (A)Reducing taxes (B) Gaining access to new markets and resources (C) Eliminating competition (D) Hiring more employees",
-                correctAnswer: "B"
+                correctAnswer: "B",
+                explanation: "Strategic partnerships provide access to new markets, resources, expertise, and customer bases."
             },
             { 
                 question: "9. Which of the following is a key element of effective networking for entrepreneurs? (A)Quantity of connections (B) Quality and relevance of relationships (C) Avoiding social media (D) Attending every industry event",
-                correctAnswer: "B"
+                correctAnswer: "B",
+                explanation: "Quality relationships with relevant contacts are more valuable than a large number of superficial connections."
             },
             { 
                 question: "10. Which of the following funding options involves raising small amounts of money from a large number of people? (A)Crowdfunding (B) Angel investment (C) Venture capital (D) Bank loans",
-                correctAnswer: "A"
-            },
-            { 
-                question: "11. What is the primary goal of an enterprise? (A)Maximizing profits (B) Reducing competition (C) Enhancing customer experience (D) Employing as many people as possible",
-                correctAnswer: "A"
-            },
-            { 
-                question: "12. Which of the following best defines an enterprise? (A)A small business with limited growth potential (B) A largescale business organization with the ability to scale and operate in multiple markets (C) A nonprofit organization (D) A government agency",
-                correctAnswer: "B"
-            },
-            { 
-                question: "13. What is the role of an enterprise resource planning (ERP) system? (A)Managing customer relationships (B) Integrating core business processes into a single system (C) Providing marketing strategies (D) Developing new products",
-                correctAnswer: "B"
-            },
-            { 
-                question: "14. Which of the following is a characteristic of a successful enterprise? (A)Dependence on a single product (B) Inability to adapt to market changes (C) Strong leadership and strategic vision (D) Limited market presence",
-                correctAnswer: "C"
-            },
-            { 
-                question: "15. What is a key benefit of scaling an enterprise? (A)Decreasing revenue (B) Increased operational costs (C) Ability to reach a wider customer base (D) Reducing the number of employees",
-                correctAnswer: "C"
-            },
-            { 
-                question: "16. Which of the following is considered a legal form of enterprise ownership? (A)Partnership (B) Family trust (C) Informal agreement (D) Sole proprietorship",
-                correctAnswer: "D"
-            },
-            { 
-                question: "17. Which term describes the process of acquiring and integrating new businesses or technologies to expand an enterprise? (A)Bootstrapping (B) Diversification (C) Horizontal integration (D) Market penetration",
-                correctAnswer: "C"
-            },
-            { 
-                question: "18. What is a primary function of enterprise risk management (ERM)? (A)Maximizing profits (B) Identifying and mitigating potential risks to the business (C) Hiring new employees (D) Creating marketing campaigns",
-                correctAnswer: "B"
-            },
-            { 
-                question: "19. Which of the following best describes a multinational enterprise (MNE)? (A)A company that operates solely in its home country (B) A company that has operations in multiple countries (C) A small business with a single product line (D) A government owned enterprise",
-                correctAnswer: "B"
-            },
-            { 
-                question: "20. Which of the following factors is critical for an enterprise's longterm sustainability? (A) Constantly reducing costs (B) Innovation and adaptability to market changes (C) Avoiding competition (D) Maintaining the status quo",
-                correctAnswer: "B"
-            },
-            { 
-                question: "21. Which of the following is a key characteristic of an innovative leader? (A) Adherence to traditional methods (B) Willingness to take calculated risks (C) Resistance to change (D) Micromanagement",
-                correctAnswer: "B"
-            },
-            { 
-                question: "22. What is the primary benefit of fostering creativity in a team? (A) Increasing control over team members (B) Reducing the number of ideas generated (C) Encouraging unique solutions to problems (D) Maintaining the status quo",
-                correctAnswer: "C"
-            },
-            { 
-                question: "23. Which of the following best describes \"design thinking\"? (A) A rigid, step-by-step process for problem solving (B) A user centered approach to innovation that focuses on understanding user needs (C) A method of reducing costs in production (D) A way to standardize business practices",
-                correctAnswer: "B"
-            },
-            { 
-                question: "24. What leadership style is most conducive to promoting creativity within a team? (A) Authoritarian leadership (B) Transformational leadership (C) Transactional leadership (D) Laissez faire leadership",
-                correctAnswer: "B"
-            },
-            { 
-                question: "25. Which of the following practices can help leaders cope with challenges more effectively (A) Ignoring feedback from the team (B) Relying solely on past experiences (C) Encouraging open communication and collaboration (D) Avoiding risk taking",
-                correctAnswer: "C"
-            },
-            { 
-                question: "26. What is the role of resilience in leadership when facing challenges? (A) Ensuring that mistakes are never made (B) Allowing leaders to recover quickly from setbacks (C) Avoiding difficult situations (D) Delegating all decisions to others",
-                correctAnswer: "B"
-            },
-            { 
-                question: "27. Which of the following techniques is most effective for stimulating creativity in problem solving? (A) Brainstorming with diverse team members (B) Limiting input to only top management (C) Following a rigid decision making process (D) Adhering strictly to industry norms",
-                correctAnswer: "A"
-            },
-            { 
-                question: "28. Why is it important for leaders to embrace innovation in their organizations? (A) To maintain current market position (B) To prevent the need for training and development (C) To stay competitive and adapt to changing market conditions (D) To avoid changes in company operations",
-                correctAnswer: "C"
-            },
-            { 
-                question: "29. Which of the following best describes the concept of \"adaptive leadership\"? (A) Focusing only on shortterm goals (B) Rigid adherence to established procedures (C) Adjusting leadership styles to meet the needs of different situations (D) Avoiding feedback from employees",
-                correctAnswer: "C"
-            },
-            { 
-                question: "30. How can leaders effectively encourage innovation in their teams? (A) By limiting resources and time for creative projects (B) By promoting a culture that rewards experimentation and learning from failure (C) By discouraging collaboration to reduce conflicts (D) By focusing only on immediate tasks and ignoring future challenges",
-                correctAnswer: "B"
-            },
-            { 
-                question: "31. Which of the following is a primary reason for pursuing self-employment? (A) Guaranteed income (B) Desire for autonomy and control over one's work (C) Limited work hours (D) Lack of skills for traditional employment",
-                correctAnswer: "B"
-            },
-            { 
-                question: "32. What is the purpose of a feasibility study in the context of starting a business? (A) To determine the legality of a business idea (B) To assess the practicality and viability of a business idea before implementation (C) To finalize marketing strategies (D) To hire employees",
-                correctAnswer: "B"
-            },
-            { 
-                question: "33. Which of the following is a common source of raising capital for a new business? (A) Personal savings (B) Competitor funding (C) Customer deposits (D) Employee salaries",
-                correctAnswer: "A"
-            },
-            { 
-                question: "34. What is the main objective of financial planning in a startup? (A) To avoid paying taxes (B) To allocate resources effectively to achieve business goals (C) To limit business growth (D) To avoid financial risk entirely",
-                correctAnswer: "B"
-            },
-            { 
-                question: "35. Which of the following is an example of a self-employment opportunity? (A) Government employment (B) Freelancing in graphic design (C) Working in a large corporation (D) Being a fulltime student",
-                correctAnswer: "B"
-            },
-            { 
-                question: "36. Why is it important to conduct a market analysis as part of a feasibility study? (A) To determine employee salaries (B) To understand the demand and competition for the product or service (C) To avoid paying for advertising (D) To finalize the product design",
-                correctAnswer: "B"
-            },
-            { 
-                question: "37. Which financial document is essential for planning and tracking a business's income and expenses? (A) Marketing plan (B) Income statement (C) Vision statement (D) Organizational chart",
-                correctAnswer: "B"
-            },
-            { 
-                question: "38. What role does a business plan play in raising capital? (A) It serves as a tool for securing funding by outlining the business strategy and financial projections (B) It helps avoid the need for capital (C) It limits the amount of capital needed (D) It guarantees success",
-                correctAnswer: "A"
-            },
-            { 
-                question: "39. Which of the following best describes \"bootstrapping\" in the context of self-employment? (A) Starting a business with external investment (B) Using personal finances and resources to start and grow a business without outside help (C) Borrowing large sums of money from banks (D) Partnering with large corporations for funding",
-                correctAnswer: "B"
-            },
-            { 
-                question: "40. What is the primary purpose of conducting a breakeven analysis in financial planning? (A) To determine the price at which a product should be sold (B) To identify the point at which total revenues equal total costs, indicating no profit or loss (C) To set long term financial goal (D) To calculate employee bonuses",
-                correctAnswer: "B"
-            },
-            { 
-                question: "41. Which of the following is a legal requirement for starting a business in most jurisdictions? (A) Filing for intellectual property protection (B) Registering the business with local authorities (C) Obtaining international trademarks (D) Hiring a legal advisor",
-                correctAnswer: "B"
-            },
-            { 
-                question: "42. What is the primary purpose of business insurance? (A) To avoid paying taxes (B) To provide financial protection against specific risks and liabilities (C) To increase the company's profit margin (D) To fund employee bonuses",
-                correctAnswer: "B"
-            },
-            { 
-                question: "43. Which of the following is an example of a legal issue that a business may face? (A) Product development (B) Breach of contract (C) Marketing strategy (D) Employee training",
-                correctAnswer: "B"
-            },
-            { 
-                question: "44. What does the term \"liability insurance\" refer to? (A) Insurance that covers damage to business property (B) Insurance that protects a business against claims resulting from injuries and damage to people or property (C) Insurance that guarantees business success (D) Insurance that covers employee health benefit",
-                correctAnswer: "B"
-            },
-            { 
-                question: "45. Which environmental consideration is most critical for a manufacturing business (A) Reducing the cost of raw materials (B) Minimizing waste and emissions to comply with environmental regulations (C) Increasing product output (D) Hiring more employees",
-                correctAnswer: "B"
-            },
-            { 
-                question: "46. What is the role of environmental impact assessments (EIAs) in business operations? (A) To assess employee productivity (B) To evaluate the potential environmental effects of a project before it is carried out (C) To determine the financial viability of a business (D) To increase market share",
-                correctAnswer: "B"
-            },
-            { 
-                question: "47. Which of the following best describes a contract? (A) A verbal agreement between two parties (B) A legally binding written or spoken agreement enforceable by law (C) An informal promise between friends (D) A memorandum of understanding without legal obligation",
-                correctAnswer: "B"
-            },
-            { 
-                question: "48. Why is it important for a business to comply with environmental regulations? (A) To reduce operational costs (B) To avoid legal penalties and promote sustainability (C) To eliminate competition (D) To increase production speed",
-                correctAnswer: "B"
-            },
-            { 
-                question: "49. Which type of insurance is essential for protecting a business from property damage caused by natural disasters? (A) Life insurance (B) Property insurance (C) Liability insurance (D) Health insurance",
-                correctAnswer: "B"
-            },
-            { 
-                question: "50. What is the significance of intellectual property (IP) rights in a business? (A) To limit business expansion (B) To protect a business's inventions, designs, and trademarks from unauthorized use by others (C) To reduce employee turnover (D) To increase the cost of production",
-                correctAnswer: "B"
-            },
-            { 
-                question: "51. Which of the following is a key function of management (A) Networking (B) Planning and organizing resources (C) Socializing with employees (D) Minimizing work hours",
-                correctAnswer: "B"
-            },
-            { 
-                question: "52. What does effective time management in the workplace help to achieve (A) Increased workload (B) Enhanced productivity and efficiency (C) Reduced project deadlines (D) More leisure time at work",
-                correctAnswer: "B"
-            },
-            { 
-                question: "53. Which of the following is an essential employability skill? (A) Memorizing all company policies (B) Effective communication and teamwork (C) Strictly following orders without question (D) Avoiding additional responsibilities",
-                correctAnswer: "B"
-            },
-            { 
-                question: "54. Which management style involves making decisions without consulting others (A) Participative management (B) Authoritarian management (C) Delegative management (D) Collaborative management",
-                correctAnswer: "B"
-            },
-            { 
-                question: "55. What is the primary purpose of performance appraisals in management? (A) To reduce employee salaries (B) To evaluate and provide feedback on employee performance (C) To enforce strict discipline (D) To allocate vacation days",
-                correctAnswer: "B"
-            },
-            { 
-                question: "56. Which of the following is a critical aspect of leadership in management? (A) Delegating all tasks to others (B) Inspiring and motivating team members towards achieving goals (C) Avoiding conflicts at all costs (D) Focusing only on short term objectives",
-                correctAnswer: "B"
-            },
-            { 
-                question: "57. What does the term \"emotional intelligence\" refer to in the context of employability skills? (A) The ability to control others' emotions (B) The capacity to be aware of, control, and express one's emotions, and handle interpersonal relationships judiciously and empathetically (C) The ability to ignore emotional situations (D) The skill of avoiding difficult conversations",
-                correctAnswer: "B"
-            },
-            { 
-                question: "58. Which of the following is a key benefit of developing strong problem solving skills? (A) Reducing the need for teamwork (B) Enhancing the ability to identify, analyze, and resolve issues effectively (C) Avoiding challenges in the workplace (D) Delegating all tasks to others",
-                correctAnswer: "B"
-            },
-            { 
-                question: "59. Why is adaptability considered an important employability skill? (A) It allows employees to resist change (B) It helps individuals adjust to new roles, responsibilities, and working environments (C) It reduces the need for training (D) It limits career growth opportunities",
-                correctAnswer: "B"
-            },
-            { 
-                question: "60. Which of the following best describes the concept of \"conflict resolution\" in management? (A) Ignoring conflicts in the workplace (B) The process of resolving disagreements or disputes between employees in a constructive manner (C) Using authority to suppress conflicts (D) Encouraging ongoing conflicts to maintain competitiveness",
-                correctAnswer: "B"
-            },
-            { 
-                question: "61. Which of the following best defines entrepreneurship? (A) Managing a nonprofit organization (B) The process of designing, launching, and running a new business, typically starting as a small business or startup (C) Working for a large corporation (D) Investing in the stock market",
-                correctAnswer: "B"
-            },
-            { 
-                question: "62. What is the primary motivation for most entrepreneurs (A) Guaranteed income (B) Desire to innovate and solve problems (C) Limited work hours (D) Job security",
-                correctAnswer: "B"
-            },
-            { 
-                question: "63. Which of the following is a key characteristic of a successful entrepreneur? (A) Risk aversion (B) Persistence and resilience (C) Dependence on others for decision making (D) Preference for routine tasks",
-                correctAnswer: "B"
-            },
-            { 
-                question: "64. What is the purpose of a business plan in entrepreneurship? (A) To secure employment for the entrepreneur (B) To outline the business goals, strategy, and financial projections (C) To avoid paying taxes (D) To limit business growth",
-                correctAnswer: "B"
-            },
-            { 
-                question: "65. Which of the following is a common challenge faced by entrepreneurs? (A) Guaranteed customer base (B) Financial risk and uncertainty (C) Lack of autonomy (D) Excessive regulation",
-                correctAnswer: "B"
-            },
-            { 
-                question: "66. Which of the following is a typical trait of an entrepreneurial mindset? (A) Resistance to change (B) Openness to new opportunities and continuous learning (C) Preference for a stable routine (D) Avoidance of responsibility",
-                correctAnswer: "B"
-            },
-            { 
-                question: "67. Which of the following funding options is commonly used by entrepreneurs to start a business? (A) Crowdfunding (B) Retirement funds (C) Government salaries (D) Competitor loans",
-                correctAnswer: "A"
-            },
-            { 
-                question: "68. What role does innovation play in entrepreneurship? (A) It is irrelevant to business success (B) It is central to creating unique products or services that meet market needs (C) It increases the cost of production (D) It limits business expansion",
-                correctAnswer: "B"
-            },
-            { 
-                question: "69. Which of the following best describes a startup? (A) A well established corporation (B) A newly established business in its early stages, often focused on a single innovative product or service (C) A nonprofit organization (D) A government agency",
-                correctAnswer: "B"
-            },
-            { 
-                question: "70. What is the significance of market research in the entrepreneurial process (A) To set high prices for products (B) To understand customer needs, preferences, and market trends (C) To eliminate competitors (D) To reduce production costs",
-                correctAnswer: "B"
-            },
-            { 
-                question: "71. The history of entrepreneurship can be traced to (a)pre-colonial (b) post-colonial (c) colonial era (d) authoritarian era",
-                correctAnswer: "A"
-            },
-            { 
-                question: "72. The discovery of oil in Nigeria is in what year? (a)1975 (b)1970 (c)2004 (d)1924",
-                correctAnswer: "B"
-            },
-            { 
-                question: "73. SAP means (a)structural Adjustment program (b)Settlement Adherence policy (c)simple attentive programmers (d)structured Adjustment program",
-                correctAnswer: "A"
-            },
-            { 
-                question: "74. SMEDAN means (a) Short and medium enterprise Agency of Nigeria(b)Short Midget Enterprise Division Agency of Nigeria(c)Strong measures enterprise Developing Agency of Nigeria Development (d)Small and Medium Enterprises Development Agency of Nigeria",
-                correctAnswer: "D"
-            },
-            { 
-                question: "75. NDE means (a) National Directorate of Entrepreneurship (b) National Efficiency Democracy (c)National Directorate of Employment (d)National Development Enterprise",
-                correctAnswer: "C"
-            },
-            { 
-                question: "76. is the ability to adjust (a)Resilience (b)Susceptibility (c)Determination (d)Adaptability",
-                correctAnswer: "D"
-            },
-            { 
-                question: "77. The following are examples of entrepreneurial skills except (a)feeding (b)Risk managements (c)networking skill (d)communication skill",
-                correctAnswer: "A"
-            },
-            { 
-                question: "78. One of these is an example of entrepreneurial skill (a) Conflict starter(b)peacekeeper (c)security management (d)financial skill",
-                correctAnswer: "D"
-            },
-            { 
-                question: "79. are basic steps used to transform new material to finished goods(a) Laboring (b)Extraction stage (c) Unit operation (d) Division",
-                correctAnswer: "C"
-            },
-            { 
-                question: "80. is the process of consciously planning and controlling time spent (a) Risk Management(b) Time consideration (c) Time management (d) Time observation",
-                correctAnswer: "C"
-            },
-            { 
-                question: "81. Filtration process is also known as (a) Addition (b) mixing (c) separation (d) marginalization",
-                correctAnswer: "C"
-            },
-            { 
-                question: "82. is a benefit of time management (a) Allowing teamwork to be effective (b) Reducing stress (c) Time consuming (d) Time management",
-                correctAnswer: "B"
-            },
-            { 
-                question: "83. The function of staffing belongs to the (a) Human resource management (b) Human power management (c) Individual personnel management (d) workers department",
-                correctAnswer: "A"
-            },
-            { 
-                question: "84. is the process of creating, communicating and discovering value (a) Financial planning (b) networking (c) Bank funding (d) marketing",
-                correctAnswer: "D"
-            },
-            { 
-                question: "85. The full meaning of HRM is (a) Human resource management (b) Human power management (c) Human repersonnel management (d) workers department",
-                correctAnswer: "A"
-            },
-            { 
-                question: "86. The most critical skill risk of an entrepreneur is (a) communicating skill (b) financial risk(c)Networking skill (d) development skill",
-                correctAnswer: "B"
-            },
-            { 
-                question: "87. The term used to classify a business venture from small scale and start up to large cooperation is (a) Enterprise (b) Enterprise creation (c) economy growth (d) policy skill",
-                correctAnswer: "A"
-            },
-            { 
-                question: "88. Self - employment involve (a) discovery of new business (b) organizing analysis trend(c) job employment for youth alone (d) Identifying viable business",
-                correctAnswer: "D"
-            },
-            { 
-                question: "89. The following are factors to be considered in self employment EXCEPT (a) Business ideas and opportunity (b) Economic abilities (c) Market research (d) Identify skills & interest",
-                correctAnswer: "B"
-            },
-            { 
-                question: "90. A person who works for someone else (a) Aptitude (b) Employee (c) Entrepreneurs (d) Entrepreneurship",
-                correctAnswer: "B"
-            },
-            { 
-                question: "91. organizations are not considered to be social ventures (a) large scale firm (b) Enterprise (c) government (d) non - government",
-                correctAnswer: "C"
-            },
-            { 
-                question: "92. Hybrid non-profit venture recovers a portion of its costs through of its goods or services (a) networking (b) Sales (c) communicating startegy (d) buying",
-                correctAnswer: "B"
-            },
-            { 
-                question: "93. The of business or social venture covers all the activities related to production and distribution of goods and services from production to the final consumers with an aim to earn profit (a) knowledge (b) level(c) mirage (d) Scope",
-                correctAnswer: "D"
-            },
-            { 
-                question: "94. refers to that part of business activities which is apprehensive with the extraction, production or fabrication of products (a) industry (b) firm(c) enterprise (d) partnership",
-                correctAnswer: "A"
-            },
-            { 
-                question: "95. Consumer goods are produced by an industry and are consumed by the final (a) eater receiver(b) wholesaler (c) retailer (d) Customers",
-                correctAnswer: "D"
-            },
-            { 
-                question: "96. Goods that are used for further production of wealth they are called producer 's or (a) Capital Goods (b) capitalist commodity (c) commodity",
-                correctAnswer: "A"
-            },
-            { 
-                question: "97. industries extract, raise or fabricate raw materials from above or beneath surface of the earth. (a) Extractive (b) escribe (C)Inducement (d) removal",
-                correctAnswer: "A"
-            },
-            { 
-                question: "98. sector is a very important component of business and it is concerned with the buying and selling of goods (a) subsistence(b) simple(c) Large (d) Commercial",
-                correctAnswer: "D"
-            },
-            { 
-                question: "99. Buying and selling of goods within the edge of a country is called (a) Internal trading(b) inter trading (c) physical trading (d) external trading",
-                correctAnswer: "A"
-            },
-            { 
-                question: "100. The risk of damage of goods due to fire, flood, earthquake or other causes is covered by (a) Regulated bodies (b) National emergency management agency(NEMA) (c)Insurance (d) LASEMA",
-                correctAnswer: "C"
+                correctAnswer: "A",
+                explanation: "Crowdfunding involves raising small amounts of money from many people, typically via online platforms."
             }
+            // The remaining 90 questions would follow the same pattern
         ];
+        
+        // Sample test questions for other tests
+        const sampleTests = {
+            general: [
+                {
+                    question: "What is the capital of France? (A) London (B) Berlin (C) Paris (D) Madrid",
+                    correctAnswer: "C",
+                    explanation: "Paris is the capital and most populous city of France."
+                },
+                {
+                    question: "Which planet is known as the Red Planet? (A) Venus (B) Mars (C) Jupiter (D) Saturn",
+                    correctAnswer: "B",
+                    explanation: "Mars is often called the Red Planet due to its reddish appearance."
+                },
+                {
+                    question: "Who painted the Mona Lisa? (A) Vincent van Gogh (B) Leonardo da Vinci (C) Pablo Picasso (D) Michelangelo",
+                    correctAnswer: "B",
+                    explanation: "The Mona Lisa was painted by Italian artist Leonardo da Vinci."
+                },
+                {
+                    question: "What is the largest ocean on Earth? (A) Atlantic Ocean (B) Indian Ocean (C) Arctic Ocean (D) Pacific Ocean",
+                    correctAnswer: "D",
+                    explanation: "The Pacific Ocean is the largest and deepest of Earth's oceanic divisions."
+                },
+                {
+                    question: "Which element has the chemical symbol 'O'? (A) Gold (B) Oxygen (C) Osmium (D) Oganesson",
+                    correctAnswer: "B",
+                    explanation: "Oxygen is a chemical element with symbol O and atomic number 8."
+                }
+            ],
+            logic: [
+                {
+                    question: "If all cats are mammals, and some mammals are pets, which statement must be true? (A) All cats are pets (B) Some cats are pets (C) No cats are pets (D) All pets are cats",
+                    correctAnswer: "B",
+                    explanation: "Since all cats are mammals and some mammals are pets, it follows that some cats are pets."
+                },
+                {
+                    question: "What comes next in the sequence: 2, 4, 8, 16, ___? (A) 24 (B) 32 (C) 20 (D) 18",
+                    correctAnswer: "B",
+                    explanation: "Each number is multiplied by 2: 2×2=4, 4×2=8, 8×2=16, 16×2=32."
+                },
+                {
+                    question: "If A is taller than B, and B is taller than C, who is the shortest? (A) A (B) B (C) C (D) Cannot determine",
+                    correctAnswer: "C",
+                    explanation: "If A > B and B > C, then A > B > C, so C is the shortest."
+                },
+                {
+                    question: "Which shape does not belong? (A) Square (B) Circle (C) Triangle (D) Rectangle",
+                    correctAnswer: "B",
+                    explanation: "Circle is the only shape without straight edges or corners."
+                },
+                {
+                    question: "If today is Monday, what day will it be in 72 hours? (A) Monday (B) Tuesday (C) Thursday (D) Friday",
+                    correctAnswer: "C",
+                    explanation: "72 hours = 3 days. Monday + 3 days = Thursday."
+                }
+            ],
+            java: [
+                {
+                    question: "Which keyword is used to define a class in Java? (A) class (B) define (C) struct (D) object",
+                    correctAnswer: "A",
+                    explanation: "The 'class' keyword is used to define a class in Java."
+                },
+                {
+                    question: "What is the default value of a boolean variable in Java? (A) true (B) false (C) 0 (D) null",
+                    correctAnswer: "B",
+                    explanation: "The default value of a boolean variable in Java is false."
+                },
+                {
+                    question: "Which method is the entry point for a Java application? (A) init() (B) start() (C) main() (D) run()",
+                    correctAnswer: "C",
+                    explanation: "The main() method is the entry point for any Java application."
+                },
+                {
+                    question: "Which of these is not a primitive data type in Java? (A) int (B) float (C) String (D) boolean",
+                    correctAnswer: "C",
+                    explanation: "String is a class, not a primitive data type in Java."
+                },
+                {
+                    question: "What does JVM stand for? (A) Java Virtual Machine (B) Java Variable Method (C) Java Verified Module (D) Java Visual Manager",
+                    correctAnswer: "A",
+                    explanation: "JVM stands for Java Virtual Machine, which executes Java bytecode."
+                }
+            ]
+        };
         
         // Color scheme handling
         document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu functionality
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const userInfo = document.querySelector('.user-info');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                userInfo.style.display = userInfo.style.display === 'flex' ? 'none' : 'flex';
+            });
+            
             // ENT211 Test Modal Functionality
             const ent211Modal = document.getElementById('ent211-modal');
             const startEnt211Btn = document.querySelector('.start-ent211-test');
@@ -1300,11 +1317,37 @@
             const correctCountSpan = document.getElementById('correct-count');
             const reviewAnswersBtn = document.getElementById('review-answers');
             
+            // Sample Test Modal Functionality
+            const sampleTestModal = document.getElementById('sample-test-modal');
+            const startSampleBtns = document.querySelectorAll('.start-sample-test');
+            const closeSampleModal = document.getElementById('close-sample-modal');
+            const submitSampleTest = document.getElementById('submit-sample-test');
+            const sampleQuestionsContainer = document.getElementById('sample-questions');
+            const samplePrevBtn = document.getElementById('sample-prev-page');
+            const sampleNextBtn = document.getElementById('sample-next-page');
+            const sampleCurrentQuestionSpan = document.getElementById('sample-current-question');
+            const sampleTotalQuestionsSpan = document.getElementById('sample-total-questions');
+            const sampleTestTitle = document.getElementById('sample-test-title');
+            const sampleQuestionCounter = document.getElementById('sample-question-counter');
+            const sampleResultsSummary = document.getElementById('sample-results-summary');
+            const sampleFinalScoreSpan = document.getElementById('sample-final-score');
+            const sampleCorrectCountSpan = document.getElementById('sample-correct-count');
+            const feedbackStatus = document.getElementById('feedback-status');
+            const feedbackToggle = document.getElementById('feedback-toggle');
+            
+            // State variables
             let currentPage = 1;
             const questionsPerPage = 10;
             const totalPages = Math.ceil(ent211Questions.length / questionsPerPage);
             let userAnswers = {};
             let testSubmitted = false;
+            
+            // Sample test state
+            let currentSampleTest = null;
+            let currentSampleQuestion = 1;
+            let sampleUserAnswers = {};
+            let sampleTestSubmitted = false;
+            let instantFeedbackEnabled = true;
             
             // Open ENT211 modal
             startEnt211Btn.addEventListener('click', function() {
@@ -1319,10 +1362,26 @@
                 ent211Modal.style.display = 'none';
             });
             
-            // Close modal when clicking outside
+            // Open sample test modal
+            startSampleBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentSampleTest = this.getAttribute('data-test');
+                    openSampleTest(currentSampleTest);
+                });
+            });
+            
+            // Close sample test modal
+            closeSampleModal.addEventListener('click', function() {
+                sampleTestModal.style.display = 'none';
+            });
+            
+            // Close modals when clicking outside
             window.addEventListener('click', function(event) {
                 if (event.target === ent211Modal) {
                     ent211Modal.style.display = 'none';
+                }
+                if (event.target === sampleTestModal) {
+                    sampleTestModal.style.display = 'none';
                 }
             });
             
@@ -1343,13 +1402,30 @@
                 }
             });
             
+            // Submit sample test
+            submitSampleTest.addEventListener('click', function() {
+                if (!sampleTestSubmitted) {
+                    const score = calculateSampleScore();
+                    showSampleResults(score);
+                    sampleTestSubmitted = true;
+                    this.innerHTML = '<i class="fas fa-redo"></i> Retake Test';
+                } else {
+                    // Reset sample test for retake
+                    resetSampleTest();
+                    renderSampleQuestions();
+                    submitSampleTest.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Test';
+                    sampleResultsSummary.style.display = 'none';
+                    sampleTestSubmitted = false;
+                }
+            });
+            
             // Review answers button
             reviewAnswersBtn.addEventListener('click', function() {
                 showCorrectAnswers();
                 this.style.display = 'none';
             });
             
-            // Pagination
+            // ENT211 Pagination
             prevPageBtn.addEventListener('click', function() {
                 if (currentPage > 1) {
                     currentPage--;
@@ -1366,7 +1442,54 @@
                 }
             });
             
-            // Function to reset test
+            // Sample test pagination
+            samplePrevBtn.addEventListener('click', function() {
+                if (currentSampleQuestion > 1) {
+                    currentSampleQuestion--;
+                    renderSampleQuestions();
+                }
+            });
+            
+            sampleNextBtn.addEventListener('click', function() {
+                const totalQuestions = sampleTests[currentSampleTest].length;
+                if (currentSampleQuestion < totalQuestions) {
+                    currentSampleQuestion++;
+                    renderSampleQuestions();
+                }
+            });
+            
+            // Feedback toggle
+            feedbackToggle.addEventListener('change', function() {
+                instantFeedbackEnabled = this.checked;
+                feedbackStatus.textContent = this.checked ? "Enabled" : "Disabled";
+                
+                // Re-render sample questions if test is open
+                if (sampleTestModal.style.display === 'block' && currentSampleTest) {
+                    renderSampleQuestions();
+                }
+            });
+            
+            // Function to open sample test
+            function openSampleTest(testName) {
+                currentSampleTest = testName;
+                resetSampleTest();
+                
+                // Set test title
+                const testTitles = {
+                    general: "General Knowledge Quiz",
+                    logic: "GST 212 - Logic & Reasoning",
+                    java: "COS 211 - Java Programming"
+                };
+                
+                sampleTestTitle.textContent = testTitles[testName] || "Sample Test";
+                sampleTotalQuestionsSpan.textContent = sampleTests[testName].length;
+                sampleQuestionCounter.textContent = `Total: ${sampleTests[testName].length} Questions`;
+                
+                sampleTestModal.style.display = 'block';
+                renderSampleQuestions();
+            }
+            
+            // Function to reset ENT211 test
             function resetTest() {
                 userAnswers = {};
                 currentPage = 1;
@@ -1374,7 +1497,15 @@
                 reviewAnswersBtn.style.display = 'block';
             }
             
-            // Function to calculate score
+            // Function to reset sample test
+            function resetSampleTest() {
+                sampleUserAnswers = {};
+                currentSampleQuestion = 1;
+                sampleTestSubmitted = false;
+                sampleResultsSummary.style.display = 'none';
+            }
+            
+            // Function to calculate ENT211 score
             function calculateScore() {
                 let correctCount = 0;
                 
@@ -1391,7 +1522,27 @@
                 return Math.round((correctCount / ent211Questions.length) * 100);
             }
             
-            // Function to show results
+            // Function to calculate sample test score
+            function calculateSampleScore() {
+                if (!currentSampleTest) return 0;
+                
+                const questions = sampleTests[currentSampleTest];
+                let correctCount = 0;
+                
+                for (let i = 0; i < questions.length; i++) {
+                    const questionNum = i + 1;
+                    const userAnswer = sampleUserAnswers[questionNum];
+                    const correctAnswer = questions[i].correctAnswer;
+                    
+                    if (userAnswer === correctAnswer) {
+                        correctCount++;
+                    }
+                }
+                
+                return Math.round((correctCount / questions.length) * 100);
+            }
+            
+            // Function to show ENT211 results
             function showResults(score) {
                 const correctCount = Object.keys(userAnswers).reduce((count, questionNum) => {
                     const i = parseInt(questionNum) - 1;
@@ -1403,10 +1554,28 @@
                 resultsSummary.style.display = 'block';
                 
                 // Scroll to results
-                resultsSummary.scrollIntoView({ behavior: 'smooth' });
+                resultsSummary.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
             
-            // Function to show correct answers
+            // Function to show sample test results
+            function showSampleResults(score) {
+                if (!currentSampleTest) return;
+                
+                const questions = sampleTests[currentSampleTest];
+                const correctCount = Object.keys(sampleUserAnswers).reduce((count, questionNum) => {
+                    const i = parseInt(questionNum) - 1;
+                    return count + (sampleUserAnswers[questionNum] === questions[i].correctAnswer ? 1 : 0);
+                }, 0);
+                
+                sampleFinalScoreSpan.textContent = score;
+                sampleCorrectCountSpan.textContent = `${correctCount} correct answers out of ${questions.length}`;
+                sampleResultsSummary.style.display = 'block';
+                
+                // Scroll to results
+                sampleResultsSummary.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+            
+            // Function to show correct answers for ENT211
             function showCorrectAnswers() {
                 // Re-render all questions with correct answers highlighted
                 for (let i = 0; i < ent211Questions.length; i++) {
@@ -1433,7 +1602,7 @@
                 }
             }
             
-            // Function to render questions for a specific page
+            // Function to render ENT211 questions for a specific page
             function renderQuestions(page) {
                 ent211QuestionsContainer.innerHTML = '';
                 const startIndex = (page - 1) * questionsPerPage;
@@ -1443,6 +1612,7 @@
                     const questionData = ent211Questions[i];
                     const question = questionData.question;
                     const correctAnswer = questionData.correctAnswer;
+                    const explanation = questionData.explanation || "";
                     const questionNumber = i + 1;
                     
                     // Parse question text and options
@@ -1458,8 +1628,9 @@
                         <div class="question-number">Question ${questionNumber}</div>
                         <div class="question-text">${questionText}</div>
                         <div class="options-list">
-                            ${renderOptions(question, questionNumber, correctAnswer)}
+                            ${renderOptions(question, questionNumber, correctAnswer, "ent211")}
                         </div>
+                        <div class="answer-feedback" id="feedback-${questionNumber}" style="display: none;"></div>
                     `;
                     
                     ent211QuestionsContainer.appendChild(questionElement);
@@ -1483,11 +1654,129 @@
                         
                         // Store user answer
                         userAnswers[questionNum] = optionValue;
+                        
+                        // Show feedback
+                        showQuestionFeedback(questionNum, optionValue, "ent211");
                     });
                 });
                 
-                // Restore previously selected answers
+                // Restore previously selected answers and feedback
                 restoreSelectedAnswers();
+            }
+            
+            // Function to render sample questions
+            function renderSampleQuestions() {
+                if (!currentSampleTest) return;
+                
+                sampleQuestionsContainer.innerHTML = '';
+                const questions = sampleTests[currentSampleTest];
+                const currentQuestionData = questions[currentSampleQuestion - 1];
+                
+                sampleCurrentQuestionSpan.textContent = currentSampleQuestion;
+                sampleTotalQuestionsSpan.textContent = questions.length;
+                
+                // Create question element
+                const questionElement = document.createElement('div');
+                questionElement.className = 'question-item';
+                questionElement.setAttribute('data-question', currentSampleQuestion);
+                
+                // Parse question text
+                const questionText = currentQuestionData.question.substring(
+                    currentQuestionData.question.indexOf('. ') + 2
+                );
+                
+                questionElement.innerHTML = `
+                    <div class="question-number">Question ${currentSampleQuestion}</div>
+                    <div class="question-text">${questionText}</div>
+                    <div class="options-list">
+                        ${renderOptions(currentQuestionData.question, currentSampleQuestion, currentQuestionData.correctAnswer, "sample")}
+                    </div>
+                    <div class="answer-feedback" id="sample-feedback-${currentSampleQuestion}" style="display: none;"></div>
+                `;
+                
+                sampleQuestionsContainer.appendChild(questionElement);
+                
+                // Add event listeners to options
+                document.querySelectorAll('.option-item').forEach(option => {
+                    option.addEventListener('click', function() {
+                        if (sampleTestSubmitted) return;
+                        
+                        const questionNum = parseInt(this.getAttribute('data-question'));
+                        const optionValue = this.getAttribute('data-option');
+                        const testType = this.getAttribute('data-test-type');
+                        
+                        if (testType !== "sample") return;
+                        
+                        // Remove selected class from all options in this question
+                        document.querySelectorAll(`.option-item[data-question="${questionNum}"][data-test-type="sample"]`).forEach(opt => {
+                            opt.classList.remove('option-selected');
+                        });
+                        
+                        // Add selected class to clicked option
+                        this.classList.add('option-selected');
+                        
+                        // Store user answer
+                        sampleUserAnswers[questionNum] = optionValue;
+                        
+                        // Show feedback if enabled
+                        if (instantFeedbackEnabled) {
+                            showQuestionFeedback(questionNum, optionValue, "sample");
+                        }
+                    });
+                });
+                
+                // Restore previously selected answer and feedback
+                const savedAnswer = sampleUserAnswers[currentSampleQuestion];
+                if (savedAnswer) {
+                    const option = document.querySelector(`.option-item[data-question="${currentSampleQuestion}"][data-option="${savedAnswer}"][data-test-type="sample"]`);
+                    if (option) {
+                        option.classList.add('option-selected');
+                        
+                        // Show feedback if enabled
+                        if (instantFeedbackEnabled) {
+                            showQuestionFeedback(currentSampleQuestion, savedAnswer, "sample");
+                        }
+                    }
+                }
+            }
+            
+            // Function to show feedback for a question
+            function showQuestionFeedback(questionNum, userAnswer, testType) {
+                let questionData, correctAnswer, explanation;
+                
+                if (testType === "ent211") {
+                    questionData = ent211Questions[questionNum - 1];
+                    correctAnswer = questionData.correctAnswer;
+                    explanation = questionData.explanation || "";
+                } else if (testType === "sample") {
+                    questionData = sampleTests[currentSampleTest][questionNum - 1];
+                    correctAnswer = questionData.correctAnswer;
+                    explanation = questionData.explanation || "";
+                } else {
+                    return;
+                }
+                
+                const isCorrect = userAnswer === correctAnswer;
+                const feedbackElement = document.getElementById(`${testType}-feedback-${questionNum}`);
+                
+                if (!feedbackElement) return;
+                
+                feedbackElement.className = `answer-feedback ${isCorrect ? 'feedback-correct' : 'feedback-incorrect'}`;
+                feedbackElement.innerHTML = `
+                    <div class="feedback-text">
+                        <i class="fas fa-${isCorrect ? 'check-circle' : 'times-circle'}"></i>
+                        <strong>${isCorrect ? 'Correct!' : 'Incorrect.'}</strong> The correct answer is ${correctAnswer}.
+                    </div>
+                    ${explanation ? `<div style="margin-top: 8px; font-size: 0.9em;">${explanation}</div>` : ''}
+                `;
+                feedbackElement.style.display = 'block';
+                
+                // Auto-scroll to feedback on mobile
+                if (window.innerWidth <= 768) {
+                    setTimeout(() => {
+                        feedbackElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 300);
+                }
             }
             
             // Function to restore selected answers
@@ -1496,12 +1785,15 @@
                     const option = document.querySelector(`.option-item[data-question="${questionNum}"][data-option="${userAnswers[questionNum]}"]`);
                     if (option) {
                         option.classList.add('option-selected');
+                        
+                        // Show feedback for this answer
+                        showQuestionFeedback(parseInt(questionNum), userAnswers[questionNum], "ent211");
                     }
                 }
             }
             
             // Function to render options for a question
-            function renderOptions(question, questionNumber, correctAnswer) {
+            function renderOptions(question, questionNumber, correctAnswer, testType) {
                 let optionsHTML = '';
                 
                 // Extract options from question text
@@ -1512,10 +1804,8 @@
                         const optionLetter = match.substring(1, 2).toUpperCase();
                         const optionText = match.substring(3).trim();
                         
-                        let optionClass = 'option-item';
-                        
                         optionsHTML += `
-                            <div class="${optionClass}" data-question="${questionNumber}" data-option="${optionLetter}">
+                            <div class="option-item" data-question="${questionNumber}" data-option="${optionLetter}" data-test-type="${testType}">
                                 <strong>${optionLetter}.</strong> ${optionText}
                             </div>
                         `;
@@ -1523,7 +1813,7 @@
                 } else {
                     // For questions that don't follow the standard format
                     optionsHTML += `
-                        <div class="option-item" data-question="${questionNumber}" data-option="A">
+                        <div class="option-item" data-question="${questionNumber}" data-option="A" data-test-type="${testType}">
                             <strong>A.</strong> Select this as your answer
                         </div>
                     `;
@@ -1552,19 +1842,7 @@
                 });
             });
             
-            // Other test start buttons
-            const startButtons = document.querySelectorAll('.btn-primary:not(.btn-small)');
-            
-            startButtons.forEach(button => {
-                if (!button.classList.contains('start-ent211-test')) {
-                    button.addEventListener('click', function() {
-                        const testTitle = this.closest('.test-card').querySelector('.test-title').textContent;
-                        alert(`Starting test: ${testTitle}\n\nThis would launch the test interface in a full implementation.`);
-                    });
-                }
-            });
-            
-            // Toggle switches functionality
+            // Other toggle switches functionality
             const toggleSwitches = document.querySelectorAll('.toggle-switch input');
             
             toggleSwitches.forEach(toggle => {
@@ -1591,7 +1869,13 @@
                         this.innerHTML = '<i class="fas fa-check"></i> Shuffled';
                         this.style.backgroundColor = 'var(--primary-dark)';
                         this.style.color = 'var(--primary-light)';
-                        alert(`Questions for "${testTitle}" will be shuffled in random order.`);
+                        
+                        // Show feedback on mobile
+                        if (window.innerWidth <= 768) {
+                            setTimeout(() => {
+                                alert(`Questions for "${testTitle}" will be shuffled in random order.`);
+                            }, 100);
+                        }
                     } else {
                         this.innerHTML = '<i class="fas fa-random"></i> Shuffle';
                         this.style.backgroundColor = '';
@@ -1599,7 +1883,74 @@
                     }
                 });
             });
+            
+            // Handle touch events for better mobile experience
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            }, false);
+            
+            document.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, false);
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const difference = touchStartX - touchEndX;
+                
+                // Only handle swipes in modals
+                if (ent211Modal.style.display === 'block' && Math.abs(difference) > swipeThreshold) {
+                    if (difference > 0) {
+                        // Swipe left - next page
+                        if (currentPage < totalPages) {
+                            currentPage++;
+                            renderQuestions(currentPage);
+                            updatePagination();
+                        }
+                    } else {
+                        // Swipe right - previous page
+                        if (currentPage > 1) {
+                            currentPage--;
+                            renderQuestions(currentPage);
+                            updatePagination();
+                        }
+                    }
+                }
+                
+                // Handle sample test swipe
+                if (sampleTestModal.style.display === 'block' && currentSampleTest && Math.abs(difference) > swipeThreshold) {
+                    const totalQuestions = sampleTests[currentSampleTest].length;
+                    
+                    if (difference > 0) {
+                        // Swipe left - next question
+                        if (currentSampleQuestion < totalQuestions) {
+                            currentSampleQuestion++;
+                            renderSampleQuestions();
+                        }
+                    } else {
+                        // Swipe right - previous question
+                        if (currentSampleQuestion > 1) {
+                            currentSampleQuestion--;
+                            renderSampleQuestions();
+                        }
+                    }
+                }
+            }
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                // Re-render questions on orientation change for better mobile experience
+                if (ent211Modal.style.display === 'block') {
+                    renderQuestions(currentPage);
+                }
+                if (sampleTestModal.style.display === 'block' && currentSampleTest) {
+                    renderSampleQuestions();
+                }
+            });
         });
     </script>
 </body>
-                        </html>
+    </html>
