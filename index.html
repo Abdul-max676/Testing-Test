@@ -3,372 +3,650 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Test Portal</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Academic Test Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #430007;
+            --primary-light: #F5E3C9;
+            --secondary-dark: #2a0005;
+            --secondary-light: #f8eed8;
+            --accent: #8a1c1c;
+            --text-dark: #333333;
+            --text-light: #5c5c5c;
+            --success: #2e7d32;
+            --warning: #f57c00;
+            --shadow: 0 4px 12px rgba(67, 0, 7, 0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.2rem;
+            color: var(--primary-light);
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .avatar {
+            width: 45px;
+            height: 45px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Main Layout */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            padding: 30px 0;
+        }
+        
+        /* Cards */
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary-dark);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--secondary-light);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+        
+        /* Tests Section */
+        .tests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .test-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--primary-dark);
+        }
+        
+        .test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(67, 0, 7, 0.15);
+        }
+        
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .test-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+        
+        .test-meta {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .test-tag {
+            background-color: var(--secondary-light);
+            color: var(--primary-dark);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .test-desc {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .test-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-dark);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-dark);
+            border: 2px solid var(--primary-dark);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+        }
+        
+        .btn-small {
+            padding: 7px 15px;
+            font-size: 0.9rem;
+        }
+        
+        .btn-icon {
+            padding: 8px 12px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            justify-content: center;
+        }
+        
+        /* Results Section */
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--secondary-light);
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .result-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--primary-dark);
+        }
+        
+        .result-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .score {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--success);
+        }
+        
+        /* Progress Bars */
+        .progress-container {
+            margin-top: 20px;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: var(--secondary-light);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary-dark);
+            border-radius: 5px;
+        }
+        
+        /* Customization */
+        .theme-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .theme-color {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-color.active {
+            border-color: var(--accent);
+        }
+        
+        .theme-color.primary {
+            background-color: var(--primary-dark);
+        }
+        
+        .theme-color.secondary {
+            background-color: var(--primary-light);
+        }
+        
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--primary-light);
+            padding: 20px 0;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .tests-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .tests-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header Section -->
-        <header class="header">
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
             <div class="logo">
                 <i class="fas fa-graduation-cap"></i>
-                <h1>Student Test Portal</h1>
+                <h1>Academic Test Portal</h1>
             </div>
-            <div class="user-controls">
-                <div class="theme-toggle">
-                    <button id="themeToggle">
-                        <i class="fas fa-moon"></i>
-                        <span>Dark Mode</span>
-                    </button>
-                </div>
-                <div class="user-profile">
-                    <span id="username">Student</span>
-                    <div class="avatar">S</div>
-                </div>
+            <div class="user-info">
+                <span>Welcome, <strong>Alex Johnson</strong></span>
+                <div class="avatar">AJ</div>
             </div>
-        </header>
-
-        <!-- Main Dashboard -->
-        <main class="dashboard">
-            <!-- Sidebar -->
-            <aside class="sidebar">
-                <nav class="nav-menu">
-                    <ul>
-                        <li class="active" data-tab="tests">
-                            <i class="fas fa-list-alt"></i>
-                            <span>Available Tests</span>
-                        </li>
-                        <li data-tab="active-test">
-                            <i class="fas fa-pencil-alt"></i>
-                            <span>Take Test</span>
-                        </li>
-                        <li data-tab="results">
-                            <i class="fas fa-chart-bar"></i>
-                            <span>Results</span>
-                        </li>
-                        <li data-tab="customize">
-                            <i class="fas fa-sliders-h"></i>
-                            <span>Customize</span>
-                        </li>
-                        <li data-tab="help">
-                            <i class="fas fa-question-circle"></i>
-                            <span>Help</span>
-                        </li>
-                    </ul>
-                </nav>
-                
-                <div class="progress-summary">
-                    <h3>Your Progress</h3>
-                    <div class="progress-circle">
-                        <svg width="120" height="120">
-                            <circle class="progress-bg" cx="60" cy="60" r="54"></circle>
-                            <circle class="progress-fill" cx="60" cy="60" r="54"></circle>
-                        </svg>
-                        <div class="progress-text">
-                            <span id="progressPercent">0%</span>
-                            <small>Overall</small>
-                        </div>
-                    </div>
-                    <div class="stats">
-                        <div class="stat">
-                            <span id="testsTaken">0</span>
-                            <small>Tests Taken</small>
-                        </div>
-                        <div class="stat">
-                            <span id="avgScore">0%</span>
-                            <small>Average Score</small>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-
-            <!-- Main Content Area -->
-            <div class="content-area">
-                <!-- Available Tests Section -->
-                <section id="tests" class="content-section active">
-                    <div class="section-header">
-                        <h2>Available Tests</h2>
-                        <p>Select a test to begin or create your own</p>
-                    </div>
-                    
-                    <div class="test-cards">
-                        <!-- Test cards will be dynamically generated -->
-                    </div>
-                    
-                    <div class="section-actions">
-                        <button id="createTestBtn" class="btn-primary">
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- Available Tests -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Available Tests</h2>
+                        <button class="btn btn-primary btn-small">
                             <i class="fas fa-plus"></i> Create New Test
                         </button>
                     </div>
-                </section>
-
-                <!-- Active Test Section -->
-                <section id="active-test" class="content-section">
-                    <div class="test-header">
-                        <div class="test-info">
-                            <h2 id="testTitle">Sample Test</h2>
+                    
+                    <div class="tests-grid">
+                        <!-- Test 1 -->
+                        <div class="test-card">
+                            <div class="test-header">
+                                <h3 class="test-title">General Knowledge Quiz</h3>
+                                <div class="test-tag">15 Questions</div>
+                            </div>
                             <div class="test-meta">
-                                <span><i class="far fa-clock"></i> <span id="timeRemaining">20:00</span></span>
-                                <span><i class="far fa-question-circle"></i> <span id="questionCount">5</span> Questions</span>
+                                <span class="test-tag">General</span>
                             </div>
-                        </div>
-                        <div class="test-controls">
-                            <button id="submitTestBtn" class="btn-danger">Submit Test</button>
-                        </div>
-                    </div>
-                    
-                    <div class="question-container">
-                        <!-- Questions will be dynamically loaded here -->
-                    </div>
-                    
-                    <div class="navigation-controls">
-                        <button id="prevBtn" class="btn-secondary">
-                            <i class="fas fa-chevron-left"></i> Previous
-                        </button>
-                        <div class="question-indicators">
-                            <!-- Question indicators will be dynamically generated -->
-                        </div>
-                        <button id="nextBtn" class="btn-primary">
-                            Next <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                </section>
-
-                <!-- Results Section -->
-                <section id="results" class="content-section">
-                    <div class="section-header">
-                        <h2>Test Results</h2>
-                        <p>Review your performance across all tests</p>
-                    </div>
-                    
-                    <div class="results-container">
-                        <div class="result-summary">
-                            <h3>Recent Tests</h3>
-                            <div class="result-cards">
-                                <!-- Result cards will be dynamically generated -->
+                            <p class="test-desc">Test your knowledge on various topics including history, science, and geography.</p>
+                            <div class="test-actions">
+                                <button class="btn btn-primary btn-small">Start Test</button>
+                                <button class="btn btn-outline btn-small">
+                                    <i class="fas fa-random"></i> Shuffle
+                                </button>
                             </div>
                         </div>
                         
-                        <div class="performance-chart">
-                            <h3>Performance Over Time</h3>
-                            <canvas id="performanceChart"></canvas>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Customize Section -->
-                <section id="customize" class="content-section">
-                    <div class="section-header">
-                        <h2>Customize Portal</h2>
-                        <p>Personalize your test-taking experience</p>
-                    </div>
-                    
-                    <div class="customize-grid">
-                        <div class="customize-card">
-                            <h3><i class="fas fa-palette"></i> Theme Settings</h3>
-                            <div class="theme-options">
-                                <div class="theme-option" data-theme="light">
-                                    <div class="theme-preview light-theme"></div>
-                                    <span>Light</span>
-                                </div>
-                                <div class="theme-option" data-theme="dark">
-                                    <div class="theme-preview dark-theme"></div>
-                                    <span>Dark</span>
-                                </div>
-                                <div class="theme-option" data-theme="blue">
-                                    <div class="theme-preview blue-theme"></div>
-                                    <span>Blue</span>
-                                </div>
-                                <div class="theme-option" data-theme="green">
-                                    <div class="theme-preview green-theme"></div>
-                                    <span>Green</span>
-                                </div>
+                        <!-- Test 2 -->
+                        <div class="test-card">
+                            <div class="test-header">
+                                <h3 class="test-title">GST 212 - Logic & Reasoning</h3>
+                                <div class="test-tag">50 Questions</div>
+                            </div>
+                            <div class="test-meta">
+                                <span class="test-tag">GST 212</span>
+                                <span class="test-tag">Logic</span>
+                                <span class="test-tag">Graded</span>
+                            </div>
+                            <p class="test-desc">Complete 50-question exam on Logic and Reasoning based on GST 212 curriculum.</p>
+                            <div class="test-actions">
+                                <button class="btn btn-primary btn-small">Start Test</button>
+                                <button class="btn btn-outline btn-small">
+                                    <i class="fas fa-random"></i> Shuffle
+                                </button>
                             </div>
                         </div>
                         
-                        <div class="customize-card">
-                            <h3><i class="fas fa-sliders-h"></i> Test Settings</h3>
-                            <div class="settings-group">
-                                <div class="setting">
-                                    <label for="autoNext">Auto-next question</label>
-                                    <label class="switch">
-                                        <input type="checkbox" id="autoNext" checked>
-                                        <span class="slider"></span>
-                                    </label>
-                                </div>
-                                <div class="setting">
-                                    <label for="showTimer">Show timer</label>
-                                    <label class="switch">
-                                        <input type="checkbox" id="showTimer" checked>
-                                        <span class="slider"></span>
-                                    </label>
-                                </div>
-                                <div class="setting">
-                                    <label for="instantFeedback">Instant feedback</label>
-                                    <label class="switch">
-                                        <input type="checkbox" id="instantFeedback">
-                                        <span class="slider"></span>
-                                    </label>
-                                </div>
+                        <!-- Test 3 -->
+                        <div class="test-card">
+                            <div class="test-header">
+                                <h3 class="test-title">COS 211 - Java Programming</h3>
+                                <div class="test-tag">50 Questions</div>
+                            </div>
+                            <div class="test-meta">
+                                <span class="test-tag">COS 211</span>
+                                <span class="test-tag">Coding</span>
+                                <span class="test-tag">Graded</span>
+                            </div>
+                            <p class="test-desc">Complete 50-question exam on Java Programming fundamentals and concepts.</p>
+                            <div class="test-actions">
+                                <button class="btn btn-primary btn-small">Start Test</button>
+                                <button class="btn btn-outline btn-small">
+                                    <i class="fas fa-random"></i> Shuffle
+                                </button>
                             </div>
                         </div>
                         
-                        <div class="customize-card">
-                            <h3><i class="fas fa-user-edit"></i> Personalization</h3>
-                            <div class="form-group">
-                                <label for="userName">Your Name</label>
-                                <input type="text" id="userName" placeholder="Enter your name">
+                        <!-- Test 4 -->
+                        <div class="test-card">
+                            <div class="test-header">
+                                <h3 class="test-title">Philosophy Fundamentals</h3>
+                                <div class="test-tag">30 Questions</div>
                             </div>
-                            <div class="form-group">
-                                <label for="avatarColor">Avatar Color</label>
-                                <input type="color" id="avatarColor" value="#4a6fa5">
+                            <div class="test-meta">
+                                <span class="test-tag">Philosophy 101</span>
+                                <span class="test-tag">Humanities</span>
                             </div>
-                            <button id="saveSettingsBtn" class="btn-primary">Save Settings</button>
+                            <p class="test-desc">Basic concepts in philosophy including definitions, branches, and ancient philosophers.</p>
+                            <div class="test-actions">
+                                <button class="btn btn-primary btn-small">Start Test</button>
+                                <button class="btn btn-outline btn-small">
+                                    <i class="fas fa-random"></i> Shuffle
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </section>
-
-                <!-- Help Section -->
-                <section id="help" class="content-section">
-                    <div class="section-header">
-                        <h2>Help & Instructions</h2>
-                        <p>Learn how to use the Test Portal effectively</p>
-                    </div>
-                    
-                    <div class="help-content">
-                        <div class="help-card">
-                            <h3><i class="fas fa-play-circle"></i> Getting Started</h3>
-                            <ol>
-                                <li>Browse available tests from the "Available Tests" section</li>
-                                <li>Click on a test to start taking it</li>
-                                <li>Answer all multiple-choice questions</li>
-                                <li>Submit your test to see your results</li>
-                                <li>Review your performance in the "Results" section</li>
-                            </ol>
-                        </div>
-                        
-                        <div class="help-card">
-                            <h3><i class="fas fa-plus-circle"></i> Creating Custom Tests</h3>
-                            <p>You can create your own tests:</p>
-                            <ol>
-                                <li>Click "Create New Test" in the Available Tests section</li>
-                                <li>Enter test details (title, description, time limit)</li>
-                                <li>Add questions with 4 options each</li>
-                                <li>Mark the correct answer for each question</li>
-                                <li>Save your test to make it available</li>
-                            </ol>
-                        </div>
-                        
-                        <div class="help-card">
-                            <h3><i class="fas fa-cogs"></i> Customization Options</h3>
-                            <p>Personalize your portal:</p>
-                            <ul>
-                                <li>Change themes (Light, Dark, Blue, Green)</li>
-                                <li>Toggle auto-next question feature</li>
-                                <li>Show/hide timer during tests</li>
-                                <li>Enable/disable instant feedback</li>
-                                <li>Change your display name and avatar color</li>
-                            </ul>
-                        </div>
-
-                        <div class="help-card">
-                            <h3><i class="fas fa-random"></i> Shuffle Feature</h3>
-                            <p>Use the shuffle button during tests:</p>
-                            <ul>
-                                <li>Randomizes question order to prevent memorization</li>
-                                <li>Helps with better learning and retention</li>
-                                <li>Can be toggled on/off during the test</li>
-                                <li>Visual indicator shows when shuffle is active</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
+                </div>
             </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <p>Student Test Portal &copy; 2023 | For Personal Use | Fully Customizable</p>
-            <div class="footer-links">
-                <a href="#" id="exportDataBtn"><i class="fas fa-download"></i> Export Data</a>
-                <a href="#" id="resetDataBtn"><i class="fas fa-redo"></i> Reset Data</a>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Test Creation Modal -->
-    <div id="createTestModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Create New Test</h2>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="testForm">
-                    <div class="form-group">
-                        <label for="newTestTitle">Test Title</label>
-                        <input type="text" id="newTestTitle" placeholder="Enter test title" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="newTestDescription">Description</label>
-                        <textarea id="newTestDescription" placeholder="Enter test description" rows="3"></textarea>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="newTestTime">Time Limit (minutes)</label>
-                            <input type="number" id="newTestTime" min="1" value="20">
-                        </div>
-                        <div class="form-group">
-                            <label for="newTestQuestions">Number of Questions</label>
-                            <input type="number" id="newTestQuestions" min="1" max="50" value="5">
-                        </div>
+            
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- Test Results -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Recent Test Results</h2>
                     </div>
                     
-                    <div class="questions-container">
-                        <!-- Questions will be dynamically added here -->
+                    <div class="result-item">
+                        <div class="result-info">
+                            <h4>General Knowledge Quiz</h4>
+                            <div class="result-meta">
+                                <span>15 Questions</span>
+                                <span>2023-10-15</span>
+                            </div>
+                        </div>
+                        <div class="score">80%</div>
                     </div>
                     
-                    <button type="button" id="addQuestionBtn" class="btn-secondary">
-                        <i class="fas fa-plus"></i> Add Question
-                    </button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button id="cancelTestBtn" class="btn-secondary">Cancel</button>
-                <button id="saveTestBtn" class="btn-primary">Save Test</button>
+                    <div class="result-item">
+                        <div class="result-info">
+                            <h4>GST 212 - Logic & Reasoning</h4>
+                            <div class="result-meta">
+                                <span>50 Questions</span>
+                                <span>2023-10-10</span>
+                            </div>
+                        </div>
+                        <div class="score">85%</div>
+                    </div>
+                    
+                    <div class="result-item">
+                        <div class="result-info">
+                            <h4>COS 211 - Java Programming</h4>
+                            <div class="result-meta">
+                                <span>50 Questions</span>
+                                <span>2023-10-05</span>
+                            </div>
+                        </div>
+                        <div class="score">72%</div>
+                    </div>
+                    
+                    <div class="result-item">
+                        <div class="result-info">
+                            <h4>Philosophy Fundamentals</h4>
+                            <div class="result-meta">
+                                <span>30 Questions</span>
+                                <span>2023-09-28</span>
+                            </div>
+                        </div>
+                        <div class="score">88%</div>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Overall Performance</span>
+                            <span>81%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 81%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Customization -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Portal Customization</h2>
+                    </div>
+                    
+                    <div class="toggle-switch">
+                        <span>Show Timer During Tests</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-switch">
+                        <span>Instant Feedback</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-switch">
+                        <span>Auto-Next Question</span>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    
+                    <p style="margin-top: 15px; font-size: 0.95rem; color: var(--text-light);">
+                        <i class="fas fa-palette" style="margin-right: 8px;"></i>
+                        Theme Colors
+                    </p>
+                    <div class="theme-options">
+                        <div class="theme-color primary active" title="Primary Color (#430007)"></div>
+                        <div class="theme-color secondary" title="Secondary Color (#F5E3C9)"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- Confirmation Modal -->
-    <div id="confirmationModal" class="modal">
-        <div class="modal-content small">
-            <div class="modal-header">
-                <h3 id="confirmationTitle">Confirm Action</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p id="confirmationMessage">Are you sure you want to proceed?</p>
-            </div>
-            <div class="modal-footer">
-                <button id="confirmCancelBtn" class="btn-secondary">Cancel</button>
-                <button id="confirmActionBtn" class="btn-danger">Confirm</button>
-            </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Academic Test Portal &copy; 2023 | Designed with <i class="fas fa-heart" style="color: #ff6b6b;"></i> for Educational Purposes</p>
+            <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
+                <i class="fas fa-question-circle"></i> Need help? Check the <a href="#" style="color: var(--primary-light); text-decoration: underline;">Help & Instructions</a> section
+            </p>
         </div>
-    </div>
+    </footer>
 
-    <!-- Success Toast -->
-    <div id="successToast" class="toast">
-        <div class="toast-content">
-            <i class="fas fa-check-circle"></i>
-            <span id="toastMessage">Action completed successfully!</span>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js"></script>
+    <script>
+        // Color scheme handling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme color selection
+            const themeColors = document.querySelectorAll('.theme-color');
+            
+            themeColors.forEach(color => {
+                color.addEventListener('click', function() {
+                    // Remove active class from all colors
+                    themeColors.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked color
+                    this.classList.add('active');
+                    
+                    // Get color type
+                    const colorType = this.classList.contains('primary') ? 'primary' : 'secondary';
+                    
+                    // Show a message about the selected color
+                    const colorName = colorType === 'primary' ? '#430007 (Dark Red)' : '#F5E3C9 (Light Beige)';
+                    alert(`Selected ${colorType} color: ${colorName}\n\nThis is the dominant color used throughout the portal.`);
+                });
+            });
+            
+            // Test start buttons
+            const startButtons = document.querySelectorAll('.btn-primary:not(.btn-small)');
+            
+            startButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const testTitle = this.closest('.test-card').querySelector('.test-title').textContent;
+                    alert(`Starting test: ${testTitle}\n\nThis would launch the test interface in a full implementation.`);
+                });
+            });
+            
+            // Toggle switches functionality
+            const toggleSwitches = document.querySelectorAll('.toggle-switch input');
+            
+            toggleSwitches.forEach(toggle => {
+                toggle.addEventListener('change', function() {
+                    const settingName = this.closest('.toggle-switch').querySelector('span').textContent;
+                    const status = this.checked ? 'enabled' : 'disabled';
+                    
+                    // In a full implementation, this would save the setting
+                    console.log(`Setting "${settingName}" ${status}`);
+                });
+            });
+            
+            // Shuffle buttons
+            const shuffleButtons = document.querySelectorAll('.btn-outline.btn-small');
+            
+            shuffleButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const testCard = this.closest('.test-card');
+                    const testTitle = testCard.querySelector('.test-title').textContent;
+                    
+                    // Toggle active state
+                    this.classList.toggle('active');
+                    
+                    if (this.classList.contains('active')) {
+                        this.innerHTML = '<i class="fas fa-check"></i> Shuffled';
+                        this.style.backgroundColor = 'var(--primary-dark)';
+                        this.style.color = 'var(--primary-light)';
+                        alert(`Questions for "${testTitle}" will be shuffled in random order.`);
+                    } else {
+                        this.innerHTML = '<i class="fas fa-random"></i> Shuffle';
+                        this.style.backgroundColor = '';
+                        this.style.color = '';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
