@@ -82,21 +82,583 @@ button{
 </main>
 
 <script>
+  let activeQuestions = [];
 /* =====================
    DATA – 100 QUESTIONS
 ===================== */
-const questions=[
-...Array.from({length:100},(_,i)=>({
-  q:`ENT211 Question ${i+1}: What best describes entrepreneurship?`,
-  options:[
-    "Paid employment",
-    "Creation and management of new ventures",
-    "Government ownership",
-    "Fixed income activity"
-  ],
-  answer:1,
-  explanation:"Entrepreneurship involves creating and managing new ventures to solve problems and create value."
-}))
+const questions = [
+/* 1–10: Fundamentals of Entrepreneurship */
+{
+q:"Entrepreneurship is the process of:",
+options:["Managing government enterprises","Creating and managing new ventures","Working for wages","Avoiding risk"],
+answer:1,
+explanation:"Entrepreneurship involves creating and managing new ventures."
+},
+{
+q:"An entrepreneur is best described as someone who:",
+options:["Avoids uncertainty","Identifies and exploits opportunities","Relies on others for ideas","Works only in offices"],
+answer:1,
+explanation:"Entrepreneurs exploit opportunities."
+},
+{
+q:"Which of the following is NOT a function of an entrepreneur?",
+options:["Risk bearing","Innovation","Decision making","Routine clerical work"],
+answer:3,
+explanation:"Clerical work is not entrepreneurial."
+},
+{
+q:"Self-employment means:",
+options:["Working for salary","Running one’s own business","Government service","Unpaid labor"],
+answer:1,
+explanation:"Self-employment involves owning a business."
+},
+{
+q:"The primary aim of entrepreneurship is to:",
+options:["Avoid work","Create value","Earn fixed income","Eliminate risk"],
+answer:1,
+explanation:"Entrepreneurship focuses on value creation."
+},
+{
+q:"Which quality is most essential for entrepreneurs?",
+options:["Risk avoidance","Creativity","Dependence","Routine thinking"],
+answer:1,
+explanation:"Creativity drives opportunity recognition."
+},
+{
+q:"Entrepreneurship contributes to economic growth through:",
+options:["Unemployment","Innovation and job creation","Capital flight","Import dependency"],
+answer:1,
+explanation:"Entrepreneurship creates jobs and innovation."
+},
+{
+q:"An entrepreneur differs from a manager because the entrepreneur:",
+options:["Avoids risk","Takes initiative","Works for salary","Obeys instructions"],
+answer:1,
+explanation:"Entrepreneurs take initiative."
+},
+{
+q:"Opportunity recognition means:",
+options:["Waiting for instructions","Identifying business possibilities","Avoiding markets","Copying blindly"],
+answer:1,
+explanation:"Entrepreneurs identify opportunities."
+},
+{
+q:"Which of the following best describes entrepreneurship?",
+options:["Routine business","Risk-free activity","Innovation-driven venture creation","Salary employment"],
+answer:2,
+explanation:"Entrepreneurship is innovation-driven."
+},
+
+/* 11–20: Business Planning & Startup */
+{
+q:"A business plan is primarily used to:",
+options:["Guarantee profit","Guide business operations","Avoid competition","Replace experience"],
+answer:1,
+explanation:"Business plans guide operations."
+},
+{
+q:"Which section of a business plan summarizes the entire document?",
+options:["Marketing plan","Executive summary","Financial plan","Operations plan"],
+answer:1,
+explanation:"Executive summary gives an overview."
+},
+{
+q:"Startup capital refers to:",
+options:["Daily income","Initial funds to start a business","Employee salary","Tax payment"],
+answer:1,
+explanation:"Startup capital starts the business."
+},
+{
+q:"Feasibility study helps entrepreneurs to:",
+options:["Hire workers","Assess viability","Avoid planning","Set salaries"],
+answer:1,
+explanation:"It determines viability."
+},
+{
+q:"Bootstrapping involves:",
+options:["Bank loans","Personal savings","Venture capital","Government grants"],
+answer:1,
+explanation:"Bootstrapping uses personal funds."
+},
+{
+q:"Market analysis helps entrepreneurs to:",
+options:["Guess demand","Understand customer needs","Avoid competitors","Set wages"],
+answer:1,
+explanation:"Market analysis reveals demand."
+},
+{
+q:"Which plan explains how customers will be reached?",
+options:["Financial plan","Marketing plan","Production plan","Personnel plan"],
+answer:1,
+explanation:"Marketing plan targets customers."
+},
+{
+q:"A feasibility study is conducted before:",
+options:["Business failure","Business startup","Profit sharing","Loan repayment"],
+answer:1,
+explanation:"It precedes startup."
+},
+{
+q:"Which is a source of startup capital?",
+options:["Personal savings","Customer complaints","Employee strikes","Depreciation"],
+answer:0,
+explanation:"Savings are common startup funds."
+},
+{
+q:"Business registration is important because it:",
+options:["Avoids tax","Makes business legal","Eliminates risk","Increases profit automatically"],
+answer:1,
+explanation:"Registration gives legal status."
+},
+
+/* 21–30: Risk & Insurance */
+{
+q:"Business risk refers to:",
+options:["Guaranteed loss","Possibility of loss","Certain profit","Routine cost"],
+answer:1,
+explanation:"Risk is potential loss."
+},
+{
+q:"Risk management involves:",
+options:["Ignoring risk","Identifying and controlling risk","Avoiding business","Shifting blame"],
+answer:1,
+explanation:"Risk management reduces losses."
+},
+{
+q:"Insurance helps businesses to:",
+options:["Increase tax","Protect against losses","Guarantee success","Avoid customers"],
+answer:1,
+explanation:"Insurance reduces loss impact."
+},
+{
+q:"Which risk involves loss due to market changes?",
+options:["Financial risk","Operational risk","Market risk","Personal risk"],
+answer:2,
+explanation:"Market risk arises from market fluctuations."
+},
+{
+q:"Fire and flood risks are covered by:",
+options:["Life insurance","Property insurance","Health insurance","Liability insurance"],
+answer:1,
+explanation:"Property insurance covers such risks."
+},
+{
+q:"Liability insurance covers:",
+options:["Profit loss","Injury claims","Product sales","Staff salaries"],
+answer:1,
+explanation:"It covers injury or damage claims."
+},
+{
+q:"Risk cannot be:",
+options:["Identified","Managed","Eliminated","Reduced"],
+answer:2,
+explanation:"Risk cannot be completely eliminated."
+},
+{
+q:"Entrepreneurs accept risk because:",
+options:["They are careless","They expect reward","They avoid planning","They lack skills"],
+answer:1,
+explanation:"Risk accompanies reward."
+},
+{
+q:"Which of these reduces business risk?",
+options:["Planning","Guessing","Avoidance","Carelessness"],
+answer:0,
+explanation:"Planning reduces uncertainty."
+},
+{
+q:"Insurance premium is:",
+options:["Claim payment","Amount paid for coverage","Profit share","Tax"],
+answer:1,
+explanation:"Premium is paid for insurance cover."
+},
+
+/* 31–40: Management & Leadership */
+{
+q:"Management involves:",
+options:["Planning and organizing resources","Avoiding work","Only supervision","Routine labor"],
+answer:0,
+explanation:"Management plans and organizes resources."
+},
+{
+q:"Which is NOT a function of management?",
+options:["Planning","Organizing","Staffing","Sleeping"],
+answer:3,
+explanation:"Sleeping is not management."
+},
+{
+q:"Leadership is best defined as:",
+options:["Issuing orders","Influencing others","Avoiding decisions","Punishing workers"],
+answer:1,
+explanation:"Leadership influences people."
+},
+{
+q:"Effective leadership requires:",
+options:["Vision and motivation","Fear","Silence","Rigid control"],
+answer:0,
+explanation:"Leaders motivate with vision."
+},
+{
+q:"Autocratic leadership involves:",
+options:["Participation","Centralized decision-making","Delegation","Consensus"],
+answer:1,
+explanation:"Autocratic leaders decide alone."
+},
+{
+q:"Democratic leadership encourages:",
+options:["Employee participation","Fear","Silence","Isolation"],
+answer:0,
+explanation:"Democracy encourages participation."
+},
+{
+q:"Time management helps to:",
+options:["Increase stress","Improve productivity","Cause delays","Waste time"],
+answer:1,
+explanation:"Time management improves productivity."
+},
+{
+q:"Delegation means:",
+options:["Avoiding responsibility","Assigning tasks","Ignoring staff","Micromanaging"],
+answer:1,
+explanation:"Delegation assigns tasks."
+},
+{
+q:"Effective communication ensures:",
+options:["Misunderstanding","Clarity","Conflict","Confusion"],
+answer:1,
+explanation:"Communication promotes clarity."
+},
+{
+q:"Motivation increases:",
+options:["Absenteeism","Productivity","Conflict","Fatigue"],
+answer:1,
+explanation:"Motivation boosts productivity."
+},
+
+/* 41–50: Innovation & Skills */
+{
+q:"Innovation means:",
+options:["Copying others","Introducing new ideas","Avoiding change","Maintaining routine"],
+answer:1,
+explanation:"Innovation introduces new ideas."
+},
+{
+q:"Creativity involves:",
+options:["Routine thinking","Generating new ideas","Avoiding problems","Following orders"],
+answer:1,
+explanation:"Creativity generates ideas."
+},
+{
+q:"Problem-solving skills help entrepreneurs to:",
+options:["Avoid challenges","Handle challenges","Ignore issues","Delay decisions"],
+answer:1,
+explanation:"Problem-solving addresses challenges."
+},
+{
+q:"Adaptability means:",
+options:["Resisting change","Adjusting to change","Avoiding learning","Rejecting ideas"],
+answer:1,
+explanation:"Adaptability adjusts to change."
+},
+{
+q:"Which is an entrepreneurial skill?",
+options:["Communication","Isolation","Avoidance","Silence"],
+answer:0,
+explanation:"Communication is essential."
+},
+{
+q:"Networking helps entrepreneurs to:",
+options:["Gain contacts","Avoid people","Reduce growth","Lose focus"],
+answer:0,
+explanation:"Networking builds contacts."
+},
+{
+q:"Innovation gives entrepreneurs:",
+options:["Competitive advantage","Confusion","Loss","Fatigue"],
+answer:0,
+explanation:"Innovation creates advantage."
+},
+{
+q:"Decision-making involves:",
+options:["Guessing","Choosing among alternatives","Avoiding options","Delaying action"],
+answer:1,
+explanation:"Decision-making selects options."
+},
+{
+q:"Which skill aids customer satisfaction?",
+options:["Communication","Isolation","Neglect","Delay"],
+answer:0,
+explanation:"Communication improves satisfaction."
+},
+{
+q:"Learning from failure helps entrepreneurs to:",
+options:["Quit","Improve","Ignore mistakes","Repeat errors"],
+answer:1,
+explanation:"Failure improves experience."
+},
+
+/* 51–60: Nigerian Entrepreneurship Context */
+{
+q:"SMEDAN stands for:",
+options:[
+"Small and Medium Enterprises Development Agency of Nigeria",
+"Small Market Enterprise Development Agency",
+"Small Enterprise National Agency",
+"Social Market Development Agency"
+],
+answer:0,
+explanation:"SMEDAN supports SMEs."
+},
+{
+q:"NDE stands for:",
+options:[
+"National Directorate of Employment",
+"National Development Enterprise",
+"National Department of Education",
+"National Directorate of Entrepreneurship"
+],
+answer:0,
+explanation:"NDE creates employment."
+},
+{
+q:"SAP means:",
+options:[
+"Structural Adjustment Programme",
+"Strategic Action Plan",
+"Systematic Accounting Policy",
+"Social Assistance Programme"
+],
+answer:0,
+explanation:"SAP restructured the economy."
+},
+{
+q:"Oil was discovered in Nigeria in:",
+options:["1914","1924","1956","1960"],
+answer:1,
+explanation:"Oil was discovered in 1924."
+},
+{
+q:"Which agency supports SMEs in Nigeria?",
+options:["SMEDAN","INEC","FRSC","NDLEA"],
+answer:0,
+explanation:"SMEDAN supports SMEs."
+},
+{
+q:"Entrepreneurship helps reduce:",
+options:["Innovation","Unemployment","Competition","Growth"],
+answer:1,
+explanation:"Entrepreneurship creates jobs."
+},
+{
+q:"Which sector extracts raw materials?",
+options:["Extractive","Commercial","Service","Manufacturing"],
+answer:0,
+explanation:"Extractive industries extract raw materials."
+},
+{
+q:"Buying and selling within a country is:",
+options:["Internal trade","External trade","Foreign trade","Transit trade"],
+answer:0,
+explanation:"Internal trade is domestic."
+},
+{
+q:"Goods for further production are called:",
+options:["Consumer goods","Capital goods","Luxury goods","Finished goods"],
+answer:1,
+explanation:"Capital goods aid production."
+},
+{
+q:"Final consumers use:",
+options:["Capital goods","Consumer goods","Raw materials","Machinery"],
+answer:1,
+explanation:"Consumer goods satisfy needs."
+},
+
+/* 61–70: Employment & HR */
+{
+q:"Human Resource Management deals with:",
+options:["Machines","People","Buildings","Money"],
+answer:1,
+explanation:"HRM manages people."
+},
+{
+q:"Staffing involves:",
+options:["Hiring workers","Selling products","Advertising","Accounting"],
+answer:0,
+explanation:"Staffing hires workers."
+},
+{
+q:"Performance appraisal helps to:",
+options:["Punish staff","Evaluate performance","Reduce salary","Avoid promotion"],
+answer:1,
+explanation:"Appraisal evaluates performance."
+},
+{
+q:"Training improves:",
+options:["Skill level","Conflict","Ignorance","Delays"],
+answer:0,
+explanation:"Training improves skills."
+},
+{
+q:"Employee motivation leads to:",
+options:["Low output","High productivity","Absenteeism","Conflict"],
+answer:1,
+explanation:"Motivation increases output."
+},
+{
+q:"Conflict resolution involves:",
+options:["Ignoring disputes","Solving disputes constructively","Encouraging fights","Avoiding communication"],
+answer:1,
+explanation:"Conflicts must be resolved constructively."
+},
+{
+q:"Teamwork encourages:",
+options:["Isolation","Cooperation","Conflict","Silence"],
+answer:1,
+explanation:"Teamwork promotes cooperation."
+},
+{
+q:"Effective supervision ensures:",
+options:["Confusion","Quality control","Neglect","Disorder"],
+answer:1,
+explanation:"Supervision ensures quality."
+},
+{
+q:"Which is an employability skill?",
+options:["Communication","Isolation","Neglect","Avoidance"],
+answer:0,
+explanation:"Communication is essential."
+},
+{
+q:"Leadership style encouraging creativity is:",
+options:["Autocratic","Transformational","Rigid","Authoritarian"],
+answer:1,
+explanation:"Transformational leadership inspires creativity."
+},
+
+/* 71–80: Legal & Ethics */
+{
+q:"A contract is:",
+options:["Verbal promise","Legally binding agreement","Informal note","Casual discussion"],
+answer:1,
+explanation:"Contracts are legally enforceable."
+},
+{
+q:"Business ethics involves:",
+options:["Cheating","Fair practices","Exploitation","Dishonesty"],
+answer:1,
+explanation:"Ethics ensures fairness."
+},
+{
+q:"Legal compliance helps businesses to:",
+options:["Avoid penalties","Avoid growth","Increase risk","Ignore laws"],
+answer:0,
+explanation:"Compliance avoids sanctions."
+},
+{
+q:"Environmental responsibility involves:",
+options:["Waste pollution","Waste reduction","Neglect","Over-exploitation"],
+answer:1,
+explanation:"Responsible businesses reduce waste."
+},
+{
+q:"Intellectual property protects:",
+options:["Ideas and inventions","Employees","Customers","Suppliers"],
+answer:0,
+explanation:"IP protects ideas."
+},
+{
+q:"Trademark protects:",
+options:["Brand name","Profit","Staff","Customers"],
+answer:0,
+explanation:"Trademark protects brand identity."
+},
+{
+q:"Copyright protects:",
+options:["Ideas","Creative works","Profits","Machinery"],
+answer:1,
+explanation:"Copyright protects creative works."
+},
+{
+q:"Patent protects:",
+options:["Inventions","Staff","Capital","Ideas generally"],
+answer:0,
+explanation:"Patents protect inventions."
+},
+{
+q:"Business laws help to:",
+options:["Create confusion","Ensure order","Avoid taxes","Stop innovation"],
+answer:1,
+explanation:"Laws ensure order."
+},
+{
+q:"Ethical business builds:",
+options:["Distrust","Reputation","Conflict","Loss"],
+answer:1,
+explanation:"Ethics builds reputation."
+},
+
+/* 81–100: General Review */
+{
+q:"Entrepreneurship education helps students to:",
+options:["Seek jobs only","Create jobs","Avoid business","Depend on government"],
+answer:1,
+explanation:"It promotes job creation."
+},
+{
+q:"Which factor is crucial for business success?",
+options:["Planning","Luck","Avoidance","Guessing"],
+answer:0,
+explanation:"Planning drives success."
+},
+{
+q:"Market demand refers to:",
+options:["Customer desire","Employee salary","Product cost","Supplier power"],
+answer:0,
+explanation:"Demand reflects customer desire."
+},
+{
+q:"Profit is:",
+options:["Revenue minus cost","Cost minus revenue","Total sales","Capital"],
+answer:0,
+explanation:"Profit equals revenue minus cost."
+},
+{
+q:"Loss occurs when:",
+options:["Cost exceeds revenue","Revenue exceeds cost","Sales increase","Capital increases"],
+answer:0,
+explanation:"Loss happens when costs exceed revenue."
+},
+{
+q:"Break-even point is where:",
+options:["Profit is maximum","Loss equals profit","Revenue equals cost","Sales stop"],
+answer:2,
+explanation:"Break-even means no profit or loss."
+},
+{
+q:"Customer satisfaction leads to:",
+options:["Customer loyalty","Business failure","Loss","Conflict"],
+answer:0,
+explanation:"Satisfied customers remain loyal."
+},
+{
+q:"Entrepreneurial failure should be viewed as:",
+options:["End of business","Learning experience","Disgrace","Punishment"],
+answer:1,
+explanation:"Failure teaches lessons."
+},
+{
+q:"Growth of a business refers to:",
+options:["Decline","Expansion","Closure","Stagnation"],
+answer:1,
+explanation:"Growth means expansion."
+},
+{
+q:"Sustainability ensures:",
+options:["Short-term profit","Long-term survival","Immediate gain","Rapid exit"],
+answer:1,
+explanation:"Sustainability ensures long-term survival."
+}
 ];
 
 /* =====================
@@ -120,9 +682,26 @@ dashboard.innerHTML=`
 <button class="primary" onclick="start()">Start Test</button>
 </div>`;
 
+function shuffleArray(array){
+  const arr = [...array]; // clone, do NOT mutate original
+  for(let i = arr.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+  
 function start(){
+  index = 0;
+  score = 0;
+  answers = [];
+  timeLeft = 40 * 60;
+
+  activeQuestions = shuffleArray(questions);
+
   dashboard.classList.add("hidden");
   quiz.classList.remove("hidden");
+
   startTimer();
   render();
 }
@@ -144,7 +723,7 @@ function formatTime(s){
 }
 
 function render(){
-  const q=questions[index];
+  const q = activeQuestions[index];
   quiz.innerHTML=`
   <div class="timer" id="timer">${formatTime(timeLeft)}</div>
   <div class="card">
@@ -158,7 +737,7 @@ function render(){
 function select(i){
   if(answers[index]!=null)return;
   answers[index]=i;
-  const q=questions[index];
+  const q = activeQuestions[index];
   document.querySelectorAll(".option").forEach((b,idx)=>{
     b.disabled=true;
     if(idx===q.answer)b.classList.add("correct");
@@ -178,7 +757,7 @@ function finish(){
   quiz.classList.add("hidden");
   results.classList.remove("hidden");
 
-  const wrong=questions
+  const wrong = activeQuestions
     .map((q,i)=>({q,i}))
     .filter(x=>answers[x.i]!==x.q.answer);
 
